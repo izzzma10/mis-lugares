@@ -14,7 +14,13 @@
 
 Las clases del modelo existen duplicadas en ambos lados por ahora (`mislugares/.../modelo/` y `app/src/main/java/.../modelo/`) — al avanzar, unificar en un solo lugar.
 
-## 3. Estado actual (última sesión: 19-ago-2026)
+## 3. Estado actual (última sesión: 20-ago-2026)
+
+### Capa `casos_uso` (nuevo, 20-ago-2026)
+- Paquete `app/src/main/java/com/example/mislugares/casos_uso/`: `ListarLugares`, `VerLugar`, `GuardarLugar`, `BorrarLugar`. Cada uno recibe un `RepositorioLugares` por constructor.
+- `RepositorioLugares` ganó un método `todos()` (devuelve `Map<Integer, Lugar>` con el id de cada uno) para que `ListarLugares` pueda listar con ids reales, no solo posiciones. Implementado en `LugaresLista` y `LugaresBD`.
+- `Aplicacion` ahora expone `repositorio` (instancia compartida de `LugaresLista`, con los 5 lugares de ejemplo) para que todas las pantallas trabajen sobre los mismos datos. Ver ejemplo de uso en `docs/EQUIPO.md` sección 2.
+- Pendiente de verificar: compilar con `./gradlew assembleDebug` en el entorno de Ismael (esta sesión no tuvo Android SDK disponible para compilar/probar).
 
 ### Herramientas instaladas
 | Herramienta | Detalle |
@@ -69,7 +75,7 @@ Regla de dependencia: las capas internas no dependen de las externas. `modelo` e
 | 6 | Armar capa `modelo` de Mis Lugares (Lugar, GeoPunto, TipoLugar) | En curso |
 | 7 | Colecciones (List/ArrayList) | Pendiente |
 | 8 | Capa `datos` (persistencia) | Pendiente |
-| 9 | Capa `casos_uso` | Pendiente |
+| 9 | Capa `casos_uso` | Completada |
 | 10 | Configurar Android SDK + Gradle | Completada |
 | 11 | Capa `presentacion` (UI Android) | En curso (pantalla detalle armada y compilando a APK) |
 

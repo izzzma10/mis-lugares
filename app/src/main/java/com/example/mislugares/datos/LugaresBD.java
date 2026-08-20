@@ -13,6 +13,9 @@ import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
 import com.example.mislugares.modelo.TipoLugar;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     Context contexto;
@@ -130,6 +133,19 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 "', fecha = " + lugar.getFecha() +
                 " , valoracion = " + lugar.getValoracion() +
                 " WHERE _id = " + id);
+    }
+
+    @Override
+    public Map<Integer, Lugar> todos() {
+        Map<Integer, Lugar> mapa = new LinkedHashMap<>();
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM lugares", null);
+        try {
+            while (cursor.moveToNext())
+                mapa.put(cursor.getInt(0), extraeLugar(cursor));
+        } finally {
+            cursor.close();
+        }
+        return mapa;
     }
 
     public static Lugar extraeLugar(Cursor cursor) {

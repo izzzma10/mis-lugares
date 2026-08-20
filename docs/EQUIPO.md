@@ -29,7 +29,32 @@ Responsables de las capas de las que dependen todas las pantallas.
 |---|---|---|---|
 | `modelo` | `Lugar`, `GeoPunto`, `TipoLugar` | Hecho | 91-102 (sección 1.13) |
 | `datos` | `LugaresBD`, `LugaresLista`, `RepositorioLugares` | Hecho (integrado del PR de Julio, adaptado al modelo real) | 632-669 (sección 9.7) |
-| `casos_uso` | Operaciones: listar, guardar, borrar, ver un lugar | **Pendiente — bloqueando al resto del equipo** | 214-215 (sección 3.5) |
+| `casos_uso` | Operaciones: listar, guardar, borrar, ver un lugar | Hecho | 214-215 (sección 3.5) |
+
+**Cómo usar `casos_uso` desde una pantalla:**
+
+Todas las pantallas comparten el mismo repositorio a través de `Aplicacion` (así lo que se guarda/borra en una pantalla se ve en las demás):
+
+```java
+RepositorioLugares repositorio = ((Aplicacion) getApplication()).repositorio;
+
+// Listar (Pantalla 1)
+Map<Integer, Lugar> lugares = new ListarLugares(repositorio).listar();
+
+// Ver un lugar por id (Pantalla 2)
+Lugar lugar = new VerLugar(repositorio).ver(id);
+
+// Guardar — crear nuevo (Pantalla 3, formulario vacío)
+int id = new GuardarLugar(repositorio).guardarNuevo(lugar);
+
+// Guardar — actualizar existente (Pantalla 3, formulario prellenado)
+new GuardarLugar(repositorio).actualizar(id, lugar);
+
+// Borrar
+new BorrarLugar(repositorio).borrar(id);
+```
+
+Las clases están en el paquete `com.example.mislugares.casos_uso`. Por ahora el repositorio real es `LugaresLista` (en memoria, con los 5 lugares de ejemplo) — cuando se conecte `LugaresBD` (SQLite) de forma definitiva, solo cambia la línea en `Aplicacion.java`, nada en las pantallas.
 
 ## 3. Pantallas (capa `presentacion`) — detalle por persona
 
@@ -77,7 +102,7 @@ Cada pantalla se apoya directo en los capítulos correspondientes del libro (`li
 
 | Parte | Asignado a | Próximo paso |
 |---|---|---|
-| Núcleo (`modelo`/`datos`/`casos_uso`) | Ismael | Definir y construir `casos_uso` |
+| Núcleo (`modelo`/`datos`/`casos_uso`) | Ismael | `casos_uso` listo (ver sección 2) — apoyar al equipo a integrarlo en sus pantallas |
 | Pantalla 1 — Lista | Julio | Crear `ListaLugaresActivity` + `Adapter` del RecyclerView (ver sección 3) |
 | Pantalla 2 — Detalle | Angel | Conectar con la pantalla de lista (recibir el id por `Intent` en vez del dato de prueba) |
 | Pantalla 3 — Crear/editar | Ale | Crear `EdicionLugarActivity` + layout del formulario (ver sección 3) |
