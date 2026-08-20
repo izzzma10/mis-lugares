@@ -81,8 +81,8 @@ Repo: `https://github.com/izzzma10/mis-lugares.git`
 | Parte | Asignado a | Estado |
 |---|---|---|
 | Núcleo (`modelo`/`datos`/`casos_uso`) | Ismael  | En preparación (aún en fundamentos de Java) |
-| Pantalla 1 — Lista | *Julio* | ⬜ Pendiente |
-| Pantalla 2 — Detalle | *(Angel)* | ⬜ Pendiente |
-| Pantalla 3 — Crear/editar | *(Ale)* | ⬜ Pendiente |
-| Pantalla 4 — Preferencias + mapa | *(sin asignar)* | ⬜ Pendiente |
+| Pantalla 1 — Lista | Julio | ⬜ Pendiente |
+| Pantalla 2 — Detalle | Angel | ⬜ Pendiente |
+| Pantalla 3 — Crear/editar | Ale | ⬜ Pendiente |
+| Pantalla 4 — Preferencias + mapa | Daniela | ⬜ Pendiente |
 
