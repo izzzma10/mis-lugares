@@ -1,7 +1,6 @@
 package com.example.mislugares;
 
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
