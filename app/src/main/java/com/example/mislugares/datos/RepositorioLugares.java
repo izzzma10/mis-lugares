@@ -2,6 +2,8 @@ package com.example.mislugares.datos;
 
 import com.example.mislugares.modelo.Lugar;
 
+import java.util.Map;
+
 public interface RepositorioLugares {
     Lugar elemento(int id); //Devuelve el elemento dado su id
     void añade(Lugar lugar); //Añade el elemento indicado
@@ -9,4 +11,5 @@ public interface RepositorioLugares {
     void borrar(int id); //Elimina el elemento con el id indicado
     int tamaño(); //Devuelve el número de elementos
     void actualiza(int id, Lugar lugar); //Reemplaza un elemento
+    Map<Integer, Lugar> todos(); //Devuelve todos los elementos junto con su id
 }

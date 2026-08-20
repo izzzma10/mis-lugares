@@ -5,7 +5,9 @@ import com.example.mislugares.modelo.Lugar;
 import com.example.mislugares.modelo.TipoLugar;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LugaresLista implements RepositorioLugares {
     protected List<Lugar> listaLugares ;//= añadeEjemplos();//ejemploLugares();
@@ -39,6 +41,14 @@ public class LugaresLista implements RepositorioLugares {
     }
     public void actualiza(int id, Lugar lugar) {
         listaLugares.set(id, lugar);
+    }
+
+    public Map<Integer, Lugar> todos() {
+        Map<Integer, Lugar> mapa = new LinkedHashMap<>();
+        for (int id = 0; id < listaLugares.size(); id++) {
+            mapa.put(id, listaLugares.get(id));
+        }
+        return mapa;
     }
 
     private Lugar creaLugar(String nombre, String direccion, double longitud, double latitud,
