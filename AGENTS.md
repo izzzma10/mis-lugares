@@ -29,7 +29,8 @@ Las clases del modelo existen duplicadas en ambos lados por ahora (`mislugares/.
 - `GeoPunto.java`: completo (atributos, constructor, getters/setters, `toString()`). Compila.
 - `Lugar.java`: completo (9 atributos: nombre, direccion, posicion, foto, telefono, url, comentario, fecha, valoracion). `fecha` se calcula sola en el constructor con `System.currentTimeMillis()`. Constructor, getters/setters y `toString()` completos. Compila.
 - `Principal.java`: completo. Crea un `GeoPunto` y un `Lugar`, los imprime. Compila y ejecuta bien.
-- Pendiente: `TipoLugar`.
+- `TipoLugar.java`: completo (enum: EDUCACION, BAR, NATURALEZA, COMPRAS, OTROS).
+- Se agregó constructor vacío y atributo `tipo` a `Lugar` para poder integrar la capa `datos` de Julio (PR #1).
 
 ### Avance del proyecto Android real (`app/`)
 - Proyecto Gradle armado desde cero: `settings.gradle`, `build.gradle` (raíz y módulo `app`), `AndroidManifest.xml`, `gradlew` con wrapper (Gradle 9.7.0).

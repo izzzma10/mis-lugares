@@ -10,6 +10,11 @@ public class Lugar {
     private GeoPunto posicion;
     private String foto;
     private long fecha;
+    private TipoLugar tipo;
+
+    public Lugar() {
+        this.fecha = System.currentTimeMillis();
+    }
 
     public Lugar(String nombre, String direccion, int telefono, String url, String comentario, float valoracion, GeoPunto posicion, String foto) {
         this.nombre = nombre;
@@ -88,6 +93,14 @@ public class Lugar {
 
     public void setFecha(long fecha) {
         this.fecha =fecha;
+    }
+
+    public TipoLugar getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoLugar tipo) {
+        this.tipo = tipo;
     }
 
     @Override
