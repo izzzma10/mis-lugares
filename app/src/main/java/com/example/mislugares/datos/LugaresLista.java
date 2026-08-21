@@ -61,26 +61,30 @@ public class LugaresLista implements RepositorioLugares {
     }
 
     public void añadeEjemplos() {
-        añade(creaLugar("Escuela Politécnica Superior de Gandía",
-                "C/ Paranimf, 1 46730 Gandia (SPAIN)", -0.166093, 38.995656,
-                TipoLugar.EDUCACION, 962849300, "http://www.epsg.upv.es",
-                "Uno de los mejores lugares para formarse.", 3));
-        añade(creaLugar("Al de siempre",
-                "P.Industrial Junto Molí Nou - 46722, Benifla (Valencia)",
-                -0.190642, 38.925857, TipoLugar.BAR, 636472405, "",
-                "No te pierdas el arroz en calabaza.", 3));
-        añade(creaLugar("androidcurso.com",
-                "ciberespacio", 0.0, 0.0, TipoLugar.EDUCACION,
-                962849300, "http://androidcurso.com",
-                "Amplia tus conocimientos sobre Android.", 5));
-        añade(creaLugar("Barranco del Infierno",
-                "Vía Verde del río Serpis. Villalonga (Valencia)",
-                -0.295058, 38.867180, TipoLugar.NATURALEZA, 0,
-                "http://sosegaos.blogspot.com.es/2009/02/lorcha-villalonga-via-"+
-                        "verde-del-rio.html","Espectacular ruta para bici o andar", 4));
-        añade(creaLugar("La Vital",
-                "Avda. de La Vital, 0 46701 Gandía (Valencia)", -0.1720092,
-                38.9705949, TipoLugar.COMPRAS, 962881070,
-                "http://www.lavital.es/", "El típico centro comercial", 2));
+        añade(creaLugar("Facultad de Ingeniería Mecánica y Eléctrica",
+                "Av. Universidad s/n, Cd. Universitaria, San Nicolás de los Garza, N.L.",
+                -100.3151, 25.7269,
+                TipoLugar.EDUCACION, 0, "https://fime.uanl.mx",
+                "Facultad de Ingeniería Mecánica y Eléctrica, UANL.", 4));
+        añade(creaLugar("Fundidora",
+                "Av. Fundidora 501, Obrera, 64010 Monterrey, N.L.",
+                -100.2843, 25.6773,
+                TipoLugar.NATURALEZA, 0, "https://parquefundidora.org",
+                "Parque urbano en las antiguas instalaciones de la fundidora.", 5));
+        añade(creaLugar("Estadio Universitario",
+                "Av. Alfonso Reyes s/n, San Nicolás de los Garza, N.L.",
+                -100.3103, 25.7239,
+                TipoLugar.DEPORTE, 0, "",
+                "Casa de los Tigres UANL.", 5));
+        añade(creaLugar("MacroPlaza",
+                "Zaragoza, Centro, 64000 Monterrey, N.L.",
+                -100.3099, 25.6698,
+                TipoLugar.OTROS, 0, "",
+                "Gran Plaza del centro de Monterrey.", 4));
+        añade(creaLugar("Tortas La Purísima",
+                "Privada Lic. Verdad 759, Centro, 64000 Monterrey, N.L.",
+                -100.3086, 25.6699,
+                TipoLugar.RESTAURANTE, 0, "",
+                "Tortas en el Barrio Antiguo.", 5));
     }
 }
