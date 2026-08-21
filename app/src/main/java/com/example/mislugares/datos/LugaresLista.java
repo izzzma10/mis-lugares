@@ -53,9 +53,9 @@ public class LugaresLista implements RepositorioLugares {
 
     private Lugar creaLugar(String nombre, String direccion, double longitud, double latitud,
                              TipoLugar tipo, int telefono, String url, String comentario,
-                             float valoracion) {
+                             float valoracion, String foto) {
         Lugar lugar = new Lugar(nombre, direccion, telefono, url, comentario, valoracion,
-                new GeoPunto(longitud, latitud), "");
+                new GeoPunto(longitud, latitud), foto);
         lugar.setTipo(tipo);
         return lugar;
     }
@@ -65,26 +65,26 @@ public class LugaresLista implements RepositorioLugares {
                 "Av. Universidad s/n, Cd. Universitaria, San Nicolás de los Garza, N.L.",
                 -100.3151, 25.7269,
                 TipoLugar.EDUCACION, 0, "https://fime.uanl.mx",
-                "Facultad de Ingeniería Mecánica y Eléctrica, UANL.", 4));
-        añade(creaLugar("Fundidora",
+                "Facultad de Ingeniería Mecánica y Eléctrica, UANL.", 4, "fime"));
+        añade(creaLugar("Parque Fundidora",
                 "Av. Fundidora 501, Obrera, 64010 Monterrey, N.L.",
                 -100.2843, 25.6773,
                 TipoLugar.NATURALEZA, 0, "https://parquefundidora.org",
-                "Parque urbano en las antiguas instalaciones de la fundidora.", 5));
+                "Parque urbano en las antiguas instalaciones de la fundidora.", 5, "fundidora"));
         añade(creaLugar("Estadio Universitario",
                 "Av. Alfonso Reyes s/n, San Nicolás de los Garza, N.L.",
                 -100.3103, 25.7239,
                 TipoLugar.DEPORTE, 0, "",
-                "Casa de los Tigres UANL.", 5));
+                "Casa de los Tigres UANL.", 5, "estadio_universitario"));
         añade(creaLugar("MacroPlaza",
                 "Zaragoza, Centro, 64000 Monterrey, N.L.",
                 -100.3099, 25.6698,
                 TipoLugar.OTROS, 0, "",
-                "Gran Plaza del centro de Monterrey.", 4));
+                "Gran Plaza del centro de Monterrey.", 4, "macroplaza"));
         añade(creaLugar("Tortas La Purísima",
                 "Privada Lic. Verdad 759, Centro, 64000 Monterrey, N.L.",
                 -100.3086, 25.6699,
                 TipoLugar.RESTAURANTE, 0, "",
-                "Tortas en el Barrio Antiguo.", 5));
+                "Tortas en el Barrio Antiguo.", 5, "tortas_purisima"));
     }
 }

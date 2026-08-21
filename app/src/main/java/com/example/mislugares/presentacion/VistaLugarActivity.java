@@ -1,6 +1,7 @@
 package com.example.mislugares.presentacion;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,12 +36,14 @@ public class VistaLugarActivity extends AppCompatActivity {
         TextView tvTelefono = findViewById(R.id.telefono);
         TextView tvGps = findViewById(R.id.gps);
         RatingBar rbValoracion = findViewById(R.id.valoracion);
+        ImageView ivFoto = findViewById(R.id.foto);
 
         tvNombre.setText(lugar.getNombre());
         tvDireccion.setText(lugar.getDireccion());
         tvTelefono.setText(String.valueOf(lugar.getTelefono()));
         tvGps.setText("GPS: " + lugar.getPosicion());
         rbValoracion.setRating(lugar.getValoracion());
+        ivFoto.setImageResource(idFoto(lugar.getFoto()));
 
         // Permite calificar el lugar arrastrando las estrellas desde esta
         // misma pantalla; solo se guarda si el lugar es real (tiene id).
@@ -52,6 +55,15 @@ public class VistaLugarActivity extends AppCompatActivity {
                 new GuardarLugar(aplicacion.repositorio).actualizar(idFinal, lugar);
             }
         });
+    }
+
+    /** Busca el drawable con ese nombre; si no existe o está vacío, usa el placeholder. */
+    private int idFoto(String nombreFoto) {
+        if (nombreFoto == null || nombreFoto.isEmpty()) {
+            return R.drawable.foto_epsg;
+        }
+        int id = getResources().getIdentifier(nombreFoto, "drawable", getPackageName());
+        return id != 0 ? id : R.drawable.foto_epsg;
     }
 
     private Lugar lugarDePrueba() {
