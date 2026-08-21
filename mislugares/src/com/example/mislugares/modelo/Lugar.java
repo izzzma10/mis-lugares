@@ -14,6 +14,8 @@ public class Lugar {
 
     public Lugar() {
         this.fecha = System.currentTimeMillis();
+        this.posicion = GeoPunto.SIN_POSICION;
+        this.tipo = TipoLugar.OTROS;
     }
 
     public Lugar(String nombre, String direccion, int telefono, String url, String comentario, float valoracion, GeoPunto posicion, String foto) {
@@ -26,6 +28,7 @@ public class Lugar {
         this.posicion = posicion;
         this.foto = foto;
         this.fecha = System.currentTimeMillis();
+        this.tipo = TipoLugar.OTROS;
     }
 
     public String getNombre() {

@@ -1,9 +1,15 @@
 package com.example.mislugares.modelo;
 
 public enum TipoLugar {
-    EDUCACION,
+    RESTAURANTE,
     BAR,
-    NATURALEZA,
+    COPAS,
+    ESPECTACULO,
+    HOTEL,
     COMPRAS,
+    EDUCACION,
+    DEPORTE,
+    NATURALEZA,
+    GASOLINERA,
     OTROS
 }

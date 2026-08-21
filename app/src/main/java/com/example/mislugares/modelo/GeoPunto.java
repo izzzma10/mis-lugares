@@ -12,7 +12,7 @@ public class GeoPunto {
     }
 
     public double distancia(GeoPunto punto) {
-        final double RADIO_TIERRA = 63710000; // en metros
+        final double RADIO_TIERRA = 6371000; // en metros
         double dLat = Math.toRadians(latitud - punto.latitud);
         double dLon = Math.toRadians(longitud - punto.longitud);
         double lat1 = Math.toRadians(latitud);
