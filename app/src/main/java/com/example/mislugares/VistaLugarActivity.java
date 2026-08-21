@@ -5,6 +5,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mislugares.casos_uso.GuardarLugar;
 import com.example.mislugares.casos_uso.VerLugar;
 import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
@@ -18,10 +19,10 @@ public class VistaLugarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_lugar);
 
+        Aplicacion aplicacion = (Aplicacion) getApplication();
         Lugar lugar;
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id >= 0) {
-            Aplicacion aplicacion = (Aplicacion) getApplication();
             lugar = new VerLugar(aplicacion.repositorio).ver(id);
         } else {
             lugar = lugarDePrueba();
@@ -38,6 +39,17 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvTelefono.setText(String.valueOf(lugar.getTelefono()));
         tvGps.setText("GPS: " + lugar.getPosicion());
         rbValoracion.setRating(lugar.getValoracion());
+
+        // Permite calificar el lugar arrastrando las estrellas desde esta
+        // misma pantalla; solo se guarda si el lugar es real (tiene id).
+        int idFinal = id;
+        rbValoracion.setOnRatingBarChangeListener((ratingBar, valor, fromUser) -> {
+            if (!fromUser) return;
+            lugar.setValoracion(valor);
+            if (idFinal >= 0) {
+                new GuardarLugar(aplicacion.repositorio).actualizar(idFinal, lugar);
+            }
+        });
     }
 
     private Lugar lugarDePrueba() {
