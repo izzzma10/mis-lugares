@@ -20,6 +20,11 @@
             android:name=".VistaLugarActivity"
             android:exported="false" />
 
+        <activity
+    android:name=".PreferenciasActivity"
+    android:exported="false"
+    android:label="Preferencias" />
+
     </application>
 
 </manifest>
