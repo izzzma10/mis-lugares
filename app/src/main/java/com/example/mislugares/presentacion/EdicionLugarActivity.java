@@ -1,4 +1,4 @@
-package com.example.mislugares;
+package com.example.mislugares.presentacion;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mislugares.Aplicacion;
+import com.example.mislugares.R;
 import com.example.mislugares.casos_uso.BorrarLugar;
 import com.example.mislugares.casos_uso.GuardarLugar;
 import com.example.mislugares.casos_uso.VerLugar;

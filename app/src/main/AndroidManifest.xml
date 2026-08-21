@@ -8,7 +8,7 @@
         android:theme="@style/Theme.MisLugares">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".presentacion.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,20 +17,20 @@
         </activity>
 
         <activity
-            android:name=".VistaLugarActivity"
+            android:name=".presentacion.VistaLugarActivity"
             android:exported="false" />
 
         <activity
-            android:name=".EdicionLugarActivity"
+            android:name=".presentacion.EdicionLugarActivity"
             android:exported="false" />
 
         <activity
-            android:name=".PreferenciasActivity"
+            android:name=".presentacion.PreferenciasActivity"
             android:exported="false"
             android:label="Preferencias" />
 
         <activity
-            android:name=".MapaLugarActivity"
+            android:name=".presentacion.MapaLugarActivity"
             android:exported="false"
             android:label="Mapa" />
 

@@ -1,10 +1,12 @@
-package com.example.mislugares;
+package com.example.mislugares.presentacion;
 
 import android.os.Bundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mislugares.Aplicacion;
+import com.example.mislugares.R;
 import com.example.mislugares.casos_uso.GuardarLugar;
 import com.example.mislugares.casos_uso.VerLugar;
 import com.example.mislugares.modelo.GeoPunto;

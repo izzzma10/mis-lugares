@@ -1,4 +1,4 @@
-package com.example.mislugares;
+package com.example.mislugares.presentacion;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mislugares.presentacion.AdaptadorLugares;
+import com.example.mislugares.Aplicacion;
+import com.example.mislugares.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        int id = recyclerView.getChildAdapterPosition(v);
+        int posicion = recyclerView.getChildAdapterPosition(v);
+        int id = adaptador.idEnPosicion(posicion);
         Intent intent = new Intent(this, VistaLugarActivity.class);
         intent.putExtra(VistaLugarActivity.EXTRA_ID, id);
         startActivity(intent);

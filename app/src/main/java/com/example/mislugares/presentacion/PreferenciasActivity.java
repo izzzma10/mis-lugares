@@ -1,8 +1,10 @@
-package com.example.mislugares;
+package com.example.mislugares.presentacion;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.example.mislugares.R;
 
 public class PreferenciasActivity extends AppCompatActivity {
 

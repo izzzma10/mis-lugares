@@ -9,20 +9,40 @@ import android.widget.TextView;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
+import com.example.mislugares.casos_uso.ListarLugares;
 import com.example.mislugares.datos.RepositorioLugares;
 import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AdaptadorLugares extends
         RecyclerView.Adapter<AdaptadorLugares.ViewHolder> {
 
-    protected RepositorioLugares lugares;         // Lista de lugares a mostrar
+    protected final ListarLugares casoUsoListar;   // Caso de uso: listar lugares
+    protected Map<Integer, Lugar> lugares;         // id -> Lugar, cacheado
+    protected List<Integer> ids;                   // orden de posiciones del RecyclerView
     protected View.OnClickListener onClickListener;
 
-    public AdaptadorLugares(RepositorioLugares lugares) {
-        this.lugares = lugares;
+    public AdaptadorLugares(RepositorioLugares repositorio) {
+        this.casoUsoListar = new ListarLugares(repositorio);
+        actualizar();
+    }
+
+    /** Vuelve a pedir la lista de lugares al caso de uso y refresca la vista. */
+    public void actualizar() {
+        lugares = casoUsoListar.listar();
+        ids = new ArrayList<>(lugares.keySet());
+        notifyDataSetChanged();
+    }
+
+    /** Id real (en el repositorio) del elemento que está en esa posición del RecyclerView. */
+    public int idEnPosicion(int posicion) {
+        return ids.get(posicion);
     }
 
     //Creamos nuestro ViewHolder, con los tipos de elementos a modificar
@@ -86,12 +106,12 @@ public class AdaptadorLugares extends
     // Usando como base el ViewHolder y lo personalizamos
     @Override
     public void onBindViewHolder(ViewHolder holder, int posicion) {
-        Lugar lugar = lugares.elemento(posicion);
+        Lugar lugar = lugares.get(idEnPosicion(posicion));
         holder.personaliza(lugar);
     }
     // Indicamos el número de elementos de la lista
     @Override public int getItemCount() {
-        return lugares.tamaño();
+        return ids.size();
     }
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;

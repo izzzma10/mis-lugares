@@ -1,4 +1,4 @@
-package com.example.mislugares;
+package com.example.mislugares.presentacion;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import com.example.mislugares.Aplicacion;
 import com.example.mislugares.modelo.GeoPunto;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -43,7 +44,7 @@ public class GestorLocalizacion {
         if (ubicacion == null) {
             return;
         }
-        GeoPunto punto = new GeoPunto(ubicacion.getLatitude(), ubicacion.getLongitude());
+        GeoPunto punto = new GeoPunto(ubicacion.getLongitude(), ubicacion.getLatitude());
         ((Aplicacion) actividad.getApplication()).posicionActual = punto;
     }
 
