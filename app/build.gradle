@@ -1,4 +1,11 @@
 apply plugin: 'com.android.application'
+implementation 'com.google.android.gms:play-services-maps:19.0.0'
+
+android {
+    defaultConfig {
+        manifestPlaceholders += [MAPS_API_KEY: "TU_API_KEY_AQUI"]
+    }
+}
 
 android {
     namespace 'com.example.mislugares'
