@@ -20,6 +20,22 @@
             android:name=".VistaLugarActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".PreferenciasActivity"
+            android:exported="false"
+            android:label="Preferencias" />
+
+        <activity
+            android:name=".MapaLugarActivity"
+            android:exported="false"
+            android:label="Mapa" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
