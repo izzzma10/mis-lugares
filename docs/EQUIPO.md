@@ -77,11 +77,13 @@ Cada pantalla se apoya directo en los capítulos correspondientes del libro (`li
 
 ### Pantalla 3 — Crear / editar lugar (Ale)
 
-- **Crear:** `app/src/main/java/com/example/mislugares/EdicionLugarActivity.java`
-- **Layout:** `app/src/main/res/layout/edicion_lugar.xml` (crear) — un formulario con campos de texto para: nombre, dirección, teléfono, url, comentario, valoración (un `RatingBar` o similar), tipo (un selector con los valores de `TipoLugar`).
-- **Qué hace:** sirve para dos casos — crear un lugar nuevo (formulario vacío) o editar uno existente (formulario prellenado, recibe el id por `Intent`). Un botón "Guardar" al final.
-- **Depende de:** `casos_uso` para guardar/actualizar el lugar (todavía no existe).
-- **Complejidad:** media-alta. Páginas del libro: 234-239 (sección 3.6.2).
+- `EdicionLugarActivity.java` + `activity_edicion_lugar.xml`. Formulario con nombre, dirección, teléfono, latitud/longitud, valoración y tipo (`TipoLugar`). Ya usa `casos_uso` real (`GuardarLugar`, `BorrarLugar`, `VerLugar`) — guardar y eliminar funcionan de verdad, no son solo un `Toast`.
+- Soporta los dos casos: crear nuevo (formulario vacío) y editar uno existente (recibe el id por `Intent`, precarga los campos).
+- **Pendiente:**
+  1. **Nada abre esta pantalla todavía** — falta un botón (ej. un `+` flotante en la lista, o un botón "Editar" en `VistaLugarActivity`) que la abra con un `Intent`.
+  2. **Sin confirmación antes de eliminar** — hoy borra al primer toque del botón "Eliminar". Agregar un diálogo de confirmación.
+  3. **Validación floja en latitud/longitud/teléfono** — si el texto no es un número válido, lo toma como `0` en silencio. Mejorar el mensaje de error al usuario.
+- Páginas del libro: 234-239 (sección 3.6.2).
 
 ### Pantalla 4 — Preferencias + mapa (Daniela) — son 3 partes
 
@@ -105,7 +107,7 @@ Cada pantalla se apoya directo en los capítulos correspondientes del libro (`li
 | Núcleo (`modelo`/`datos`/`casos_uso`) | Ismael | `casos_uso` listo (ver sección 2) — apoyar al equipo a integrarlo en sus pantallas |
 | Pantalla 1 — Lista | Julio | Crear `ListaLugaresActivity` + `Adapter` del RecyclerView (ver sección 3) |
 | Pantalla 2 — Detalle | Angel | Conectar con la pantalla de lista (recibir el id por `Intent` en vez del dato de prueba) |
-| Pantalla 3 — Crear/editar | Ale | Crear `EdicionLugarActivity` + layout del formulario (ver sección 3) |
+| Pantalla 3 — Crear/editar | Ale | Conectar un botón que abra esta pantalla, agregar confirmación al eliminar (ver sección 3) |
 | Pantalla 4 — Preferencias + mapa | Daniela | Empezar por 4a (preferencias) y 4b (GPS); 4c (mapa) al final (ver sección 3) |
 
 ## 5. Convenciones importantes (para no repetir errores ya vistos)

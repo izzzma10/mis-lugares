@@ -20,6 +20,10 @@
             android:name=".VistaLugarActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".EdicionLugarActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
