@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="orden_entradas">
+        <item>Nombre</item>
+        <item>Valoración</item>
+        <item>Fecha</item>
+    </string-array>
+    <string-array name="orden_valores">
+        <item>nombre</item>
+        <item>valoracion</item>
+        <item>fecha</item>
+    </string-array>
+</resources>
