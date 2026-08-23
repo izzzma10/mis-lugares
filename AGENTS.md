@@ -7,12 +7,10 @@
 - **Referencia principal:** libro PDF `libro-android-11.pdf` (*El gran libro de Android 11*, Jesús Tomás Gironés). Aplicación de ejemplo del libro.
 - **Equipo:** 5 personas, división de trabajo en `EQUIPO.md`.
 
-## 2. Estructura del repositorio (dos partes)
+## 2. Estructura del repositorio
 
-- `mislugares/src/com/example/mislugares/modelo/` — proyecto Java plano (sin Android), usado para aprender y probar las clases del modelo por línea de comandos (`javac`/`java`). Tiene `GeoPunto.java`, `Lugar.java`, `Principal.java`.
-- `app/` (raíz del repo) — proyecto Android Gradle real: `build.gradle`, `settings.gradle`, `gradlew`, módulo `app/` con `AndroidManifest.xml`, `src/main/java/...`, `src/main/res/...`. Este es el que genera el `.apk`.
-
-Las clases del modelo existen duplicadas en ambos lados por ahora (`mislugares/.../modelo/` y `app/src/main/java/.../modelo/`) — al avanzar, unificar en un solo lugar.
+- `app/` (raíz del repo) — único proyecto: Android Gradle real (`build.gradle`, `settings.gradle`, `gradlew`, módulo `app/` con `AndroidManifest.xml`, `src/main/java/...`, `src/main/res/...`). Este es el que genera el `.apk`.
+- El sandbox de Java plano (`mislugares/`, usado en las primeras lecciones para aprender clases/constructores con `javac`/`java`) y `hola_mundo.java` (la primera lección) se eliminaron una vez que el modelo real ya vivía en `app/` — eran duplicados sin uso, no los usaba el build.
 
 ## 3. Estado actual (última sesión: 20-ago-2026)
 
@@ -30,13 +28,6 @@ Las clases del modelo existen duplicadas en ambos lados por ahora (`mislugares/.
 | Android Studio | Instalado vía Flatpak (`com.google.AndroidStudio`). Ejecutar: `flatpak run com.google.AndroidStudio` |
 | Android SDK | En `~/Android/Sdk` (cmdline-tools, platform-tools, platforms;android-34, build-tools;34.0.0, emulator, system-images;android-34;google_apis;x86_64) |
 | Gradle | 9.7.0 (necesario por JDK 25; Gradle 8.x no soporta esa versión de Java). Wrapper ya generado (`./gradlew`) |
-
-### Avance de la capa `modelo` (Java plano, en `mislugares/`)
-- `GeoPunto.java`: completo (atributos, constructor, getters/setters, `toString()`). Compila.
-- `Lugar.java`: completo (9 atributos: nombre, direccion, posicion, foto, telefono, url, comentario, fecha, valoracion). `fecha` se calcula sola en el constructor con `System.currentTimeMillis()`. Constructor, getters/setters y `toString()` completos. Compila.
-- `Principal.java`: completo. Crea un `GeoPunto` y un `Lugar`, los imprime. Compila y ejecuta bien.
-- `TipoLugar.java`: completo (enum: EDUCACION, BAR, NATURALEZA, COMPRAS, OTROS).
-- Se agregó constructor vacío y atributo `tipo` a `Lugar` para poder integrar la capa `datos` de Julio (PR #1).
 
 ### Avance del proyecto Android real (`app/`)
 - Proyecto Gradle armado desde cero: `settings.gradle`, `build.gradle` (raíz y módulo `app`), `AndroidManifest.xml`, `gradlew` con wrapper (Gradle 9.7.0).
@@ -92,11 +83,6 @@ Regla de dependencia: las capas internas no dependen de las externas. `modelo` e
 ## 7. Comandos útiles
 
 ```bash
-# --- Java plano (mislugares/) ---
-cd mislugares/src
-javac com/example/mislugares/modelo/Lugar.java
-java com.example.mislugares.modelo.Principal
-
 # --- Proyecto Android real (raíz del repo) ---
 export JAVA_HOME=/usr/lib/jvm/java-25-openjdk
 ./gradlew assembleDebug          # genera app/build/outputs/apk/debug/app-debug.apk
