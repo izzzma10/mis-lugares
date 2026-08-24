@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Button;
+import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mislugares.Aplicacion;
@@ -55,6 +57,27 @@ public class VistaLugarActivity extends AppCompatActivity {
                 new GuardarLugar(aplicacion.repositorio).actualizar(idFinal, lugar);
             }
         });
+         
+        Button btnEditar = findViewById(R.id.btn_editar);
+
+        btnEditar.setOnClickListener(v -> {
+            Intent intent = new Intent(this, EdicionLugarActivity.class);
+            intent.putExtra(EdicionLugarActivity.EXTRA_ID, id);
+            startActivity(intent);      
+        });
+
+        Button btnMapa = findViewById(R.id.btn_mapa);
+
+        btnMapa.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MapaLugarActivity.class);
+            intent.putExtra(MapaLugarActivity.EXTRA_ID_LUGAR, id);
+            startActivity(intent);
+
+
+
+        });
+
+
     }
 
     /** Busca el drawable con ese nombre; si no existe o está vacío, usa el placeholder. */

@@ -3,7 +3,8 @@ package com.example.mislugares.presentacion;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,5 +39,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, VistaLugarActivity.class);
         intent.putExtra(VistaLugarActivity.EXTRA_ID, id);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_lista, menu);
+        return true; 
+    }
+
+    @Override 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.accion_preferencias) {
+            startActivity(new Intent(this, PreferenciasActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+
     }
 }

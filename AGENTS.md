@@ -12,9 +12,16 @@
 - `app/` (raíz del repo) — único proyecto: Android Gradle real (`build.gradle`, `settings.gradle`, `gradlew`, módulo `app/` con `AndroidManifest.xml`, `src/main/java/...`, `src/main/res/...`). Este es el que genera el `.apk`.
 - El sandbox de Java plano (`mislugares/`, usado en las primeras lecciones para aprender clases/constructores con `javac`/`java`) y `hola_mundo.java` (la primera lección) se eliminaron una vez que el modelo real ya vivía en `app/` — eran duplicados sin uso, no los usaba el build.
 
-## 3. Estado actual (última sesión: 20-ago-2026)
+## 3. Estado actual (última sesión: 23-ago-2026)
 
-### Capa `casos_uso` (nuevo, 20-ago-2026)
+### Navegación entre pantallas conectada (nuevo, 23-ago-2026)
+- Antes de esta sesión, `EdicionLugarActivity` (editar), `MapaLugarActivity` y `PreferenciasActivity` ya existían y compilaban, pero no había ningún botón/menú en la app que las abriera.
+- `VistaLugarActivity.java`: se agregaron dos botones nuevos en `vista_lugar.xml` (`btn_editar`, `btn_mapa`) conectados con `Intent` — "Editar" abre `EdicionLugarActivity` pasando el id del lugar (`EdicionLugarActivity.EXTRA_ID`); "Mapa" abre `MapaLugarActivity` pasando el id (`MapaLugarActivity.EXTRA_ID_LUGAR`).
+- `MainActivity.java` (pantalla de lista): se agregó menú de opciones (`res/menu/menu_lista.xml`, `onCreateOptionsMenu`/`onOptionsItemSelected`) con la opción "Preferencias", que abre `PreferenciasActivity`.
+- `./gradlew assembleDebug` compila correctamente con estos tres cambios.
+- Pendiente (no tocado esta sesión, ver `docs/EQUIPO.md` sección 3 para detalle): confirmación antes de eliminar en `EdicionLugarActivity`, validación de teléfono/latitud/longitud (hoy toma `0` en silencio si el texto no es válido), `MAPS_API_KEY` sigue como placeholder hardcodeado en `app/build.gradle` (debería leerse desde `local.properties`/`BuildConfig` antes de poner la key real), `LugaresBD` (SQLite) nunca se conectó — la app sigue corriendo sobre `LugaresLista` en memoria.
+
+### Capa `casos_uso` (20-ago-2026)
 - Paquete `app/src/main/java/com/example/mislugares/casos_uso/`: `ListarLugares`, `VerLugar`, `GuardarLugar`, `BorrarLugar`. Cada uno recibe un `RepositorioLugares` por constructor.
 - `RepositorioLugares` ganó un método `todos()` (devuelve `Map<Integer, Lugar>` con el id de cada uno) para que `ListarLugares` pueda listar con ids reales, no solo posiciones. Implementado en `LugaresLista` y `LugaresBD`.
 - `Aplicacion` ahora expone `repositorio` (instancia compartida de `LugaresLista`, con los 5 lugares de ejemplo) para que todas las pantallas trabajen sobre los mismos datos. Ver ejemplo de uso en `docs/EQUIPO.md` sección 2.
