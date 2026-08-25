@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -33,6 +34,11 @@ public class VistaLugarActivity extends AppCompatActivity {
     private int id;
     private ImageView ivFoto;
     private Uri uriFotoCamara;
+    private TextView tvNombre;
+    private TextView tvDireccion;
+    private TextView tvTelefono;
+    private TextView tvGps;
+    private RatingBar rbValoracion;
 
     /** Selector de imágenes de la galería: no requiere permiso de lectura (Storage Access Framework). */
     private final ActivityResultLauncher<String> selectorGaleria =
@@ -74,19 +80,14 @@ public class VistaLugarActivity extends AppCompatActivity {
             lugar = lugarDePrueba();
         }
 
-        TextView tvNombre = findViewById(R.id.nombre);
-        TextView tvDireccion = findViewById(R.id.direccion);
-        TextView tvTelefono = findViewById(R.id.telefono);
-        TextView tvGps = findViewById(R.id.gps);
-        RatingBar rbValoracion = findViewById(R.id.valoracion);
+        tvNombre = findViewById(R.id.nombre);
+        tvDireccion = findViewById(R.id.direccion);
+        tvTelefono = findViewById(R.id.telefono);
+        tvGps = findViewById(R.id.gps);
+        rbValoracion = findViewById(R.id.valoracion);
         ivFoto = findViewById(R.id.foto);
 
-        tvNombre.setText(lugar.getNombre());
-        tvDireccion.setText(lugar.getDireccion());
-        tvTelefono.setText(String.valueOf(lugar.getTelefono()));
-        tvGps.setText("GPS: " + lugar.getPosicion());
-        rbValoracion.setRating(lugar.getValoracion());
-        mostrarFoto(lugar.getFoto());
+        mostrarLugar();
 
         // Permite calificar el lugar arrastrando las estrellas desde esta
         // misma pantalla; solo se guarda si el lugar es real (tiene id).
@@ -153,6 +154,33 @@ public class VistaLugarActivity extends AppCompatActivity {
 
         ImageView ivEliminarFoto = findViewById(R.id.eliminar_foto);
         ivEliminarFoto.setOnClickListener(v -> asignarFoto(""));
+    }
+
+    /** Refresca los campos de la pantalla a partir de {@link #lugar}. */
+    private void mostrarLugar() {
+        tvNombre.setText(lugar.getNombre());
+        tvDireccion.setText(lugar.getDireccion());
+        tvTelefono.setText(String.valueOf(lugar.getTelefono()));
+        tvGps.setText("GPS: " + lugar.getPosicion());
+        rbValoracion.setRating(lugar.getValoracion());
+        mostrarFoto(lugar.getFoto());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Vuelve a pedir el lugar al repositorio: si venimos de editarlo en
+        // otra pantalla, aquí es donde se refleja el cambio. Si ya no existe
+        // (lo acaban de eliminar), no hay nada que mostrar: se cierra la pantalla.
+        if (id >= 0) {
+            if (id < repositorio.tamaño()) {
+                lugar = new VerLugar(repositorio).ver(id);
+                mostrarLugar();
+            } else {
+                Toast.makeText(this, "Este lugar ya no existe", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
     }
 
     /** Guarda la nueva foto en el lugar, la muestra en pantalla, y persiste el cambio si el lugar es real. */

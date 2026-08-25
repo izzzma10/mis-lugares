@@ -33,6 +33,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresca la lista: si venimos de crear, editar o eliminar un lugar
+        // en otra pantalla, aquí es donde se ve reflejado.
+        adaptador.actualizar();
+    }
+
+    @Override
     public void onClick(View v) {
         int posicion = recyclerView.getChildAdapterPosition(v);
         int id = adaptador.idEnPosicion(posicion);

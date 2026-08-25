@@ -33,10 +33,13 @@ public class MapaLugarActivity extends AppCompatActivity {
 
         int idLugar = getIntent().getIntExtra(EXTRA_ID_LUGAR, -1);
         RepositorioLugares repositorio = ((Aplicacion) getApplication()).repositorio;
-        Lugar lugar = new VerLugar(repositorio).ver(idLugar);
-        if (lugar == null) {
+        // VerLugar.ver() no devuelve null con un id inválido, lanza una excepción:
+        // hay que validar el id antes de pedirlo.
+        if (idLugar < 0 || idLugar >= repositorio.tamaño()) {
+            finish();
             return;
         }
+        Lugar lugar = new VerLugar(repositorio).ver(idLugar);
 
         MapView mapa = findViewById(R.id.mapa);
         // CARTO ofrece mapas basados en OpenStreetMap de uso libre para apps externas.
