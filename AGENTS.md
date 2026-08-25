@@ -21,6 +21,13 @@
 - `./gradlew assembleDebug` compila correctamente con estos tres cambios.
 - Pendiente (no tocado esta sesión, ver `docs/EQUIPO.md` sección 3 para detalle): confirmación antes de eliminar en `EdicionLugarActivity`, validación de teléfono/latitud/longitud (hoy toma `0` en silencio si el texto no es válido).
 
+### Intenciones implícitas en VistaLugarActivity (nuevo, 25-ago-2026)
+- Siguiendo la sección 3.11 del libro ("Las intenciones"), se conectaron dos íconos que ya existían en `vista_lugar.xml` sin usar: el botón `btnCompartir` y el `TextView` de teléfono.
+- **Compartir** (`ACTION_SEND`): envía nombre + URL del lugar como texto plano a cualquier app que sepa manejarlo (WhatsApp, Gmail, SMS...).
+- **Llamar** (`ACTION_DIAL`, tocando el número de teléfono): abre el marcador con el número precargado. No pide permiso porque no llama directo, el usuario confirma — a diferencia de `ACTION_CALL`, que sí requiere el permiso `CALL_PHONE` (queda como práctica opcional del libro, no implementada).
+- Pendiente del mismo apartado del libro: abrir la dirección del lugar en una app de mapas externa (`ACTION_VIEW` con URI `geo:`).
+- `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico.
+
 ### Mapa: se abandonó Google Maps por osmdroid + CARTO (nuevo, 23-ago-2026)
 - Se intentó configurar `MAPS_API_KEY` leyéndola desde `local.properties` (en vez de hardcodeada en `app/build.gradle`, ya corregido y funcionando) para usar Google Maps SDK, pero la creación de la cuenta de facturación de Google Cloud falló repetidamente con el error `[OR_BACR2_44]` — probado con dos cuentas de Google distintas (de dos personas del equipo), con tarjetas y RFCs distintos, mismo error las dos veces. No se pudo resolver del lado de Google/banco.
 - **Decisión: se reemplazó Google Maps por `osmdroid`** (librería open source, sin API key ni facturación). Cambios: dependencia `org.osmdroid:osmdroid-android:6.1.20` en `app/build.gradle`, permiso `INTERNET` agregado en `AndroidManifest.xml`, `activity_mapa_lugar.xml` ahora usa `<org.osmdroid.views.MapView>` en vez del `<fragment>` de Google, y `MapaLugarActivity.java` reescrito con las clases de osmdroid (`MapView`, `GeoPoint`, `Marker`).

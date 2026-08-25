@@ -6,6 +6,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.Intent;
+import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mislugares.Aplicacion;
@@ -76,6 +77,22 @@ public class VistaLugarActivity extends AppCompatActivity {
 
 
         });
+
+        Button btnCompartir = findViewById(R.id.btnCompartir);
+        
+        btnCompartir.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT,  lugar.getNombre() + " " + lugar.getUrl());
+            startActivity(intent);
+        });
+
+        tvTelefono.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + lugar.getTelefono()));
+            startActivity(intent);
+        });
+
+
 
 
     }
