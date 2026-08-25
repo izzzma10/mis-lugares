@@ -12,7 +12,7 @@
 - `app/` (raíz del repo) — único proyecto: Android Gradle real (`build.gradle`, `settings.gradle`, `gradlew`, módulo `app/` con `AndroidManifest.xml`, `src/main/java/...`, `src/main/res/...`). Este es el que genera el `.apk`.
 - El sandbox de Java plano (`mislugares/`, usado en las primeras lecciones para aprender clases/constructores con `javac`/`java`) y `hola_mundo.java` (la primera lección) se eliminaron una vez que el modelo real ya vivía en `app/` — eran duplicados sin uso, no los usaba el build.
 
-## 3. Estado actual (última sesión: 23-ago-2026)
+## 3. Estado actual (última sesión: 25-ago-2026)
 
 ### Navegación entre pantallas conectada (nuevo, 23-ago-2026)
 - Antes de esta sesión, `EdicionLugarActivity` (editar), `MapaLugarActivity` y `PreferenciasActivity` ya existían y compilaban, pero no había ningún botón/menú en la app que las abriera.
@@ -34,7 +34,7 @@
 - Siguiendo la sección 3.11 del libro ("Las intenciones"), se conectaron dos íconos que ya existían en `vista_lugar.xml` sin usar: el botón `btnCompartir` y el `TextView` de teléfono.
 - **Compartir** (`ACTION_SEND`): envía nombre + URL del lugar como texto plano a cualquier app que sepa manejarlo (WhatsApp, Gmail, SMS...).
 - **Llamar** (`ACTION_DIAL`, tocando el número de teléfono): abre el marcador con el número precargado. No pide permiso porque no llama directo, el usuario confirma — a diferencia de `ACTION_CALL`, que sí requiere el permiso `CALL_PHONE` (queda como práctica opcional del libro, no implementada).
-- Pendiente del mismo apartado del libro: abrir la dirección del lugar en una app de mapas externa (`ACTION_VIEW` con URI `geo:`).
+- **Ver en el mapa** (`ACTION_VIEW` con URI `geo:`, tocando la dirección): abre la app de mapas que el usuario tenga instalada. Si el lugar tiene coordenadas usa `geo:lat,lon`; si son `0,0` cae a `geo:0,0?q=<dirección>` para que igual busque por texto. Implementado en `VistaLugarActivity` (listener de `tvDireccion`) — figuraba como pendiente hasta el 25-ago-2026.
 - `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico.
 
 ### Mapa: se abandonó Google Maps por osmdroid + CARTO (nuevo, 23-ago-2026)
@@ -65,8 +65,22 @@
 - Drawables placeholder creados a mano (`ic_tipo.xml`, `foto_epsg.xml`) porque el layout los referenciaba y no existían.
 - **`./gradlew assembleDebug` compila correctamente y genera un APK real** en `app/build/outputs/apk/debug/app-debug.apk`.
 - **App corriendo de verdad confirmada.** El emulador falla dentro del sandbox de la IA (crashea siempre, 3 intentos), pero corre perfecto cuando Ismael lo lanza desde su propia sesión/terminal (fuera del sandbox). Captura real en `docs/referencias/vista_lugar_real.png`.
-- Flujo que funciona: `./gradlew assembleDebug` (compilar) → lanzar emulador manualmente (`~/Android/Sdk/emulator/emulator -avd mislugares_avd`, sin `-no-window`) → `adb install -r app/build/outputs/apk/debug/app-debug.apk` → `adb shell am start -n com.example.mislugares/.VistaLugarActivity`.
-- Pendiente: llevar este mismo flujo a las otras pantallas (lista, crear/editar) cuando el equipo integre su trabajo.
+- Flujo que funciona: `./gradlew assembleDebug` (compilar) → lanzar emulador manualmente (`~/Android/Sdk/emulator/emulator -avd mislugares_avd`, sin `-no-window`) → `adb install -r app/build/outputs/apk/debug/app-debug.apk` → `adb shell am start -n com.example.mislugares/.presentacion.MenuActivity`.
+- **Corregido 25-ago-2026:** este flujo terminaba en `am start -n com.example.mislugares/.VistaLugarActivity`, que ya no funciona por dos motivos: la clase se movió al paquete `.presentacion`, y quedó con `android:exported="false"` en el `AndroidManifest.xml`. Hoy la única activity que se puede abrir con `am start` desde afuera es `MenuActivity` (la de arranque, `exported="true"`); para llegar a las demás hay que navegar desde el menú dentro de la app.
+- **Navegación completa (verificado 25-ago-2026).** Todas las pantallas son alcanzables desde el menú de arranque, así que ya no hace falta abrir ninguna suelta con `am start`:
+
+```
+MenuActivity  (launcher, la única con exported="true")
+├─ "Mis lugares"   → MainActivity (lista)
+│   ├─ tap en item → VistaLugarActivity (detalle)
+│   │   ├─ btn_editar  → EdicionLugarActivity
+│   │   ├─ btn_mapa    → MapaLugarActivity
+│   │   ├─ compartir   → ACTION_SEND  (app externa)
+│   │   ├─ teléfono    → ACTION_DIAL  (marcador)
+│   │   └─ dirección   → ACTION_VIEW  (geo:, app de mapas)
+│   └─ menú ⋮        → PreferenciasActivity
+└─ "Agregar lugar" → EdicionLugarActivity
+```
 
 ## 4. Arquitectura objetivo (según libro, capítulo 3.5)
 
@@ -101,6 +115,8 @@ Regla de dependencia: las capas internas no dependen de las externas. `modelo` e
 
 ## 6. Datos técnicos del entorno
 
+### Entorno original — Fedora (Linux)
+
 - **Sistema:** Fedora (dnf), Linux.
 - **Ruta del proyecto:** `/home/izma/Documentos/facu/dismov/app/`
 - **JDK:** solo hay `java-25-openjdk-devel` en los repos de dnf (no hay 17). Se instaló el 25.
@@ -109,7 +125,21 @@ Regla de dependencia: las capas internas no dependen de las externas. `modelo` e
 - **Repo remoto:** `https://github.com/izzzma10/mis-lugares.git`
 - **Ramas del equipo:** `nucleo` (Ismael), `angel/pantalla-detalle`, `lista` (Julio — construyó capa `datos` en vez de la pantalla, revisar solape con núcleo), `Ale/crear-editar` (sin código aún).
 
+### Entorno Windows 10 (agregado 25-ago-2026)
+
+Segunda máquina de Ismael. Todo lo de arriba sigue siendo válido para la máquina Fedora; acá solo se anota lo que cambia.
+
+- **Sistema:** Windows 10 Pro (10.0.19045). Shells disponibles: PowerShell 5.1 y Git Bash.
+- **Ruta del proyecto:** `C:\Users\IsmaelAlejandroElizo\GitHub\mis-lugares`
+- **JDK:** Temurin **21** (LTS) en `C:\Users\IsmaelAlejandroElizo\.jdks\temurin-21`. `JAVA_HOME` ya está definida a nivel de sistema, no hace falta exportarla en cada terminal. Ojo: no es el JDK 25 de Fedora — Gradle 9.7 funciona con las dos versiones, así que no hay que reinstalar nada.
+- **Gradle:** el mismo wrapper del repo (Gradle 9.7.0). En Windows se invoca `gradlew.bat` (PowerShell) o `./gradlew` (Git Bash). No hace falta instalar Gradle aparte.
+- **Android SDK: NO está instalado todavía en esta máquina.** No existe `~/Android/Sdk` ni `%LOCALAPPDATA%\Android\Sdk`, `adb` no está en el `PATH` y Android Studio tampoco está instalado. Mientras siga así, `assembleDebug` **no compila acá** (el módulo pide `compileSdk 34`) y los comandos de `docs/COMANDOS ADB.md` no aplican tal cual.
+- **`local.properties`:** no existe en esta máquina (está en `.gitignore`, no se versiona). Cuando se instale el SDK hay que crearla en la raíz con la línea `sdk.dir=C:/Users/IsmaelAlejandroElizo/AppData/Local/Android/Sdk` (con barras normales: en un archivo `.properties` la barra invertida de Windows hay que escribirla doble, así que es más simple evitarla). La `MAPS_API_KEY` que `app/build.gradle` lee de ese mismo archivo es opcional: si falta usa el placeholder `TU_API_KEY_AQUI` y no rompe el build, porque el mapa hoy va por osmdroid/CARTO.
+- **Rama de trabajo actual:** `ui` (no figuraba en la lista de ramas de más arriba). En `origin` también hay `main-pruebas` y varias ramas `DanielaLomasOyervides-PARTE*` con fragmentos sueltos (`MapaLugarActivity`, `PreferenciasActivity`, layouts, trozos de `dependencies`) todavía sin integrar.
+
 ## 7. Comandos útiles
+
+### En Fedora/Linux (máquina original)
 
 ```bash
 # --- Proyecto Android real (raíz del repo) ---
@@ -121,3 +151,24 @@ export ANDROID_HOME=~/Android/Sdk
 ~/Android/Sdk/cmdline-tools/latest/bin/avdmanager create avd -n mislugares_avd -k "system-images;android-34;google_apis;x86_64" -d "pixel_5"
 ~/Android/Sdk/emulator/emulator -avd mislugares_avd
 ```
+
+### En Windows 10 (segunda máquina de Ismael)
+
+`JAVA_HOME` ya está configurada a nivel de sistema (Temurin 21), así que **no** hace falta exportarla. Todo lo que use `adb`/emulador requiere instalar antes el Android SDK, que hoy falta en esta máquina (ver sección 6).
+
+```powershell
+# --- PowerShell, desde la raíz del repo ---
+.\gradlew.bat assembleDebug      # genera app\build\outputs\apk\debug\app-debug.apk
+
+# Definir dónde está el SDK (una vez instalado), en cada terminal nueva
+$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+
+# Probar en teléfono real por USB
+& "$env:ANDROID_HOME\platform-tools\adb.exe" devices
+& "$env:ANDROID_HOME\platform-tools\adb.exe" install -r app\build\outputs\apk\debug\app-debug.apk
+& "$env:ANDROID_HOME\platform-tools\adb.exe" shell am start -n com.example.mislugares/.presentacion.MenuActivity
+```
+
+Ojo con PowerShell 5.1: **no** existe `&&` para encadenar comandos (da error de sintaxis). Encadenar con `;`, o con `if ($?) { ... }` si el segundo comando solo debe correr cuando el primero sale bien.
+
+En Git Bash sirven los mismos comandos de la sección de Fedora salvo el `export JAVA_HOME` (ya está) y las rutas del SDK, que hay que apuntar a `$LOCALAPPDATA/Android/Sdk` en vez de `~/Android/Sdk`.
