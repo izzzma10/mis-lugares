@@ -1,24 +1,63 @@
 package com.example.mislugares.presentacion;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Button;
-import android.content.Intent;
-import android.net.Uri;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
 import com.example.mislugares.casos_uso.GuardarLugar;
 import com.example.mislugares.casos_uso.VerLugar;
+import com.example.mislugares.datos.RepositorioLugares;
 import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
+
+import java.io.File;
+import java.io.IOException;
 
 public class VistaLugarActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "id";
+
+    private RepositorioLugares repositorio;
+    private Lugar lugar;
+    private int id;
+    private ImageView ivFoto;
+    private Uri uriFotoCamara;
+
+    /** Selector de imágenes de la galería: no requiere permiso de lectura (Storage Access Framework). */
+    private final ActivityResultLauncher<String> selectorGaleria =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri == null) {
+                    return;
+                }
+                try {
+                    getContentResolver().takePersistableUriPermission(
+                            uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } catch (SecurityException ignorado) {
+                    // Algunos proveedores no permiten persistir el permiso; la foto
+                    // igual se ve mientras dure esta sesión de la app.
+                }
+                asignarFoto(uri.toString());
+            });
+
+    /** Lanza la app de cámara del sistema; no requiere permiso de CÁMARA porque no accedemos
+     *  directamente al hardware, delegamos la captura en otra app (ver nota del libro, sec. 3.11.1). */
+    private final ActivityResultLauncher<Uri> tomarFoto =
+            registerForActivityResult(new ActivityResultContracts.TakePicture(), exito -> {
+                if (exito && uriFotoCamara != null) {
+                    asignarFoto(uriFotoCamara.toString());
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +65,11 @@ public class VistaLugarActivity extends AppCompatActivity {
         setContentView(R.layout.vista_lugar);
 
         Aplicacion aplicacion = (Aplicacion) getApplication();
-        Lugar lugar;
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        repositorio = aplicacion.repositorio;
+
+        id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id >= 0) {
-            lugar = new VerLugar(aplicacion.repositorio).ver(id);
+            lugar = new VerLugar(repositorio).ver(id);
         } else {
             lugar = lugarDePrueba();
         }
@@ -39,32 +79,31 @@ public class VistaLugarActivity extends AppCompatActivity {
         TextView tvTelefono = findViewById(R.id.telefono);
         TextView tvGps = findViewById(R.id.gps);
         RatingBar rbValoracion = findViewById(R.id.valoracion);
-        ImageView ivFoto = findViewById(R.id.foto);
+        ivFoto = findViewById(R.id.foto);
 
         tvNombre.setText(lugar.getNombre());
         tvDireccion.setText(lugar.getDireccion());
         tvTelefono.setText(String.valueOf(lugar.getTelefono()));
         tvGps.setText("GPS: " + lugar.getPosicion());
         rbValoracion.setRating(lugar.getValoracion());
-        ivFoto.setImageResource(idFoto(lugar.getFoto()));
+        mostrarFoto(lugar.getFoto());
 
         // Permite calificar el lugar arrastrando las estrellas desde esta
         // misma pantalla; solo se guarda si el lugar es real (tiene id).
-        int idFinal = id;
         rbValoracion.setOnRatingBarChangeListener((ratingBar, valor, fromUser) -> {
             if (!fromUser) return;
             lugar.setValoracion(valor);
-            if (idFinal >= 0) {
-                new GuardarLugar(aplicacion.repositorio).actualizar(idFinal, lugar);
+            if (id >= 0) {
+                new GuardarLugar(repositorio).actualizar(id, lugar);
             }
         });
-         
+
         Button btnEditar = findViewById(R.id.btn_editar);
 
         btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(this, EdicionLugarActivity.class);
             intent.putExtra(EdicionLugarActivity.EXTRA_ID, id);
-            startActivity(intent);      
+            startActivity(intent);
         });
 
         Button btnMapa = findViewById(R.id.btn_mapa);
@@ -73,17 +112,14 @@ public class VistaLugarActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MapaLugarActivity.class);
             intent.putExtra(MapaLugarActivity.EXTRA_ID_LUGAR, id);
             startActivity(intent);
-
-
-
         });
 
         Button btnCompartir = findViewById(R.id.btnCompartir);
-        
+
         btnCompartir.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT,  lugar.getNombre() + " " + lugar.getUrl());
+            intent.putExtra(Intent.EXTRA_TEXT, lugar.getNombre() + " " + lugar.getUrl());
             startActivity(intent);
         });
 
@@ -92,9 +128,65 @@ public class VistaLugarActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        tvDireccion.setOnClickListener(v -> {
+            GeoPunto posicion = lugar.getPosicion();
+            String uri;
+            if (posicion.getLatitud() != 0 || posicion.getLongitud() != 0) {
+                uri = "geo:" + posicion.getLatitud() + "," + posicion.getLongitud();
+            } else {
+                uri = "geo:0,0?q=" + Uri.encode(lugar.getDireccion());
+            }
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            startActivity(intent);
+        });
 
+        ImageView ivGaleria = findViewById(R.id.galeria);
+        ivGaleria.setOnClickListener(v -> selectorGaleria.launch("image/*"));
 
+        ImageView ivCamara = findViewById(R.id.camara);
+        ivCamara.setOnClickListener(v -> {
+            uriFotoCamara = crearArchivoFoto();
+            if (uriFotoCamara != null) {
+                tomarFoto.launch(uriFotoCamara);
+            }
+        });
 
+        ImageView ivEliminarFoto = findViewById(R.id.eliminar_foto);
+        ivEliminarFoto.setOnClickListener(v -> asignarFoto(""));
+    }
+
+    /** Guarda la nueva foto en el lugar, la muestra en pantalla, y persiste el cambio si el lugar es real. */
+    private void asignarFoto(String uriFoto) {
+        lugar.setFoto(uriFoto);
+        mostrarFoto(uriFoto);
+        if (id >= 0) {
+            new GuardarLugar(repositorio).actualizar(id, lugar);
+        }
+    }
+
+    /** La foto puede ser un nombre de drawable (lugares de ejemplo) o una URI real
+     *  (content://, file://) elegida por el usuario desde galería o cámara. */
+    private void mostrarFoto(String foto) {
+        if (foto == null || foto.isEmpty()) {
+            ivFoto.setImageResource(R.drawable.foto_epsg);
+        } else if (foto.contains("://")) {
+            ivFoto.setImageURI(Uri.parse(foto));
+        } else {
+            ivFoto.setImageResource(idFoto(foto));
+        }
+    }
+
+    /** Crea un fichero vacío en el almacenamiento privado de la app y devuelve su URI
+     *  a través del FileProvider, para que la app de cámara pueda escribir la foto ahí. */
+    private Uri crearArchivoFoto() {
+        try {
+            File directorio = getExternalFilesDir("Pictures");
+            File archivo = File.createTempFile(
+                    "foto_" + System.currentTimeMillis() / 1000, ".jpg", directorio);
+            return FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", archivo);
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     /** Busca el drawable con ese nombre; si no existe o está vacío, usa el placeholder. */

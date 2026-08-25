@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mislugares.Aplicacion;
@@ -124,12 +125,19 @@ public class EdicionLugarActivity extends AppCompatActivity {
     }
 
     private void eliminar() {
-        if (id >= 0) {
-            new BorrarLugar(repositorio).borrar(id);
-        }
-        Toast.makeText(this, "Lugar eliminado", Toast.LENGTH_SHORT).show();
-        setResult(RESULT_CANCELED);
-        finish();
+        new AlertDialog.Builder(this)
+                .setTitle("Eliminar lugar")
+                .setMessage("¿Seguro que querés eliminar este lugar? Esta acción no se puede deshacer.")
+                .setPositiveButton("Eliminar", (dialogo, boton) -> {
+                    if (id >= 0) {
+                        new BorrarLugar(repositorio).borrar(id);
+                    }
+                    Toast.makeText(this, "Lugar eliminado", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_CANCELED);
+                    finish();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
     private int parseIntSeguro(String texto) {

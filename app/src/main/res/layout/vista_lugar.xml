@@ -107,6 +107,13 @@
                     android:contentDescription="Logo galeria"
                     android:src="@android:drawable/ic_menu_gallery" />
 
+                <ImageView
+                    android:id="@+id/eliminar_foto"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="Eliminar foto"
+                    android:src="@android:drawable/ic_menu_delete" />
+
             </LinearLayout>
 
         </FrameLayout>

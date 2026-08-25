@@ -19,9 +19,18 @@
 - `VistaLugarActivity.java`: se agregaron dos botones nuevos en `vista_lugar.xml` (`btn_editar`, `btn_mapa`) conectados con `Intent` — "Editar" abre `EdicionLugarActivity` pasando el id del lugar (`EdicionLugarActivity.EXTRA_ID`); "Mapa" abre `MapaLugarActivity` pasando el id (`MapaLugarActivity.EXTRA_ID_LUGAR`).
 - `MainActivity.java` (pantalla de lista): se agregó menú de opciones (`res/menu/menu_lista.xml`, `onCreateOptionsMenu`/`onOptionsItemSelected`) con la opción "Preferencias", que abre `PreferenciasActivity`.
 - `./gradlew assembleDebug` compila correctamente con estos tres cambios.
-- Pendiente (no tocado esta sesión, ver `docs/EQUIPO.md` sección 3 para detalle): confirmación antes de eliminar en `EdicionLugarActivity`, validación de teléfono/latitud/longitud (hoy toma `0` en silencio si el texto no es válido).
+- Pendiente (no tocado esta sesión, ver `docs/EQUIPO.md` sección 3 para detalle): validación de teléfono/latitud/longitud (hoy toma `0` en silencio si el texto no es válido), conectar `LugaresBD` (SQLite).
 
-### Intenciones implícitas en VistaLugarActivity (nuevo, 25-ago-2026)
+### Confirmación al eliminar + fotos en Mis Lugares (nuevo, 25-ago-2026)
+- `EdicionLugarActivity.eliminar()`: ahora muestra un `AlertDialog` de confirmación ("¿Seguro que querés eliminar este lugar?") antes de borrar. Ya no borra al primer toque del botón.
+- `VistaLugarActivity.java`: se conectaron los íconos de cámara y galería que ya estaban en `vista_lugar.xml` sin usar (sección 3.11.1 del libro), más un ícono nuevo para eliminar la foto asignada.
+  - **Galería:** `ActivityResultContracts.GetContent()` — abre el selector de archivos del sistema, sin pedir permiso de almacenamiento (Storage Access Framework).
+  - **Cámara:** `ActivityResultContracts.TakePicture()` — delega la captura en la app de cámara del dispositivo; no pide permiso de `CAMERA` porque la app no accede al hardware directamente. Necesita un `FileProvider` (declarado en `AndroidManifest.xml` + `res/xml/file_paths.xml`, nuevo) para darle a la app de cámara un lugar seguro donde guardar la foto.
+  - Se usa la API moderna `registerForActivityResult` (no el `onActivityResult` que enseña el libro, que está deprecado) — por eso `lugar`, `id` y `repositorio` pasaron de variables locales de `onCreate` a campos de la clase, para que los callbacks (declarados como campos) puedan acceder a ellos.
+  - `mostrarFoto()` ahora distingue entre nombre de drawable (los 5 lugares de ejemplo, ej. `"foto_epsg"`) y una URI real (`content://...`) elegida por el usuario.
+- `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico.
+
+### Intenciones implícitas en VistaLugarActivity (25-ago-2026)
 - Siguiendo la sección 3.11 del libro ("Las intenciones"), se conectaron dos íconos que ya existían en `vista_lugar.xml` sin usar: el botón `btnCompartir` y el `TextView` de teléfono.
 - **Compartir** (`ACTION_SEND`): envía nombre + URL del lugar como texto plano a cualquier app que sepa manejarlo (WhatsApp, Gmail, SMS...).
 - **Llamar** (`ACTION_DIAL`, tocando el número de teléfono): abre el marcador con el número precargado. No pide permiso porque no llama directo, el usuario confirma — a diferencia de `ACTION_CALL`, que sí requiere el permiso `CALL_PHONE` (queda como práctica opcional del libro, no implementada).
