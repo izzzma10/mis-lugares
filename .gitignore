@@ -8,3 +8,9 @@
 local.properties
 *.iml
 .idea/
+
+# VS Code: configuracion local de cada persona, no se comparte
+.vscode/
+
+# Salida del sandbox de Java plano (clases sueltas, ya no se usa)
+/out/
