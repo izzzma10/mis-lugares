@@ -3,7 +3,7 @@ package com.example.mislugares.modelo;
 public class Lugar {
     private String nombre;
     private String direccion;
-    private int telefono;
+    private String telefono;
     private String url;
     private String comentario;
     private float valoracion;
@@ -18,7 +18,7 @@ public class Lugar {
         this.tipo = TipoLugar.OTROS;
     }
 
-    public Lugar(String nombre, String direccion, int telefono, String url, String comentario, float valoracion, GeoPunto posicion, String foto) {
+    public Lugar(String nombre, String direccion, String telefono, String url, String comentario, float valoracion, GeoPunto posicion, String foto) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -47,11 +47,11 @@ public class Lugar {
         this.direccion = direccion;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

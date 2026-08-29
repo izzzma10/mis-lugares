@@ -98,9 +98,35 @@ public class EdicionLugarActivity extends AppCompatActivity {
             return;
         }
 
-        int telefono = parseIntSeguro(campoTelefono.getText().toString());
-        double latitud = parseDoubleSeguro(campoLatitud.getText().toString());
-        double longitud = parseDoubleSeguro(campoLongitud.getText().toString());
+        
+        
+        String telefono = campoTelefono.getText().toString().trim();
+        
+        
+        if (!telefono.matches("\\d{10}")) {
+            Toast.makeText(this,
+                "El teléfono debe tener 10 digítos",
+                Toast.LENGTH_SHORT).show();
+            
+            return;
+        }
+        
+        String textoLatitud = campoLatitud.getText().toString().trim();
+        String textoLongitud = campoLongitud.getText().toString().trim();
+
+        if (!textoLatitud.isEmpty() && !esNumeroValido(textoLatitud)) {
+            Toast.makeText(this, "La latitud no es un número válido", Toast.LENGTH_SHORT).show();
+            return;
+        } 
+        if (!textoLongitud.isEmpty() && !esNumeroValido(textoLongitud)) {
+            Toast.makeText(this, "La longitud no es un número válido", Toast.LENGTH_SHORT).show();
+            return;
+        } 
+        
+
+        double latitud = parseDoubleSeguro(textoLatitud);
+        double longitud = parseDoubleSeguro(textoLongitud);
+   
         float valoracion = campoValoracion.getRating();
         TipoLugar tipo = (TipoLugar) campoTipo.getSelectedItem();
 
@@ -155,4 +181,15 @@ public class EdicionLugarActivity extends AppCompatActivity {
             return 0.0;
         }
     }
+
+    private boolean esNumeroValido(String texto) {
+    try {
+        Double.parseDouble(texto);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
+
+    
 }

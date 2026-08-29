@@ -34,7 +34,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 "latitud REAL, " +
                 "tipo INTEGER, " +
                 "foto TEXT, " +
-                "telefono INTEGER, " +
+                "telefono TEXT, " +
                 "url TEXT, " +
                 "comentario TEXT, " +
                 "fecha BIGINT, " +
@@ -101,7 +101,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 "comentario, fecha, valoracion) VALUES ('', '',  " +
                 lugar.getPosicion().getLongitud() + ","+
                 lugar.getPosicion().getLatitud() + ", "+ lugar.getTipo().ordinal()+
-                ", '', 0, '', '', " + lugar.getFecha() + ", 0)");
+                ", '', '', '', '', " + lugar.getFecha() + ", 0)");
         Cursor c = getReadableDatabase().rawQuery(
                 "SELECT _id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
         if (c.moveToNext()) _id = c.getInt(0);
@@ -127,8 +127,8 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 " , latitud = " + lugar.getPosicion().getLatitud() +
                 " , tipo = " + lugar.getTipo().ordinal() +
                 " , foto = '" + lugar.getFoto() +
-                "', telefono = " + lugar.getTelefono() +
-                " , url = '" + lugar.getUrl() +
+                "', telefono = '" + lugar.getTelefono() +
+                "' , url = '" + lugar.getUrl() +
                 "', comentario = '" + lugar.getComentario() +
                 "', fecha = " + lugar.getFecha() +
                 " , valoracion = " + lugar.getValoracion() +
@@ -156,7 +156,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 cursor.getDouble(4)));
         lugar.setTipo(TipoLugar.values()[cursor.getInt(5)]);
         lugar.setFoto(cursor.getString(6));
-        lugar.setTelefono(cursor.getInt(7));
+        lugar.setTelefono(cursor.getString(7));
         lugar.setUrl(cursor.getString(8));
         lugar.setComentario(cursor.getString(9));
         lugar.setFecha(cursor.getLong(10));

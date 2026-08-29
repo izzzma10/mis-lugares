@@ -230,7 +230,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         GeoPunto posicion = new GeoPunto(-100.309, 25.686);
         return new Lugar("Facultad de Ingenieria Mecanica y Electrica",
                 "Pedro de Alba SN, Niños Héroes, Ciudad Universitaria, 66455 San Nicolás de los Garza, N.L.",
-                818329402,
+                "8112755584",
                 "http://www.epsg.upv.es",
                 "Uno de los mejores lugares para formarse.",
                 4.0f,

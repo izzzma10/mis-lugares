@@ -19,9 +19,15 @@
 - `VistaLugarActivity.java`: se agregaron dos botones nuevos en `vista_lugar.xml` (`btn_editar`, `btn_mapa`) conectados con `Intent` — "Editar" abre `EdicionLugarActivity` pasando el id del lugar (`EdicionLugarActivity.EXTRA_ID`); "Mapa" abre `MapaLugarActivity` pasando el id (`MapaLugarActivity.EXTRA_ID_LUGAR`).
 - `MainActivity.java` (pantalla de lista): se agregó menú de opciones (`res/menu/menu_lista.xml`, `onCreateOptionsMenu`/`onOptionsItemSelected`) con la opción "Preferencias", que abre `PreferenciasActivity`.
 - `./gradlew assembleDebug` compila correctamente con estos tres cambios.
-- Pendiente (no tocado esta sesión, ver `docs/EQUIPO.md` sección 3 para detalle): validación de teléfono/latitud/longitud (hoy toma `0` en silencio si el texto no es válido), conectar `LugaresBD` (SQLite).
+- Pendiente (no tocado esta sesión, ver `docs/EQUIPO.md` sección 3 para detalle): conectar `LugaresBD` (SQLite).
 
-### Confirmación al eliminar + fotos en Mis Lugares (nuevo, 25-ago-2026)
+### Validación de campos en EdicionLugarActivity (nuevo, 25-ago-2026)
+- **`Lugar.telefono` cambió de `int` a `String`** — bug real: un teléfono de 10 dígitos que empiece en 3 o más se desborda en un `int` (máximo `2 147 483 647`). Un teléfono tampoco es "un número" con el que se opera matemáticamente, es un identificador de texto. Cambio en cascada por toda la app: `Lugar.java` (campo/constructor/getter/setter), `LugaresLista.java` (`creaLugar` y sus 5 llamadas), `VistaLugarActivity.lugarDePrueba()`, y `LugaresBD.java` (columna `telefono` de `INTEGER` a `TEXT`, `extraeLugar()` lee con `getString()` en vez de `getInt()`, y las sentencias `INSERT`/`UPDATE` armadas a mano ahora encierran el valor entre comillas simples).
+- `EdicionLugarActivity.guardar()`: el teléfono ahora se valida con `telefono.matches("\\d{10}")` — tiene que ser exactamente 10 dígitos, si no se corta el guardado con un `Toast` de error.
+- Latitud/longitud: son opcionales (vacío = sin GPS, igual que antes), pero si el usuario escribe algo que no es un número válido, ahora también se corta el guardado con error (`esNumeroValido()`), en vez de guardar `0` en silencio como pasaba antes.
+- `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico.
+
+### Confirmación al eliminar + fotos en Mis Lugares (25-ago-2026)
 - `EdicionLugarActivity.eliminar()`: ahora muestra un `AlertDialog` de confirmación ("¿Seguro que querés eliminar este lugar?") antes de borrar. Ya no borra al primer toque del botón.
 - `VistaLugarActivity.java`: se conectaron los íconos de cámara y galería que ya estaban en `vista_lugar.xml` sin usar (sección 3.11.1 del libro), más un ícono nuevo para eliminar la foto asignada.
   - **Galería:** `ActivityResultContracts.GetContent()` — abre el selector de archivos del sistema, sin pedir permiso de almacenamiento (Storage Access Framework).
