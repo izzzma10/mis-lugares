@@ -7,7 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
+import android.content.ContentValues;
 
+import com.example.mislugares.datos.LugaresBD;
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
@@ -39,34 +41,45 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 "comentario TEXT, " +
                 "fecha BIGINT, " +
                 "valoracion REAL)");
-        bd.execSQL("INSERT INTO lugares VALUES (null, "+
-                "'Escuela Politécnica Superior de Gandía', "+
-                "'C/ Paranimf, 1 46730 Gandia (SPAIN)', -0.166093, 38.995656, "+
-                TipoLugar.EDUCACION.ordinal() + ", '', 962849300, "+
-                "'http://www.epsg.upv.es', "+
-                "'Uno de los mejores lugares para formarse.', "+
-                System.currentTimeMillis() +", 3.0)");
-        bd.execSQL("INSERT INTO lugares VALUES (null, 'Al de siempre', "+
-                "'P.Industrial Junto Molí Nou - 46722, Benifla (Valencia)', "+
-                " -0.190642, 38.925857, " +  TipoLugar.BAR.ordinal() + ", '', "+
-                "636472405, '', "+"'No te pierdas el arroz en calabaza.', " +
-                System.currentTimeMillis() +", 3.0)");
-        bd.execSQL("INSERT INTO lugares VALUES (null, 'androidcurso.com', "+
-                "'ciberespacio', 0.0, 0.0,"+TipoLugar.EDUCACION.ordinal()+", '', "+
-                "962849300, 'http://androidcurso.com', "+
-                "'Amplia tus conocimientos sobre Android.', "+
-                System.currentTimeMillis() +", 5.0)");
-        bd.execSQL("INSERT INTO lugares VALUES (null,'Barranco del Infierno',"+
-                "'Vía Verde del río Serpis. Villalonga (Valencia)', -0.295058, "+
-                "38.867180, "+TipoLugar.NATURALEZA.ordinal() + ", '', 0, "+
-                "'http://sosegaos.blogspot.com.es/2009/02/lorcha-villalonga-via-verde-del-"+
-                "rio.html', 'Espectacular ruta para bici o andar', "+
-                System.currentTimeMillis() +", 4.0)");
-        bd.execSQL("INSERT INTO lugares VALUES (null, 'La Vital', "+
-                "'Avda. La Vital,0 46701 Gandia (Valencia)',-0.1720092,38.9705949,"+
-                TipoLugar.COMPRAS.ordinal() + ", '', 962881070, "+
-                "'http://www.lavital.es', 'El típico centro comercial', "+
-                System.currentTimeMillis() +", 2.0)");
+        Lugar fime = new Lugar("Facultad de Ingeniería Mecánica y Eléctrica",
+                "Av. Universidad s/n, Cd. Universitaria, San Nicolás de los Garza, N.L.",
+                "", "https://fime.uanl.mx",
+                "Facultad de Ingeniería Mecánica y Eléctrica, UANL.", 4,
+                new GeoPunto(-100.3151, 25.7269), "fime");
+        fime.setTipo(TipoLugar.EDUCACION);
+        bd.insert("lugares", null, valoresDe(fime));
+
+        Lugar fundidora = new Lugar("Parque Fundidora",
+                "Av. Fundidora 501, Obrera, 64010 Monterrey, N.L.",
+                "", "https://parquefundidora.org",
+                "Parque urbano en las antiguas instalaciones de la fundidora.", 5,
+                new GeoPunto(-100.2843, 25.6773), "fundidora");
+        fundidora.setTipo(TipoLugar.NATURALEZA);
+        bd.insert("lugares", null, valoresDe(fundidora));
+
+        Lugar estadio = new Lugar("Estadio Universitario",
+                "Av. Alfonso Reyes s/n, San Nicolás de los Garza, N.L.",
+                "", "",
+                "Casa de los Tigres UANL.", 5,
+                new GeoPunto(-100.3103, 25.7239), "estadio_universitario");
+        estadio.setTipo(TipoLugar.DEPORTE);
+        bd.insert("lugares", null, valoresDe(estadio));
+
+        Lugar macroplaza = new Lugar("MacroPlaza",
+                "Zaragoza, Centro, 64000 Monterrey, N.L.",
+                "", "",
+                "Gran Plaza del centro de Monterrey.", 4,
+                new GeoPunto(-100.3099, 25.6698), "macroplaza");
+        macroplaza.setTipo(TipoLugar.OTROS);
+        bd.insert("lugares", null, valoresDe(macroplaza));
+
+        Lugar tortas = new Lugar("Tortas La Purísima",
+                "Privada Lic. Verdad 759, Centro, 64000 Monterrey, N.L.",
+                "", "",
+                "Tortas en el Barrio Antiguo.", 5,
+                new GeoPunto(-100.3086, 25.6699), "tortas_purisima");
+        tortas.setTipo(TipoLugar.RESTAURANTE);
+        bd.insert("lugares", null, valoresDe(tortas));
     }
 
     @Override public void onUpgrade(SQLiteDatabase db, int oldVersion,
@@ -90,23 +103,13 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     @Override
     public void añade(Lugar lugar) {
-
+        getWritableDatabase().insert("lugares", null, valoresDe(lugar));
     }
 
     @Override public int nuevo() {
-        int _id = -1;
         Lugar lugar = new Lugar();
-        getWritableDatabase().execSQL("INSERT INTO lugares (nombre, " +
-                "direccion, longitud, latitud, tipo, foto, telefono, url, " +
-                "comentario, fecha, valoracion) VALUES ('', '',  " +
-                lugar.getPosicion().getLongitud() + ","+
-                lugar.getPosicion().getLatitud() + ", "+ lugar.getTipo().ordinal()+
-                ", '', '', '', '', " + lugar.getFecha() + ", 0)");
-        Cursor c = getReadableDatabase().rawQuery(
-                "SELECT _id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
-        if (c.moveToNext()) _id = c.getInt(0);
-        c.close();
-        return _id;
+        long id = getWritableDatabase().insert("lugares", null, valoresDe(lugar));
+        return (int) id;
     }
 
     @Override
@@ -116,23 +119,15 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     @Override
     public int tamaño() {
-        return 0;
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT COUNT(*) FROM lugares", null);
+        cursor.moveToNext();
+        int cantidad = cursor.getInt(0);
+        cursor.close();
+        return cantidad;
     }
 
     @Override public void actualiza(int id, Lugar lugar) {
-        getWritableDatabase().execSQL("UPDATE lugares SET" +
-                "   nombre = '" + lugar.getNombre() +
-                "', direccion = '" + lugar.getDireccion() +
-                "', longitud = " + lugar.getPosicion().getLongitud() +
-                " , latitud = " + lugar.getPosicion().getLatitud() +
-                " , tipo = " + lugar.getTipo().ordinal() +
-                " , foto = '" + lugar.getFoto() +
-                "', telefono = '" + lugar.getTelefono() +
-                "' , url = '" + lugar.getUrl() +
-                "', comentario = '" + lugar.getComentario() +
-                "', fecha = " + lugar.getFecha() +
-                " , valoracion = " + lugar.getValoracion() +
-                " WHERE _id = " + id);
+        getWritableDatabase().update("lugares", valoresDe(lugar), "_id = ?", new String[]{String.valueOf(id)});
     }
 
     @Override
@@ -189,5 +184,23 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
         SQLiteDatabase bd = getReadableDatabase();
         return bd.rawQuery(consulta, null);
     }
+
+    private ContentValues valoresDe(Lugar lugar) {
+        ContentValues valores = new ContentValues();
+        valores.put("nombre", lugar.getNombre());
+        valores.put("direccion", lugar.getDireccion());
+        valores.put("longitud", lugar.getPosicion().getLongitud());
+        valores.put("latitud", lugar.getPosicion().getLatitud());
+        valores.put("tipo", lugar.getTipo().ordinal());
+        valores.put("foto", lugar.getFoto());
+        valores.put("telefono", lugar.getTelefono());
+        valores.put("url", lugar.getUrl());
+        valores.put("comentario", lugar.getComentario());
+        valores.put("fecha", lugar.getFecha());
+        valores.put("valoracion", lugar.getValoracion());
+        return valores;
+    }
+
+
 
 }

@@ -173,10 +173,10 @@ public class VistaLugarActivity extends AppCompatActivity {
         // otra pantalla, aquí es donde se refleja el cambio. Si ya no existe
         // (lo acaban de eliminar), no hay nada que mostrar: se cierra la pantalla.
         if (id >= 0) {
-            if (id < repositorio.tamaño()) {
+            try {
                 lugar = new VerLugar(repositorio).ver(id);
                 mostrarLugar();
-            } else {
+            } catch (Exception e) {
                 Toast.makeText(this, "Este lugar ya no existe", Toast.LENGTH_SHORT).show();
                 finish();
             }

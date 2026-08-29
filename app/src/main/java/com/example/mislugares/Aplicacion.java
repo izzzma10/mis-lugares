@@ -2,6 +2,7 @@ package com.example.mislugares;
 
 import android.app.Application;
 
+import com.example.mislugares.datos.LugaresBD;
 import com.example.mislugares.datos.LugaresLista;
 import com.example.mislugares.datos.RepositorioLugares;
 import com.example.mislugares.modelo.GeoPunto;
@@ -13,5 +14,5 @@ public class Aplicacion extends Application {
     // que lo que se guarde/borre en una pantalla se vea en las demás).
     // Es LugaresLista (en memoria, con datos de ejemplo) mientras la capa
     // datos no esté conectada a LugaresBD (SQLite) de forma definitiva.
-    public RepositorioLugares repositorio = new LugaresLista();
+    public RepositorioLugares repositorio = new LugaresBD(this);
 }
