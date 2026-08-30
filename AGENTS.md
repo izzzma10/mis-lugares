@@ -33,7 +33,13 @@ Pedido por el docente. Alcance decidido: solo marcar/ver, sin filtro todavía (e
 - `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico (incluida la migración sobre una base ya existente).
 
 ### Pendientes nuevos del docente (29-ago-2026)
-En una revisión, el docente pidió agregar: ~~favoritos~~ (hecho, ver arriba), **filtro por tipo de lugar** (ya existe el dato `TipoLugar` en el modelo, falta la UI para filtrar/navegar por él), y un **rediseño visual estilo Y2K retro** (con vista previa antes de aplicarlo a toda la app). Ninguno de los dos restantes se empezó todavía.
+En una revisión, el docente pidió agregar: ~~favoritos~~ (hecho, ver arriba), ~~filtro por tipo de lugar~~ (hecho, ver abajo), y un **rediseño visual retro** (con vista previa antes de aplicarlo a toda la app — se probaron 3 direcciones: cromo/Y2K y escritorio estilo XP, ambas descartadas por el equipo; la que quedó aprobada es un estilo "8-bit/pantalla de bolsillo": colores planos, bordes duros con esquinas en escalón, fuentes de píxel Press Start 2P + VT323. Todavía no se empezó a aplicar a la app real, solo es la maqueta aprobada).
+
+### Filtro por tipo de lugar (29-ago-2026)
+- `AdaptadorLugares.java`: nuevo campo `filtro` (`TipoLugar`, `null` = sin filtro); `filtrarPorTipo(TipoLugar)` lo cambia y reaplica; `aplicarFiltro()` (privado) reconstruye `ids` recorriendo `lugares` y quedándose solo con los que coinciden, o con todos si `filtro == null`; `actualizar()` ahora llama a `aplicarFiltro()` en vez de armar `ids` directo, así el filtro activo sobrevive a un refresco de la lista.
+- `fragment_lista.xml`: pasó de ser un `RecyclerView` suelto a un `LinearLayout` vertical con un `Spinner` (`id/spinner_filtro`) arriba y el `RecyclerView` abajo con `layout_weight="1"`.
+- `ListaLugaresFragment.java`: nuevo método `configurarFiltro(View)`, llamado desde `onViewCreated()` — arma el `Spinner` con "Todos" + cada valor de `TipoLugar.values()`, y un `AdapterView.OnItemSelectedListener` que llama a `adaptador.filtrarPorTipo(null)` en la posición 0 o a `adaptador.filtrarPorTipo(TipoLugar.values()[posicion - 1])` en el resto.
+- `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico.
 
 ### Navegación entre pantallas conectada (23-ago-2026)
 - Antes de esta sesión, `EdicionLugarActivity` (editar), `MapaLugarActivity` y `PreferenciasActivity` ya existían y compilaban, pero no había ningún botón/menú en la app que las abriera.

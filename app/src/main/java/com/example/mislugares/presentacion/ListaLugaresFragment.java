@@ -8,6 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
+import com.example.mislugares.modelo.TipoLugar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Pantalla 1 (lista de lugares), reescrita como Fragment en vez de Activity
@@ -61,6 +68,41 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adaptador);
+
+        configurarFiltro(view);
+    }
+
+    /** Arma el Spinner de arriba de la lista, con "Todos" + cada TipoLugar,
+     *  y filtra el RecyclerView cuando el usuario elige una opción. */
+    private void configurarFiltro(View view) {
+        Spinner spinnerFiltro = view.findViewById(R.id.spinner_filtro);
+
+        List<String> opciones = new ArrayList<>();
+        opciones.add("Todos");
+        for (TipoLugar tipo : TipoLugar.values()) {
+            opciones.add(tipo.name());
+        }
+
+        ArrayAdapter<String> adapterFiltro = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_spinner_item, opciones);
+        adapterFiltro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFiltro.setAdapter(adapterFiltro);
+
+        spinnerFiltro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int posicion, long id) {
+                if (posicion == 0) {
+                    adaptador.filtrarPorTipo(null);
+                } else {
+                    adaptador.filtrarPorTipo(TipoLugar.values()[posicion - 1]);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No hace falta hacer nada acá — siempre queda algo seleccionado.
+            }
+        });
     }
 
     @Override

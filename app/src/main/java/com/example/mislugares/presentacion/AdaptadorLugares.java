@@ -13,6 +13,7 @@ import com.example.mislugares.casos_uso.ListarLugares;
 import com.example.mislugares.datos.RepositorioLugares;
 import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
+import com.example.mislugares.modelo.TipoLugar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,18 +26,40 @@ public class AdaptadorLugares extends
 
     protected final ListarLugares casoUsoListar;   // Caso de uso: listar lugares
     protected Map<Integer, Lugar> lugares;         // id -> Lugar, cacheado
-    protected List<Integer> ids;                   // orden de posiciones del RecyclerView
+    protected List<Integer> ids;                   // orden de posiciones del RecyclerView (ya filtrado)
     protected View.OnClickListener onClickListener;
+    protected TipoLugar filtro;                    // null = sin filtro, muestra todos
 
     public AdaptadorLugares(RepositorioLugares repositorio) {
         this.casoUsoListar = new ListarLugares(repositorio);
         actualizar();
     }
 
-    /** Vuelve a pedir la lista de lugares al caso de uso y refresca la vista. */
+    /** Vuelve a pedir la lista de lugares al caso de uso y refresca la vista,
+     *  manteniendo el filtro que estuviera activo. */
     public void actualizar() {
         lugares = casoUsoListar.listar();
-        ids = new ArrayList<>(lugares.keySet());
+        aplicarFiltro();
+    }
+
+    /** Filtra la lista para mostrar solo los lugares de ese tipo.
+     *  Pasar null muestra todos los lugares de nuevo. */
+    public void filtrarPorTipo(TipoLugar tipo) {
+        this.filtro = tipo;
+        aplicarFiltro();
+    }
+
+    private void aplicarFiltro() {
+        if (filtro == null) {
+            ids = new ArrayList<>(lugares.keySet());
+        } else {
+            ids = new ArrayList<>();
+            for (Map.Entry<Integer, Lugar> entrada : lugares.entrySet()) {
+                if (entrada.getValue().getTipo() == filtro) {
+                    ids.add(entrada.getKey());
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 
