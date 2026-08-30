@@ -42,6 +42,15 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/favorito"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:contentDescription="Favorito"
+            android:src="@android:drawable/btn_star_big_off" />
+
         <TextView
             android:id="@+id/direccion"
             android:layout_width="match_parent"

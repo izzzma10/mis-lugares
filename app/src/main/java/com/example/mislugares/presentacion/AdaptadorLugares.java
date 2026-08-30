@@ -51,6 +51,7 @@ public class AdaptadorLugares extends
         public ImageView foto;
         public RatingBar valoracion;
         public TextView distancia;
+        public ImageView favorito;
         public ViewHolder(View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.nombre);
@@ -58,6 +59,7 @@ public class AdaptadorLugares extends
             foto = itemView.findViewById(R.id.foto);
             valoracion= itemView.findViewById(R.id.valoracion);
             distancia = itemView.findViewById(R.id.distancia);
+            favorito = itemView.findViewById(R.id.favorito);
         }
         // Personalizamos un ViewHolder a partir de un lugar
         public void personaliza(Lugar lugar) {
@@ -78,6 +80,7 @@ public class AdaptadorLugares extends
             foto.setImageResource(id);
             foto.setScaleType(ImageView.ScaleType.FIT_END);
             valoracion.setRating(lugar.getValoracion());
+            favorito.setVisibility(lugar.isFavorito() ? View.VISIBLE : View.GONE);
 
 
             GeoPunto pos=((Aplicacion) itemView.getContext().getApplicationContext()).posicionActual;

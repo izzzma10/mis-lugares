@@ -23,8 +23,17 @@
 - Pedido por el docente en una revisión. Se agregó `getSupportActionBar().setDisplayHomeAsUpEnabled(true)` + `onSupportNavigateUp() { finish(); return true; }` a las 5 Activities que no son la de arranque (`MainActivity`, `VistaLugarActivity`, `EdicionLugarActivity`, `MapaLugarActivity`, `PreferenciasActivity`). `MenuActivity` (la de arranque) no lo necesita.
 - Se usó `finish()` en vez de `android:parentActivityName` en el manifest porque `EdicionLugarActivity` tiene dos puntos de entrada distintos (desde `MenuActivity` para crear, desde `VistaLugarActivity` para editar) — `finish()` siempre vuelve a quien la abrió, sin depender de una jerarquía fija.
 
-### Pendientes nuevos del docente (29-ago-2026, sin empezar)
-En una revisión, el docente pidió agregar: **favoritos** (marcar lugares como favoritos), **filtro por tipo de lugar** (ya existe el dato `TipoLugar` en el modelo, falta la UI para filtrar/navegar por él), y un **rediseño visual estilo Y2K retro**. Ninguno de los tres se empezó todavía.
+### Favoritos (nuevo, 29-ago-2026)
+Pedido por el docente. Alcance decidido: solo marcar/ver, sin filtro todavía (el filtro por favoritos se evalúa junto con el filtro por tipo, más abajo).
+- `Lugar.java`: campo nuevo `favorito` (`boolean`) + `isFavorito()`/`setFavorito()`.
+- `LugaresBD.java`: columna `favorito INTEGER` nueva en la tabla. **Se subió la versión de la base de 1 a 2** y se implementó `onUpgrade()` con `ALTER TABLE lugares ADD COLUMN favorito INTEGER DEFAULT 0` — necesario porque ya había una base vieja creada en el teléfono de prueba sin esa columna; sin la migración, la app hubiera crasheado al leer el índice de columna que no existía. `valoresDe()` y `extraeLugar()` actualizados para incluir el campo.
+- `VistaLugarActivity`: ícono de estrella nuevo en `vista_lugar.xml` (debajo del tipo) — toca para marcar/desmarcar, persiste con `GuardarLugar`. Usa los drawables del sistema `btn_star_big_on`/`btn_star_big_off`.
+- `AdaptadorLugares`/`elemento_lista.xml`: ícono de estrella chico junto a la valoración, visible solo si el lugar es favorito.
+- Pendiente marcado por Ismael para la sesión de rediseño: cambiar el ícono de estrella (diseño) y su ubicación en `vista_lugar.xml` — no es urgente, se resuelve junto con el rediseño Y2K.
+- `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico (incluida la migración sobre una base ya existente).
+
+### Pendientes nuevos del docente (29-ago-2026)
+En una revisión, el docente pidió agregar: ~~favoritos~~ (hecho, ver arriba), **filtro por tipo de lugar** (ya existe el dato `TipoLugar` en el modelo, falta la UI para filtrar/navegar por él), y un **rediseño visual estilo Y2K retro** (con vista previa antes de aplicarlo a toda la app). Ninguno de los dos restantes se empezó todavía.
 
 ### Navegación entre pantallas conectada (23-ago-2026)
 - Antes de esta sesión, `EdicionLugarActivity` (editar), `MapaLugarActivity` y `PreferenciasActivity` ya existían y compilaban, pero no había ningún botón/menú en la app que las abriera.

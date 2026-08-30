@@ -11,6 +11,7 @@ public class Lugar {
     private String foto;
     private long fecha;
     private TipoLugar tipo;
+    private boolean favorito;
 
     public Lugar() {
         this.fecha = System.currentTimeMillis();
@@ -104,6 +105,14 @@ public class Lugar {
 
     public void setTipo(TipoLugar tipo) {
         this.tipo = tipo;
+    }
+
+    public boolean isFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
     }
 
     @Override

@@ -47,6 +47,7 @@ public class VistaLugarActivity extends AppCompatActivity {
     private TextView tvUrl;
     private TextView tvGps;
     private RatingBar rbValoracion;
+    private ImageView ivFavorito;
 
     /** Selector de imágenes de la galería: no requiere permiso de lectura (Storage Access Framework). */
     private final ActivityResultLauncher<String> selectorGaleria =
@@ -99,8 +100,17 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvGps = findViewById(R.id.gps);
         rbValoracion = findViewById(R.id.valoracion);
         ivFoto = findViewById(R.id.foto);
+        ivFavorito = findViewById(R.id.favorito);
 
         mostrarLugar();
+
+        ivFavorito.setOnClickListener(v -> {
+            lugar.setFavorito(!lugar.isFavorito());
+            mostrarFavorito();
+            if (id >= 0) {
+                new GuardarLugar(repositorio).actualizar(id, lugar);
+            }
+        });
 
         // Permite calificar el lugar arrastrando las estrellas desde esta
         // misma pantalla; solo se guarda si el lugar es real (tiene id).
@@ -190,6 +200,13 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvGps.setText("GPS: " + lugar.getPosicion());
         rbValoracion.setRating(lugar.getValoracion());
         mostrarFoto(lugar.getFoto());
+        mostrarFavorito();
+    }
+
+    private void mostrarFavorito() {
+        ivFavorito.setImageResource(lugar.isFavorito()
+                ? android.R.drawable.btn_star_big_on
+                : android.R.drawable.btn_star_big_off);
     }
 
     @Override

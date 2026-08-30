@@ -43,6 +43,15 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/favorito"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="Favorito"
+        android:src="@android:drawable/btn_star_big_on"
+        android:visibility="gone" />
+
     <RatingBar
         android:id="@+id/valoracion"
         style="?android:attr/ratingBarStyleSmall"

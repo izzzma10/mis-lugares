@@ -23,7 +23,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
     Context contexto;
 
     public LugaresBD(Context contexto) {
-        super(contexto, "lugares", null, 1);
+        super(contexto, "lugares", null, 2);
         this.contexto = contexto;
     }
 
@@ -40,7 +40,8 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 "url TEXT, " +
                 "comentario TEXT, " +
                 "fecha BIGINT, " +
-                "valoracion REAL)");
+                "valoracion REAL, " +
+                "favorito INTEGER)");
         Lugar fime = new Lugar("Facultad de Ingeniería Mecánica y Eléctrica",
                 "Av. Universidad s/n, Cd. Universitaria, San Nicolás de los Garza, N.L.",
                 "", "https://fime.uanl.mx",
@@ -84,6 +85,12 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     @Override public void onUpgrade(SQLiteDatabase db, int oldVersion,
                                     int newVersion) {
+        // Se llama automáticamente cuando el número de versión (arriba, en el
+        // constructor) sube y ya existe una base vieja en el teléfono — hay
+        // que "ponerla al día" a mano, agregando lo nuevo sin borrar los datos.
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE lugares ADD COLUMN favorito INTEGER DEFAULT 0");
+        }
     }
 
     @Override public Lugar elemento(int id) {
@@ -156,6 +163,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
         lugar.setComentario(cursor.getString(9));
         lugar.setFecha(cursor.getLong(10));
         lugar.setValoracion(cursor.getFloat(11));
+        lugar.setFavorito(cursor.getInt(12) == 1);
         return lugar;
     }
 
@@ -198,6 +206,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
         valores.put("comentario", lugar.getComentario());
         valores.put("fecha", lugar.getFecha());
         valores.put("valoracion", lugar.getValoracion());
+        valores.put("favorito", lugar.isFavorito() ? 1 : 0);
         return valores;
     }
 
