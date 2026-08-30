@@ -10,21 +10,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mis Lugares"
-        android:textSize="28sp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        android:layout_marginBottom="48dp" />
+        android:layout_marginBottom="48dp"
+        style="@style/TextoPixelTitulo"
+        android:textColor="@color/pixel_azul"
+        />
 
     <Button
         android:id="@+id/btn_mis_lugares"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mis Lugares"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/fondo_boton_pixel"
+        android:backgroundTint="@color/pixel_azul"
+        style="@style/TextoPixelCuerpo" 
+        android:textColor="@android:color/white"
+        />
 
     <Button
         android:id="@+id/btn_agregar_lugar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agregar lugar" />
+        android:text="Agregar lugar" 
+        android:background="@drawable/fondo_boton_pixel"
+        android:backgroundTint="@color/pixel_verde"
+        style="@style/TextoPixelCuerpo" 
+        android:textColor="@android:color/white"
+        />
 
 </LinearLayout>

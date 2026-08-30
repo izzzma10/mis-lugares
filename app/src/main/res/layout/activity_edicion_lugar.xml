@@ -13,7 +13,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre del lugar"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            />
 
         <EditText
             android:id="@+id/campo_nombre"
@@ -25,7 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dirección"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            />
 
         <EditText
             android:id="@+id/campo_direccion"
@@ -37,7 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Teléfono"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            />
 
         <EditText
             android:id="@+id/campo_telefono"
@@ -50,7 +59,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Posición GPS"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -78,7 +90,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Valoración"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            />
 
         <RatingBar
             android:id="@+id/campo_valoracion"
@@ -92,7 +107,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tipo de lugar"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            />
 
         <Spinner
             android:id="@+id/campo_tipo"
@@ -111,13 +129,23 @@
                 android:text="Eliminar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/fondo_boton_pixel"
+                android:backgroundTint="@color/pixel_rojo"
+                style="@style/TextoPixelCuerpo"
+                android:textColor="@android:color/white"
+                />
 
             <Button
                 android:id="@+id/btn_guardar"
                 android:text="Guardar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@drawable/fondo_boton_pixel"
+                android:backgroundTint="@color/pixel_verde"
+                style="@style/TextoPixelCuerpo"
+                android:textColor="@android:color/white"
+                />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

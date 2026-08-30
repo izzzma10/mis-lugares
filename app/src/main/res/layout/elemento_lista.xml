@@ -24,22 +24,25 @@
             android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            style="@style/TextoPixelCuerpo"
+            android:textStyle="bold"
+            android:textColor="@color/pixel_tinta" />
 
         <TextView
             android:id="@+id/direccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="#666666" />
+            android:textColor="#666666"
+            style="@style/TextoPixelCuerpo" />
 
         <TextView
             android:id="@+id/distancia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="#999999" />
+            android:textColor="@color/pixel_azul"
+            style="@style/TextoPixelCuerpo" />
 
     </LinearLayout>
 

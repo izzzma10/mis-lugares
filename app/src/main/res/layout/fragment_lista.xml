@@ -9,7 +9,10 @@ android:orientation="vertical">
         android:id="@+id/spinner_filtro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:background="@drawable/fondo_boton_pixel"
+        android:backgroundTint="@android:color/white"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

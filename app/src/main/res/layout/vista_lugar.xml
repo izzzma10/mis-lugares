@@ -17,7 +17,10 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="Nombres del Lugar"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            android:textSize="28sp"
+             />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,8 +40,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Tipo del Lugar" />
+                style="@style/TextoPixelCuerpo"
+                android:text="Tipo del Lugar" 
+                android:textColor="@color/pixel_tinta"
+                />
 
         </LinearLayout>
 
@@ -57,7 +62,11 @@
             android:layout_height="wrap_content"
             android:text="Direccion del lugar"
             android:textSize="16sp"
-            android:layout_marginTop="12dp" />
+            android:layout_marginTop="12dp"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            
+             />
 
         <TextView
             android:id="@+id/telefono"
@@ -65,7 +74,11 @@
             android:layout_height="wrap_content"
             android:text="Telefono"
             android:textSize="16sp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            
+            />
 
         <TextView
             android:id="@+id/url"
@@ -73,7 +86,12 @@
             android:layout_height="wrap_content"
             android:text="URL"
             android:textSize="16sp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+
+            
+            />
 
         <TextView
             android:id="@+id/gps"
@@ -81,8 +99,11 @@
             android:layout_height="wrap_content"
             android:text="GPS: 0.0, 0.0"
             android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_marginTop="8dp" />
+            android:textColor="@color/pixel_azul"
+            android:layout_marginTop="8dp"
+            style="@style/TextoPixelCuerpo"
+
+             />
 
         <RatingBar
             android:id="@+id/valoracion"
@@ -140,20 +161,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Compartir"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="24dp" 
+            
+            android:background="@drawable/fondo_boton_pixel"
+            android:backgroundTint="@color/pixel_amarillo" 
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/pixel_tinta"
+            />
         <Button
             android:id="@+id/btn_editar" 
             android:layout_width="match_parent" 
             android:layout_height="wrap_content"
             android:text="Editar" 
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+
+            android:background="@drawable/fondo_boton_pixel"
+            android:backgroundTint="@color/pixel_rojo" 
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/white"
+            />
 
         <Button
             android:id="@+id/btn_mapa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="mapa"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp" 
+            
+            android:background="@drawable/fondo_boton_pixel"
+            android:backgroundTint="@color/pixel_azul" 
+            style="@style/TextoPixelCuerpo"
+            android:textColor="@color/white"
+            />
 
     </LinearLayout>
 

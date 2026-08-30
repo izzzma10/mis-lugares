@@ -1,0 +1,19 @@
+<resources>
+    <style name="TextoPixelTitulo">
+        <item name="android:fontFamily">@font/press_start_2p</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextoPixelCuerpo">
+        <item name="android:fontFamily">@font/vt323</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BarraPixel" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="titleTextStyle">@style/TextoPixelTitulo</item>
+    </style>
+
+
+
+</resources>

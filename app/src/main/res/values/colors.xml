@@ -2,4 +2,11 @@
     <color name="purple_500">#6200EE</color>
     <color name="purple_700">#3700B3</color>
     <color name="white">#FFFFFF</color>
+    <color name="pixel_fondo">#F4EAD5</color>
+    <color name="pixel_tinta">#241C10</color>
+    <color name="pixel_azul">#2F6FE0</color>
+    <color name="pixel_rojo">#E4432D</color>
+    <color name="pixel_verde">#3FA34D</color>
+    <color name="pixel_amarillo">#F2B807</color>
+
 </resources>
