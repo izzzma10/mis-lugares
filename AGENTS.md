@@ -49,7 +49,8 @@
 - Siguiendo la sección 3.11 del libro ("Las intenciones"), se conectaron dos íconos que ya existían en `vista_lugar.xml` sin usar: el botón `btnCompartir` y el `TextView` de teléfono.
 - **Compartir** (`ACTION_SEND`): envía nombre + URL del lugar como texto plano a cualquier app que sepa manejarlo (WhatsApp, Gmail, SMS...).
 - **Llamar** (`ACTION_DIAL`, tocando el número de teléfono): abre el marcador con el número precargado. No pide permiso porque no llama directo, el usuario confirma — a diferencia de `ACTION_CALL`, que sí requiere el permiso `CALL_PHONE` (queda como práctica opcional del libro, no implementada).
-- **Ver en el mapa** (`ACTION_VIEW` con URI `geo:`, tocando la dirección): abre la app de mapas que el usuario tenga instalada. Si el lugar tiene coordenadas usa `geo:lat,lon`; si son `0,0` cae a `geo:0,0?q=<dirección>` para que igual busque por texto. Implementado en `VistaLugarActivity` (listener de `tvDireccion`) — figuraba como pendiente hasta el 25-ago-2026.
+- **Ver en el mapa** (`ACTION_VIEW` con URI `geo:`, tocando la dirección): abre la app de mapas que el usuario tenga instalada. Si el lugar tiene coordenadas usa `geo:lat,lon`; si son `0,0` cae a `geo:0,0?q=<dirección>` para que igual busque por texto. Implementado en `VistaLugarActivity` (listener de `tvDireccion`).
+- **Abrir la web** (`ACTION_VIEW` con la URL del lugar, tocando un `TextView` nuevo): se agregó el campo `url` a `vista_lugar.xml` (no existía) y su listener en `VistaLugarActivity`. Con esto quedan las 4 intenciones implícitas de la sección 3.11 del libro completas (Compartir, Llamar, Ver en mapa, Abrir la web) — era el último ítem "core" pendiente de todo lo que pide el libro para Mis Lugares.
 - `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico.
 
 ### Mapa: se abandonó Google Maps por osmdroid + CARTO (nuevo, 23-ago-2026)

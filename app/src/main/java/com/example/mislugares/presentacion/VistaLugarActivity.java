@@ -25,6 +25,7 @@ import com.example.mislugares.modelo.Lugar;
 import java.io.File;
 import java.io.IOException;
 
+
 public class VistaLugarActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "id";
@@ -37,6 +38,7 @@ public class VistaLugarActivity extends AppCompatActivity {
     private TextView tvNombre;
     private TextView tvDireccion;
     private TextView tvTelefono;
+    private TextView tvUrl;
     private TextView tvGps;
     private RatingBar rbValoracion;
 
@@ -83,6 +85,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvNombre = findViewById(R.id.nombre);
         tvDireccion = findViewById(R.id.direccion);
         tvTelefono = findViewById(R.id.telefono);
+        tvUrl = findViewById(R.id.url);
         tvGps = findViewById(R.id.gps);
         rbValoracion = findViewById(R.id.valoracion);
         ivFoto = findViewById(R.id.foto);
@@ -141,6 +144,14 @@ public class VistaLugarActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        tvUrl.setOnClickListener(v -> {
+            if (!lugar.getUrl().isEmpty()) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(lugar.getUrl())));
+            }
+        });
+
+
+
         ImageView ivGaleria = findViewById(R.id.galeria);
         ivGaleria.setOnClickListener(v -> selectorGaleria.launch("image/*"));
 
@@ -161,6 +172,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvNombre.setText(lugar.getNombre());
         tvDireccion.setText(lugar.getDireccion());
         tvTelefono.setText(String.valueOf(lugar.getTelefono()));
+        tvUrl.setText(lugar.getUrl());
         tvGps.setText("GPS: " + lugar.getPosicion());
         rbValoracion.setRating(lugar.getValoracion());
         mostrarFoto(lugar.getFoto());
