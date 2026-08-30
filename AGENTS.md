@@ -43,6 +43,8 @@
   - **Cámara:** `ActivityResultContracts.TakePicture()` — delega la captura en la app de cámara del dispositivo; no pide permiso de `CAMERA` porque la app no accede al hardware directamente. Necesita un `FileProvider` (declarado en `AndroidManifest.xml` + `res/xml/file_paths.xml`, nuevo) para darle a la app de cámara un lugar seguro donde guardar la foto.
   - Se usa la API moderna `registerForActivityResult` (no el `onActivityResult` que enseña el libro, que está deprecado) — por eso `lugar`, `id` y `repositorio` pasaron de variables locales de `onCreate` a campos de la clase, para que los callbacks (declarados como campos) puedan acceder a ellos.
   - `mostrarFoto()` ahora distingue entre nombre de drawable (los 5 lugares de ejemplo, ej. `"foto_epsg"`) y una URI real (`content://...`) elegida por el usuario.
+  - **Confirmación al borrar la foto** (29-ago-2026, práctica opcional del libro sección 3.11.1): mismo patrón de `AlertDialog.Builder` que `EdicionLugarActivity.eliminar()`, aplicado al ícono de basura.
+  - **Permiso `CALL_PHONE`** (29-ago-2026, práctica opcional del libro sección 7.1.4): tocar el teléfono ahora usa `ACTION_CALL` (llama directo) en vez de `ACTION_DIAL` (marca, el usuario confirma) — por eso pasó a ser una acción "peligrosa" que pide permiso en tiempo de ejecución. Mismo patrón que `GestorLocalizacion.java` ya usaba para el GPS: `checkSelfPermission`/`requestPermissions`/`onRequestPermissionsResult`, esta vez inline en `VistaLugarActivity` (métodos `llamar()` y `onRequestPermissionsResult()`).
 - `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico.
 
 ### Intenciones implícitas en VistaLugarActivity (25-ago-2026)

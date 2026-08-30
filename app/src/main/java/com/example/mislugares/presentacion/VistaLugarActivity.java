@@ -8,11 +8,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
+import android.Manifest;
+import android.content.pm.PackageManager;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
@@ -30,6 +35,7 @@ public class VistaLugarActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "id";
 
+    private static final int CODIGO_PERMISO_LLAMAR = 200;
     private RepositorioLugares repositorio;
     private Lugar lugar;
     private int id;
@@ -127,10 +133,7 @@ public class VistaLugarActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        tvTelefono.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + lugar.getTelefono()));
-            startActivity(intent);
-        });
+        tvTelefono.setOnClickListener(v -> llamar());
 
         tvDireccion.setOnClickListener(v -> {
             GeoPunto posicion = lugar.getPosicion();
@@ -164,7 +167,14 @@ public class VistaLugarActivity extends AppCompatActivity {
         });
 
         ImageView ivEliminarFoto = findViewById(R.id.eliminar_foto);
-        ivEliminarFoto.setOnClickListener(v -> asignarFoto(""));
+        ivEliminarFoto.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Eliminar foto")
+                    .setMessage("¿Seguro que quieres eliminar la foto de este lugar?")
+                    .setPositiveButton("Eliminar", (dialogo, boton)-> asignarFoto(""))
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+        });
     }
 
     /** Refresca los campos de la pantalla a partir de {@link #lugar}. */
@@ -249,4 +259,27 @@ public class VistaLugarActivity extends AppCompatActivity {
                 posicion,
                 "foto_epsg");
     }
+
+    private void llamar() {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CALL_PHONE},
+                CODIGO_PERMISO_LLAMAR);
+            return;
+            }
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + lugar.getTelefono())));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permission, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permission, grantResults);
+        if (requestCode == CODIGO_PERMISO_LLAMAR
+                && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            llamar();
+            }
+    }
+
+
 }
