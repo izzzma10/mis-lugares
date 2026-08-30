@@ -14,6 +14,11 @@ public class PreferenciasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferencias);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contenedor_preferencias, new FragmentoPreferencias())
@@ -27,6 +32,12 @@ public class PreferenciasActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         gestorLocalizacion.manejarResultadoPermiso(requestCode, grantResults);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     public static class FragmentoPreferencias extends PreferenceFragmentCompat {

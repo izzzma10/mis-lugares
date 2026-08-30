@@ -12,9 +12,21 @@
 - `app/` (raíz del repo) — único proyecto: Android Gradle real (`build.gradle`, `settings.gradle`, `gradlew`, módulo `app/` con `AndroidManifest.xml`, `src/main/java/...`, `src/main/res/...`). Este es el que genera el `.apk`.
 - El sandbox de Java plano (`mislugares/`, usado en las primeras lecciones para aprender clases/constructores con `javac`/`java`) y `hola_mundo.java` (la primera lección) se eliminaron una vez que el modelo real ya vivía en `app/` — eran duplicados sin uso, no los usaba el build.
 
-## 3. Estado actual (última sesión: 25-ago-2026)
+## 3. Estado actual (última sesión: 29-ago-2026)
 
-### Navegación entre pantallas conectada (nuevo, 23-ago-2026)
+### `MainActivity` reescrita como `Fragment` (nuevo, 29-ago-2026)
+- Refactorización pura (Anexo B del libro, "Fragments") — sin cambio de comportamiento. `MainActivity.java` ahora solo aloja `ListaLugaresFragment.java` (clase nueva, con toda la lógica que antes tenía `MainActivity`: RecyclerView, adaptador, menú de opciones, refresco en `onResume()`).
+- `activity_lista.xml` pasó a ser un `FrameLayout` contenedor (mismo patrón que ya usaba `PreferenciasActivity`/`activity_preferencias.xml`); el layout del RecyclerView se movió a `fragment_lista.xml` (nuevo).
+- `./gradlew assembleDebug` compila correctamente, probado en dispositivo físico — comportamiento idéntico al de antes.
+
+### Flecha de regreso en la barra superior (nuevo, 29-ago-2026)
+- Pedido por el docente en una revisión. Se agregó `getSupportActionBar().setDisplayHomeAsUpEnabled(true)` + `onSupportNavigateUp() { finish(); return true; }` a las 5 Activities que no son la de arranque (`MainActivity`, `VistaLugarActivity`, `EdicionLugarActivity`, `MapaLugarActivity`, `PreferenciasActivity`). `MenuActivity` (la de arranque) no lo necesita.
+- Se usó `finish()` en vez de `android:parentActivityName` en el manifest porque `EdicionLugarActivity` tiene dos puntos de entrada distintos (desde `MenuActivity` para crear, desde `VistaLugarActivity` para editar) — `finish()` siempre vuelve a quien la abrió, sin depender de una jerarquía fija.
+
+### Pendientes nuevos del docente (29-ago-2026, sin empezar)
+En una revisión, el docente pidió agregar: **favoritos** (marcar lugares como favoritos), **filtro por tipo de lugar** (ya existe el dato `TipoLugar` en el modelo, falta la UI para filtrar/navegar por él), y un **rediseño visual estilo Y2K retro**. Ninguno de los tres se empezó todavía.
+
+### Navegación entre pantallas conectada (23-ago-2026)
 - Antes de esta sesión, `EdicionLugarActivity` (editar), `MapaLugarActivity` y `PreferenciasActivity` ya existían y compilaban, pero no había ningún botón/menú en la app que las abriera.
 - `VistaLugarActivity.java`: se agregaron dos botones nuevos en `vista_lugar.xml` (`btn_editar`, `btn_mapa`) conectados con `Intent` — "Editar" abre `EdicionLugarActivity` pasando el id del lugar (`EdicionLugarActivity.EXTRA_ID`); "Mapa" abre `MapaLugarActivity` pasando el id (`MapaLugarActivity.EXTRA_ID_LUGAR`).
 - `MainActivity.java` (pantalla de lista): se agregó menú de opciones (`res/menu/menu_lista.xml`, `onCreateOptionsMenu`/`onOptionsItemSelected`) con la opción "Preferencias", que abre `PreferenciasActivity`.

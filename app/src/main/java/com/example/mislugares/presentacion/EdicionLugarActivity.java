@@ -43,6 +43,10 @@ public class EdicionLugarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edicion_lugar);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         repositorio = ((Aplicacion) getApplication()).repositorio;
 
         campoNombre = findViewById(R.id.campo_nombre);
@@ -75,6 +79,12 @@ public class EdicionLugarActivity extends AppCompatActivity {
 
         btnGuardar.setOnClickListener(v -> guardar());
         btnEliminar.setOnClickListener(v -> eliminar());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void rellenaFormulario(Lugar lugar) {

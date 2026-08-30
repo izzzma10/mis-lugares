@@ -31,6 +31,10 @@ public class MapaLugarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa_lugar);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         int idLugar = getIntent().getIntExtra(EXTRA_ID_LUGAR, -1);
         RepositorioLugares repositorio = ((Aplicacion) getApplication()).repositorio;
         // VerLugar.ver() no devuelve null con un id inválido, lanza una excepción:
@@ -62,5 +66,11 @@ public class MapaLugarActivity extends AppCompatActivity {
         marcador.setPosition(punto);
         marcador.setTitle(lugar.getNombre());
         mapa.getOverlays().add(marcador);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
