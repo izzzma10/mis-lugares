@@ -28,7 +28,7 @@ Responsables de las capas de las que dependen todas las pantallas.
 | Capa | Contenido | Estado | Páginas del libro |
 |---|---|---|---|
 | `modelo` | `Lugar`, `GeoPunto`, `TipoLugar` | Hecho | 91-102 (sección 1.13) |
-| `datos` | `LugaresBD`, `LugaresLista`, `RepositorioLugares` | Hecho (integrado del PR de Julio, adaptado al modelo real) | 632-669 (sección 9.7) |
+| `datos` | `LugaresBD`, `LugaresLista`, `RepositorioLugares` | Hecho, **y `LugaresBD` (SQLite) ya está conectada de verdad** (25-ago-2026) — los datos persisten entre aperturas de la app | 632-669 (sección 9.7) |
 | `casos_uso` | Operaciones: listar, guardar, borrar, ver un lugar | Hecho | 214-215 (sección 3.5) |
 
 **Cómo usar `casos_uso` desde una pantalla:**
@@ -54,61 +54,30 @@ new GuardarLugar(repositorio).actualizar(id, lugar);
 new BorrarLugar(repositorio).borrar(id);
 ```
 
-Las clases están en el paquete `com.example.mislugares.casos_uso`. Por ahora el repositorio real es `LugaresLista` (en memoria, con los 5 lugares de ejemplo) — cuando se conecte `LugaresBD` (SQLite) de forma definitiva, solo cambia la línea en `Aplicacion.java`, nada en las pantallas.
+Las clases están en el paquete `com.example.mislugares.casos_uso`. El repositorio real es `LugaresBD` (SQLite, conectado el 25-ago-2026) — los datos persisten en el teléfono entre aperturas de la app. Ver detalle en `AGENTS.md` sección 3, "`LugaresBD` (SQLite) conectada de verdad".
 
-## 3. Pantallas (capa `presentacion`) — detalle por persona
+## 3. Pantallas (capa `presentacion`) — estado actual (25-ago-2026)
 
-Cada pantalla se apoya directo en los capítulos correspondientes del libro (`libro-android-11.pdf`). Como referencia de patrón, mirar `VistaLugarActivity.java` + `vista_lugar.xml` (pantalla 2, ya terminada): así se ve una Activity que muestra datos de un `Lugar`.
+**Todas las pantallas están terminadas y funcionando.** Esta sección quedó bastante desactualizada durante el desarrollo (nombres de archivo distintos a los que se planearon al principio) — el detalle real, con fechas y explicación de cada cambio, está en `AGENTS.md` sección 3. Acá un resumen rápido, con los nombres de archivo **reales**:
 
-### Pantalla 1 — Lista de lugares (Julio)
+- **`MenuActivity.java`** (`activity_menu.xml`) — pantalla de arranque, la única declarada como `LAUNCHER` en el manifest. Dos botones: "Mis Lugares" (abre la lista) y "Agregar lugar" (abre `EdicionLugarActivity` en modo crear).
+- **Pantalla 1 — Lista de lugares:** `MainActivity.java` (no `ListaLugaresActivity`, como se planeó al principio) + `AdaptadorLugares.java` (no `LugaresAdapter`) + `activity_lista.xml`. `RecyclerView` funcionando, con menú de opciones (⋮) para abrir Preferencias.
+- **Pantalla 2 — Ver detalle:** `VistaLugarActivity.java` + `vista_lugar.xml`. Muestra los datos reales del lugar (recibe el id por `Intent`), con: valoración editable arrastrando estrellas, botón Compartir, botón Editar, botón Mapa, teléfono/dirección/URL tocables (abren marcador, mapa externo, y navegador respectivamente), y fotos (cámara, galería, eliminar foto).
+- **Pantalla 3 — Crear/editar:** `EdicionLugarActivity.java` + `activity_edicion_lugar.xml`. Formulario completo con validación (nombre/dirección obligatorios, teléfono exactamente 10 dígitos, lat/long deben ser números válidos si se cargan) y confirmación antes de eliminar.
+- **Pantalla 4 — Preferencias + mapa:**
+  - `PreferenciasActivity.java` + `res/xml/preferencias.xml` — orden de lista y máximo de resultados, ya usados por `LugaresBD.extraeCursor()`.
+  - `GestorLocalizacion.java` — obtiene el GPS del usuario y lo guarda en `Aplicacion.posicionActual`.
+  - `MapaLugarActivity.java` + `activity_mapa_lugar.xml` — **ya no usa Google Maps**, se cambió a `osmdroid` (mapas de OpenStreetMap vía CARTO) porque no se pudo crear una cuenta de facturación de Google Cloud (mismo error con dos cuentas distintas del equipo). No necesita ninguna API key. Ver detalle completo en `AGENTS.md`.
 
-- **Crear:** `app/src/main/java/com/example/mislugares/ListaLugaresActivity.java`
-- **Layout:** `app/src/main/res/layout/activity_lista.xml` (ya existe, revisar que sirva)
-- **Qué hace:** un `RecyclerView` que muestra todos los lugares guardados (nombre + dirección de cada uno). Necesita un `Adapter` propio (ej. `LugaresAdapter`) — no existe todavía, hay que crearlo.
-- **Al tocar un lugar de la lista:** abre `VistaLugarActivity` pasándole el id del lugar (con un `Intent` y `putExtra`).
-- **Depende de:** `casos_uso` para pedir la lista completa de lugares (todavía no existe — mientras tanto se puede probar con datos de ejemplo de `LugaresLista.añadeEjemplos()`).
-- **Complejidad:** media. Páginas del libro: 260+ (sección 3.10, RecyclerView).
+## 4. Pendientes (opcionales, baja prioridad)
 
-### Pantalla 2 — Ver detalle de un lugar (Angel — terminada)
+Todo lo "core" que pide el libro para Mis Lugares está hecho. Queda, si alguien quiere sumarlo:
 
-- `VistaLugarActivity.java` + `vista_lugar.xml`. Ya compila y corre con datos reales.
-- Pendiente menor: hoy usa un `Lugar` fijo de prueba (hardcodeado) en vez de recibir el id de un lugar real por `Intent` — falta conectarlo cuando exista la pantalla de lista.
-- Páginas del libro: 219-226 (sección 3.6.1).
-
-### Pantalla 3 — Crear / editar lugar (Ale)
-
-- `EdicionLugarActivity.java` + `activity_edicion_lugar.xml`. Formulario con nombre, dirección, teléfono, latitud/longitud, valoración y tipo (`TipoLugar`). Ya usa `casos_uso` real (`GuardarLugar`, `BorrarLugar`, `VerLugar`) — guardar y eliminar funcionan de verdad, no son solo un `Toast`.
-- Soporta los dos casos: crear nuevo (formulario vacío) y editar uno existente (recibe el id por `Intent`, precarga los campos).
-- **Pendiente:**
-  1. **Nada abre esta pantalla todavía** — falta un botón (ej. un `+` flotante en la lista, o un botón "Editar" en `VistaLugarActivity`) que la abra con un `Intent`.
-  2. **Sin confirmación antes de eliminar** — hoy borra al primer toque del botón "Eliminar". Agregar un diálogo de confirmación.
-  3. **Validación floja en latitud/longitud/teléfono** — si el texto no es un número válido, lo toma como `0` en silencio. Mejorar el mensaje de error al usuario.
-- Páginas del libro: 234-239 (sección 3.6.2).
-
-### Pantalla 4 — Preferencias + mapa (Daniela) — son 3 partes
-
-- **4a. Preferencias de usuario**
-  - Crear: `app/src/main/java/com/example/mislugares/PreferenciasActivity.java` + `app/src/main/res/xml/preferencias.xml`
-  - Dos opciones configurables ya esperadas por `LugaresBD` (ver `extraeCursor()`): orden de la lista (`"orden"`) y máximo de resultados (`"maximo"`).
-  - Páginas del libro: 247+ (sección 3.8).
-- **4b. Localización (GPS)**
-  - Obtener la ubicación actual del usuario y guardarla en `Aplicacion.posicionActual` (esa clase y ese campo ya existen, ver `app/src/main/java/com/example/mislugares/Aplicacion.java`).
-  - Páginas del libro: 482-499 (sección 7.2).
-- **4c. Google Maps**
-  - Mostrar un mapa con la posición del lugar (dentro de la pantalla de detalle o aparte, a definir).
-  - Necesita una API key de Google Maps (ver sección 7.3.1 del libro para sacarla).
-  - Páginas del libro: 508-523 (sección 7.3).
-  - Complejidad alta, dejar para el final si falta tiempo — las otras dos partes (4a, 4b) son más urgentes.
-
-## 4. Asignación y próximos pasos
-
-| Parte | Asignado a | Próximo paso |
-|---|---|---|
-| Núcleo (`modelo`/`datos`/`casos_uso`) | Ismael | `casos_uso` listo (ver sección 2) — apoyar al equipo a integrarlo en sus pantallas |
-| Pantalla 1 — Lista | Julio | Crear `ListaLugaresActivity` + `Adapter` del RecyclerView (ver sección 3) |
-| Pantalla 2 — Detalle | Angel | Conectar con la pantalla de lista (recibir el id por `Intent` en vez del dato de prueba) |
-| Pantalla 3 — Crear/editar | Ale | Conectar un botón que abra esta pantalla, agregar confirmación al eliminar (ver sección 3) |
-| Pantalla 4 — Preferencias + mapa | Daniela | Empezar por 4a (preferencias) y 4b (GPS); 4c (mapa) al final (ver sección 3) |
+| Pendiente | Detalle |
+|---|---|
+| Confirmación al borrar solo la foto | Distinto de la confirmación al borrar el lugar completo, que ya está. Práctica opcional del libro, sección 3.11.1. |
+| Permiso `ACTION_CALL` | Llamar directo sin que el usuario confirme (hoy usamos `ACTION_DIAL`, que no lo necesita). Práctica opcional del libro. |
+| `MainActivity` como `Fragment` | Alternativa arquitectónica del Anexo B del libro — no cambia lo que hace la app. |
 
 ## 5. Convenciones importantes (para no repetir errores ya vistos)
 
