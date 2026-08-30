@@ -1,49 +1,136 @@
 package com.example.mislugares.presentacion;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceFragmentCompat;
+import android.view.View;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
+
+import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
 
+/**
+ * Preferencias con controles propios (segmentado / stepper / toggles) en vez de
+ * PreferenceScreen. Escribe en las SharedPreferences por defecto con las mismas
+ * claves que lee LugaresBD.extraeCursor(): "orden" y "maximo", ambas como String.
+ */
 public class PreferenciasActivity extends AppCompatActivity {
 
+    private static final int MAX_MIN = 4;
+    private static final int MAX_MAX = 50;
+
     private GestorLocalizacion gestorLocalizacion;
+    private SharedPreferences prefs;
+
+    private TextView[] chipsOrden;
+    private TextView maximoValor;
+    private int maximo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferencias);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.contenedor_preferencias, new FragmentoPreferencias())
-                .commit();
+        // Barra
+        ((TextView) findViewById(R.id.barra_titulo)).setText("PREFERENCIAS");
+        findViewById(R.id.barra_atras).setOnClickListener(v -> finish());
+        findViewById(R.id.barra_fondo).setBackgroundColor(
+                ContextCompat.getColor(this, R.color.pixel_tinta));
+
+        configurarOrden();
+        configurarMaximo();
+        configurarToggles();
+        configurarPie();
 
         gestorLocalizacion = new GestorLocalizacion(this);
         gestorLocalizacion.solicitarUbicacionActual();
+    }
+
+    // ---- ORDEN (segmentado): "0" sin orden · "1" valoración · "2" cercanía ----
+    private void configurarOrden() {
+        chipsOrden = new TextView[]{
+                findViewById(R.id.orden_0),
+                findViewById(R.id.orden_1),
+                findViewById(R.id.orden_2)
+        };
+        int actual = leerEntero("orden", 0);
+        marcarOrden(actual);
+        for (int i = 0; i < chipsOrden.length; i++) {
+            final int valor = i;
+            chipsOrden[i].setOnClickListener(v -> {
+                prefs.edit().putString("orden", String.valueOf(valor)).apply();
+                marcarOrden(valor);
+            });
+        }
+    }
+
+    private void marcarOrden(int seleccion) {
+        for (int i = 0; i < chipsOrden.length; i++) {
+            chipsOrden[i].setSelected(i == seleccion);
+        }
+    }
+
+    // ---- MAXIMO (stepper) ----
+    private void configurarMaximo() {
+        maximoValor = findViewById(R.id.maximo_valor);
+        maximo = leerEntero("maximo", 12);
+        maximo = Math.max(MAX_MIN, Math.min(MAX_MAX, maximo));
+        mostrarMaximo();
+
+        findViewById(R.id.maximo_menos).setOnClickListener(v -> cambiarMaximo(-1));
+        findViewById(R.id.maximo_mas).setOnClickListener(v -> cambiarMaximo(1));
+    }
+
+    private void cambiarMaximo(int delta) {
+        int nuevo = Math.max(MAX_MIN, Math.min(MAX_MAX, maximo + delta));
+        if (nuevo == maximo) return;
+        maximo = nuevo;
+        prefs.edit().putString("maximo", String.valueOf(maximo)).apply();
+        mostrarMaximo();
+    }
+
+    private void mostrarMaximo() {
+        maximoValor.setText(String.valueOf(maximo));
+    }
+
+    // ---- TOGGLES (aún no los lee nadie; quedan guardados para más adelante) ----
+    private void configurarToggles() {
+        engancharToggle(findViewById(R.id.toggle_km), "mostrarDistanciaKm", true);
+        engancharToggle(findViewById(R.id.toggle_fav), "soloFavoritosAlAbrir", false);
+    }
+
+    private void engancharToggle(View toggle, String clave, boolean porDefecto) {
+        toggle.setSelected(prefs.getBoolean(clave, porDefecto));
+        toggle.setOnClickListener(v -> {
+            boolean nuevo = !v.isSelected();
+            v.setSelected(nuevo);
+            prefs.edit().putBoolean(clave, nuevo).apply();
+        });
+    }
+
+    private void configurarPie() {
+        int n = ((Aplicacion) getApplication()).repositorio.tamaño();
+        ((TextView) findViewById(R.id.pie))
+                .setText("v1.0 · " + n + " lugares guardados");
+    }
+
+    /** Lee una preferencia guardada como String y la devuelve como int. */
+    private int leerEntero(String clave, int porDefecto) {
+        try {
+            return Integer.parseInt(prefs.getString(clave, String.valueOf(porDefecto)));
+        } catch (NumberFormatException | ClassCastException e) {
+            return porDefecto;
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         gestorLocalizacion.manejarResultadoPermiso(requestCode, grantResults);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
-
-    public static class FragmentoPreferencias extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.preferencias, rootKey);
-        }
     }
 }

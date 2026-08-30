@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/raiz_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/pixel_azul"
+    android:clickable="true"
+    android:focusable="true"
     android:padding="32dp">
 
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="80dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_pin_amarillo" />
+
     <TextView
+        style="@style/TextoSplashTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mis Lugares"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="48dp"
-        style="@style/TextoPixelTitulo"
-        android:textColor="@color/pixel_azul"
-        />
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:shadowColor="@color/pixel_tinta"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="0.01"
+        android:text="MIS\nLUGARES" />
 
-    <Button
-        android:id="@+id/btn_mis_lugares"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mis Lugares"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/fondo_boton_pixel"
-        android:backgroundTint="@color/pixel_azul"
-        style="@style/TextoPixelCuerpo" 
-        android:textColor="@android:color/white"
-        />
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <Button
-        android:id="@+id/btn_agregar_lugar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Agregar lugar" 
-        android:background="@drawable/fondo_boton_pixel"
-        android:backgroundTint="@color/pixel_verde"
-        style="@style/TextoPixelCuerpo" 
-        android:textColor="@android:color/white"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vt323"
+            android:text="cargando"
+            android:textColor="#CDDFFA"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/cursor"
+            android:layout_width="9dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="4dp"
+            android:background="@color/pixel_amarillo" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Flecha atrás pixel, apuntando a la izquierda. Blanca (barra azul/verde). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="14dp"
+    android:height="12dp"
+    android:viewportWidth="7"
+    android:viewportHeight="6">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M3,0 L3,2 L7,2 L7,4 L3,4 L3,6 L0,3 Z" />
+</vector>

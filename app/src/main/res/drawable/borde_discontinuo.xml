@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Caja de contorno discontinuo (caja de "añadir foto", pie de preferencias).
+     Nota: el trazo discontinuo solo se dibuja si la vista usa
+     android:layerType="software". -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@android:color/transparent" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/pixel_tinta"
+        android:dashWidth="4dp"
+        android:dashGap="3dp" />
+    <corners android:radius="0dp" />
+</shape>

@@ -1,19 +1,90 @@
 <resources>
-    <style name="TextoPixelTitulo">
-        <item name="android:fontFamily">@font/press_start_2p</item>
-        <item name="android:textSize">16sp</item>
+
+    <!-- ============================================================
+         Bases de tipografía (paso 1 del rediseño retro)
+         ============================================================ -->
+
+    <!-- Silkscreen: TODA la UI (títulos, botones, etiquetas, chips, tabs).
+         Siempre en MAYÚSCULAS, con letterSpacing. Solo hay pesos regular y bold. -->
+    <style name="BasePixelSilkscreen">
+        <item name="android:fontFamily">@font/silkscreen</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textColor">@color/pixel_tinta</item>
+    </style>
+
+    <!-- VT323: texto corrido (direcciones, teléfonos, URL, GPS,
+         valores de formulario, textos de ayuda). -->
+    <style name="BasePixelVT323">
+        <item name="android:fontFamily">@font/vt323</item>
+        <item name="android:textColor">@color/pixel_tinta</item>
+    </style>
+
+    <!-- ============================================================
+         Roles Silkscreen (tabla de tipografía del README)
+         ============================================================ -->
+
+    <!-- Título de la barra superior: 13sp, blanco, tracking un poco mayor -->
+    <style name="TextoBarraTitulo" parent="BasePixelSilkscreen">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+    <!-- Título del splash "MIS / LUGARES": 18sp, blanco -->
+    <style name="TextoSplashTitulo" parent="BasePixelSilkscreen">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+
+    <!-- Nombre de lugar en la fila de lista: 10sp -->
+    <style name="TextoNombreLista" parent="BasePixelSilkscreen">
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Nombre de lugar en el detalle: 12sp, interlínea 1.5 -->
+    <style name="TextoNombreDetalle" parent="BasePixelSilkscreen">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+    </style>
+
+    <!-- Texto de botón: 9-10sp, blanco por defecto (se sobreescribe en botones claros) -->
+    <style name="TextoBoton" parent="BasePixelSilkscreen">
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="TextoPixelCuerpo">
-        <item name="android:fontFamily">@font/vt323</item>
-        <item name="android:textSize">20sp</item>
+    <!-- Etiquetas de campo, chips y tabs: 8-9sp -->
+    <style name="TextoEtiqueta" parent="BasePixelSilkscreen">
+        <item name="android:textSize">8sp</item>
     </style>
 
-    <style name="BarraPixel" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="titleTextStyle">@style/TextoPixelTitulo</item>
+    <!-- Distancia "1.2 KM": 8sp, azul -->
+    <style name="TextoDistancia" parent="BasePixelSilkscreen">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/pixel_azul</item>
     </style>
 
+    <!-- ============================================================
+         Roles VT323
+         ============================================================ -->
 
+    <!-- Texto corrido general: 17sp -->
+    <style name="TextoCorrido" parent="BasePixelVT323">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <!-- Dirección en la fila de lista: 15sp, tinta suave, 1 línea + ellipsis -->
+    <style name="TextoDireccionFila" parent="BasePixelVT323">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/pixel_tinta_suave</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 
 </resources>

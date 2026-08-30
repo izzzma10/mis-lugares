@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pin pixel-art sobre grid 8x10. Silueta tinta = contorno; relleno = color del tipo; hueco central. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="20dp"
+    android:viewportWidth="8"
+    android:viewportHeight="10">
+
+    <path
+        android:fillColor="@color/pixel_tinta"
+        android:pathData="M2,0 L6,0 L6,1 L7,1 L7,2 L8,2 L8,5 L7,5 L7,7 L6,7 L6,8 L5,8 L5,10 L3,10 L3,8 L2,8 L2,7 L1,7 L1,5 L0,5 L0,2 L1,2 L1,1 L2,1 Z" />
+
+    <group
+        android:pivotX="4"
+        android:pivotY="4.5"
+        android:scaleX="0.68"
+        android:scaleY="0.72">
+        <path
+            android:fillColor="@color/pixel_tinta_suave"
+            android:pathData="M2,0 L6,0 L6,1 L7,1 L7,2 L8,2 L8,5 L7,5 L7,7 L6,7 L6,8 L5,8 L5,10 L3,10 L3,8 L2,8 L2,7 L1,7 L1,5 L0,5 L0,2 L1,2 L1,1 L2,1 Z" />
+    </group>
+
+    <path
+        android:fillColor="@color/pixel_fondo"
+        android:pathData="M3,3 L5,3 L5,5 L3,5 Z" />
+</vector>

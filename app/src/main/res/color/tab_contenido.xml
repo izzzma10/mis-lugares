@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Color de icono y texto de una celda de tab: crema si está activa, tinta si no. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:color="@color/pixel_fondo" />
+    <item android:color="@color/pixel_tinta" />
+</selector>

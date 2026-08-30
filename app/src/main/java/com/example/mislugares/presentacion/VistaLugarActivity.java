@@ -3,10 +3,10 @@ package com.example.mislugares.presentacion;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Button;
 import android.widget.Toast;
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -29,6 +29,7 @@ import com.example.mislugares.modelo.Lugar;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 
 public class VistaLugarActivity extends AppCompatActivity {
@@ -42,6 +43,8 @@ public class VistaLugarActivity extends AppCompatActivity {
     private ImageView ivFoto;
     private Uri uriFotoCamara;
     private TextView tvNombre;
+    private TextView tvTipo;
+    private TextView tvResumen;
     private TextView tvDireccion;
     private TextView tvTelefono;
     private TextView tvUrl;
@@ -79,9 +82,8 @@ public class VistaLugarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_lugar);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        ((TextView) findViewById(R.id.barra_titulo)).setText("DETALLE");
+        findViewById(R.id.barra_atras).setOnClickListener(v -> finish());
 
         Aplicacion aplicacion = (Aplicacion) getApplication();
         repositorio = aplicacion.repositorio;
@@ -94,6 +96,8 @@ public class VistaLugarActivity extends AppCompatActivity {
         }
 
         tvNombre = findViewById(R.id.nombre);
+        tvTipo = findViewById(R.id.tipo);
+        tvResumen = findViewById(R.id.resumen_valoracion);
         tvDireccion = findViewById(R.id.direccion);
         tvTelefono = findViewById(R.id.telefono);
         tvUrl = findViewById(R.id.url);
@@ -122,30 +126,30 @@ public class VistaLugarActivity extends AppCompatActivity {
             }
         });
 
-        Button btnEditar = findViewById(R.id.btn_editar);
-
-        btnEditar.setOnClickListener(v -> {
+        // "EDITAR" ahora es el chip de la barra superior
+        TextView chipEditar = findViewById(R.id.barra_chip);
+        chipEditar.setVisibility(View.VISIBLE);
+        chipEditar.setText("EDITAR");
+        chipEditar.setOnClickListener(v -> {
             Intent intent = new Intent(this, EdicionLugarActivity.class);
             intent.putExtra(EdicionLugarActivity.EXTRA_ID, id);
             startActivity(intent);
         });
 
-        Button btnMapa = findViewById(R.id.btn_mapa);
-
-        btnMapa.setOnClickListener(v -> {
+        findViewById(R.id.btn_mapa).setOnClickListener(v -> {
             Intent intent = new Intent(this, MapaLugarActivity.class);
             intent.putExtra(MapaLugarActivity.EXTRA_ID_LUGAR, id);
             startActivity(intent);
         });
 
-        Button btnCompartir = findViewById(R.id.btnCompartir);
-
-        btnCompartir.setOnClickListener(v -> {
+        findViewById(R.id.btnCompartir).setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TEXT, lugar.getNombre() + " " + lugar.getUrl());
             startActivity(intent);
         });
+
+        findViewById(R.id.btn_llamar).setOnClickListener(v -> llamar());
 
         tvTelefono.setOnClickListener(v -> llamar());
 
@@ -166,8 +170,6 @@ public class VistaLugarActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(lugar.getUrl())));
             }
         });
-
-
 
         ImageView ivGaleria = findViewById(R.id.galeria);
         ivGaleria.setOnClickListener(v -> selectorGaleria.launch("image/*"));
@@ -194,19 +196,35 @@ public class VistaLugarActivity extends AppCompatActivity {
     /** Refresca los campos de la pantalla a partir de {@link #lugar}. */
     private void mostrarLugar() {
         tvNombre.setText(lugar.getNombre());
+        tvTipo.setText(lugar.getTipo().name());
         tvDireccion.setText(lugar.getDireccion());
         tvTelefono.setText(String.valueOf(lugar.getTelefono()));
         tvUrl.setText(lugar.getUrl());
-        tvGps.setText("GPS: " + lugar.getPosicion());
+        tvGps.setText(String.format(Locale.US, "%.4f, %.4f",
+                lugar.getPosicion().getLatitud(), lugar.getPosicion().getLongitud()));
         rbValoracion.setRating(lugar.getValoracion());
+        mostrarResumen();
         mostrarFoto(lugar.getFoto());
         mostrarFavorito();
     }
 
+    /** "4.5" o "4.5 · 1.2 km" si hay posición conocida. */
+    private void mostrarResumen() {
+        GeoPunto yo = ((Aplicacion) getApplication()).posicionActual;
+        GeoPunto suya = lugar.getPosicion();
+        if (yo.equals(GeoPunto.SIN_POSICION) || suya.equals(GeoPunto.SIN_POSICION)) {
+            tvResumen.setText(String.format(Locale.US, "%.1f", lugar.getValoracion()));
+        } else {
+            float km = (float) yo.distancia(suya) / 1000f;
+            tvResumen.setText(String.format(Locale.US, "%.1f · %.1f km",
+                    lugar.getValoracion(), km));
+        }
+    }
+
     private void mostrarFavorito() {
         ivFavorito.setImageResource(lugar.isFavorito()
-                ? android.R.drawable.btn_star_big_on
-                : android.R.drawable.btn_star_big_off);
+                ? R.drawable.ic_estrella_llena
+                : R.drawable.ic_estrella_vacia);
     }
 
     @Override
@@ -226,12 +244,6 @@ public class VistaLugarActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
-
     /** Guarda la nueva foto en el lugar, la muestra en pantalla, y persiste el cambio si el lugar es real. */
     private void asignarFoto(String uriFoto) {
         lugar.setFoto(uriFoto);
@@ -245,7 +257,7 @@ public class VistaLugarActivity extends AppCompatActivity {
      *  (content://, file://) elegida por el usuario desde galería o cámara. */
     private void mostrarFoto(String foto) {
         if (foto == null || foto.isEmpty()) {
-            ivFoto.setImageResource(R.drawable.foto_epsg);
+            ivFoto.setImageResource(R.drawable.foto_placeholder);
         } else if (foto.contains("://")) {
             ivFoto.setImageURI(Uri.parse(foto));
         } else {
@@ -269,10 +281,10 @@ public class VistaLugarActivity extends AppCompatActivity {
     /** Busca el drawable con ese nombre; si no existe o está vacío, usa el placeholder. */
     private int idFoto(String nombreFoto) {
         if (nombreFoto == null || nombreFoto.isEmpty()) {
-            return R.drawable.foto_epsg;
+            return R.drawable.foto_placeholder;
         }
         int id = getResources().getIdentifier(nombreFoto, "drawable", getPackageName());
-        return id != 0 ? id : R.drawable.foto_epsg;
+        return id != 0 ? id : R.drawable.foto_placeholder;
     }
 
     private Lugar lugarDePrueba() {
@@ -288,14 +300,14 @@ public class VistaLugarActivity extends AppCompatActivity {
     }
 
     private void llamar() {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.CALL_PHONE},
-                CODIGO_PERMISO_LLAMAR);
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    CODIGO_PERMISO_LLAMAR);
             return;
-            }
-            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + lugar.getTelefono())));
+        }
+        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + lugar.getTelefono())));
     }
 
     @Override
@@ -305,8 +317,6 @@ public class VistaLugarActivity extends AppCompatActivity {
                 && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             llamar();
-            }
+        }
     }
-
-
 }

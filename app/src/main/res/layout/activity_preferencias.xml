@@ -1,5 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/contenedor_preferencias"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/pixel_fondo">
+
+    <include layout="@layout/barra_pixel" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- ORDEN -->
+            <TextView
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:text="ORDENAR LUGARES POR"
+                android:textColor="@color/pixel_tinta" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/borde_pixel">
+
+                <TextView
+                    android:id="@+id/orden_0"
+                    style="@style/TextoEtiqueta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/celda_tab"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:text="SIN ORDEN"
+                    android:textColor="@color/tab_contenido" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/pixel_tinta" />
+
+                <TextView
+                    android:id="@+id/orden_1"
+                    style="@style/TextoEtiqueta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/celda_tab"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:text="VALORACION"
+                    android:textColor="@color/tab_contenido" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/pixel_tinta" />
+
+                <TextView
+                    android:id="@+id/orden_2"
+                    style="@style/TextoEtiqueta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/celda_tab"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:text="CERCANIA"
+                    android:textColor="@color/tab_contenido" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:background="@color/pixel_divisor" />
+
+            <!-- MAXIMO -->
+            <TextView
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:text="MAXIMO A MOSTRAR"
+                android:textColor="@color/pixel_tinta" />
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/borde_pixel">
+
+                <TextView
+                    android:id="@+id/maximo_menos"
+                    style="@style/TextoBoton"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@color/pixel_rojo"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/maximo_valor"
+                    style="@style/TextoCorrido"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/pixel_tinta"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/maximo_mas"
+                    style="@style/TextoBoton"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@color/pixel_verde"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:background="@color/pixel_divisor" />
+
+            <!-- TOGGLES -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/TextoCorrido"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mostrar distancia en km"
+                    android:textColor="@color/pixel_tinta"
+                    android:textSize="18sp" />
+
+                <View
+                    android:id="@+id/toggle_km"
+                    android:layout_width="52dp"
+                    android:layout_height="26dp"
+                    android:background="@drawable/toggle_pixel"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/TextoCorrido"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Solo favoritos al abrir"
+                    android:textColor="@color/pixel_tinta"
+                    android:textSize="18sp" />
+
+                <View
+                    android:id="@+id/toggle_fav"
+                    android:layout_width="52dp"
+                    android:layout_height="26dp"
+                    android:background="@drawable/toggle_pixel"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:background="@color/pixel_divisor" />
+
+            <!-- PIE -->
+            <TextView
+                android:id="@+id/pie"
+                style="@style/TextoCorrido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/borde_discontinuo"
+                android:layerType="software"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/pixel_tinta_suave"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

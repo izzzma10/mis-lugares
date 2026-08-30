@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Botón retro: cara plana con contorno 3dp y sombra sólida desplazada 4dp.
+     Al presionar: la cara se hunde 4dp hacia la sombra y la sombra desaparece.
+     Radio de esquina 0. La cara trae su color fijo (no usar backgroundTint). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <inset android:insetLeft="4dp" android:insetTop="4dp">
+            <shape android:shape="rectangle">
+                <solid android:color="@color/pixel_azul" />
+                <stroke android:width="3dp" android:color="@color/pixel_tinta" />
+            </shape>
+        </inset>
+    </item>
+
+    <item>
+        <layer-list>
+            <item android:left="4dp" android:top="4dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/pixel_tinta" />
+                </shape>
+            </item>
+            <item android:right="4dp" android:bottom="4dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/pixel_azul" />
+                    <stroke android:width="3dp" android:color="@color/pixel_tinta" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+</selector>

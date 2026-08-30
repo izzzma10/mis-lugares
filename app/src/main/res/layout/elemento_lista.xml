@@ -1,66 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Fila de lista retro: 56dp de contenido + 2dp de divisor = 58dp. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="12dp"
-    android:gravity="center_vertical">
-
-    <ImageView
-        android:id="@+id/foto"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/logo_del_tipo"
-        android:src="@drawable/otros" />
+    android:orientation="vertical"
+    android:background="@color/pixel_fondo">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="12dp"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
-        <TextView
-            android:id="@+id/nombre"
-            android:layout_width="match_parent"
+        <!-- Pin de tipo -->
+        <ImageView
+            android:id="@+id/foto"
+            android:layout_width="18dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="9dp"
+            android:contentDescription="@string/logo_del_tipo"
+            android:src="@drawable/ic_pin_otros" />
+
+        <!-- Columna central: nombre (+ estrella de favorito) y dirección -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/TextoPixelCuerpo"
-            android:textStyle="bold"
-            android:textColor="@color/pixel_tinta" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/direccion"
-            android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/favorito"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_estrella_llena"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/nombre"
+                    style="@style/TextoNombreLista"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/direccion"
+                style="@style/TextoDireccionFila"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" />
+        </LinearLayout>
+
+        <!-- Columna derecha: 5 estrellas + distancia -->
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            style="@style/TextoPixelCuerpo" />
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            android:gravity="end">
 
-        <TextView
-            android:id="@+id/distancia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/pixel_azul"
-            style="@style/TextoPixelCuerpo" />
+            <LinearLayout
+                android:id="@+id/contenedor_estrellas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <ImageView android:id="@+id/estrella_1" android:layout_width="9dp" android:layout_height="9dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
+                <ImageView android:id="@+id/estrella_2" android:layout_width="9dp" android:layout_height="9dp" android:layout_marginStart="1dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
+                <ImageView android:id="@+id/estrella_3" android:layout_width="9dp" android:layout_height="9dp" android:layout_marginStart="1dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
+                <ImageView android:id="@+id/estrella_4" android:layout_width="9dp" android:layout_height="9dp" android:layout_marginStart="1dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
+                <ImageView android:id="@+id/estrella_5" android:layout_width="9dp" android:layout_height="9dp" android:layout_marginStart="1dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/distancia"
+                style="@style/TextoDistancia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="end" />
+        </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/favorito"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="Favorito"
-        android:src="@android:drawable/btn_star_big_on"
-        android:visibility="gone" />
-
-    <RatingBar
-        android:id="@+id/valoracion"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:isIndicator="true"
-        android:numStars="5" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/pixel_divisor" />
 
 </LinearLayout>

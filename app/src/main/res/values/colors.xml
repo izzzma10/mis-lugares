@@ -9,4 +9,15 @@
     <color name="pixel_verde">#3FA34D</color>
     <color name="pixel_amarillo">#F2B807</color>
 
+    <!-- Auxiliares del rediseño retro -->
+    <color name="pixel_tinta_suave">#6B5C44</color>   <!-- direcciones, texto secundario -->
+    <color name="pixel_hint">#A2937B</color>          <!-- placeholders de EditText -->
+    <color name="pixel_dither">#C9BDA3</color>        <!-- placeholder de foto, toggle apagado -->
+    <color name="pixel_dither_oscuro">#B9AB8D</color> <!-- segundo tono del damero -->
+    <color name="pixel_barra">#E9DCC0</color>         <!-- barra inferior de acciones en Edición -->
+    <color name="pixel_mapa_base">#DFD3B6</color>     <!-- fondo de mapa -->
+    <color name="pixel_mapa_calle">#C9BDA3</color>    <!-- calles -->
+    <color name="pixel_mapa_verde">#BCD6A8</color>    <!-- áreas verdes -->
+    <color name="pixel_divisor">#2E241C10</color>     <!-- #241C10 al 18%: divisores de lista -->
+
 </resources>

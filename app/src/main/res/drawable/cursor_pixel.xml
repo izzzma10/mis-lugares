@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cursor de bloque para EditText: rectángulo azul 8x16dp
+     (android:textCursorDrawable="@drawable/cursor_pixel"). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <size android:width="8dp" android:height="16dp" />
+    <solid android:color="@color/pixel_azul" />
+</shape>

@@ -1,18 +1,101 @@
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/spinner_filtro"
+    <!-- Fila de filtros -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="@drawable/fondo_boton_pixel"
-        android:backgroundTint="@android:color/white"
-        />
+        android:orientation="horizontal"
+        android:background="@color/pixel_fondo"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/chip_todos"
+            style="@style/TextoEtiqueta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/chip_pixel"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:minHeight="28dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="TODOS"
+            android:textColor="@color/chip_texto" />
+
+        <TextView
+            android:id="@+id/chip_fav"
+            style="@style/TextoEtiqueta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/chip_pixel"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:minHeight="28dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="★ FAV"
+            android:textColor="@color/chip_texto" />
+
+        <TextView
+            android:id="@+id/chip_cerca"
+            style="@style/TextoEtiqueta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chip_pixel"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:minHeight="28dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="CERCA"
+            android:textColor="@color/chip_texto" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/chip_az"
+            style="@style/TextoEtiqueta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chip_pixel_azul"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:minHeight="28dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="A-Z"
+            android:textColor="@color/chip_texto_azul" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/pixel_tinta" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tab LISTA: tres barras. fillColor tinta; se tinta por estado en el layout. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="14dp"
+    android:height="14dp"
+    android:viewportWidth="12"
+    android:viewportHeight="12">
+    <path
+        android:fillColor="@color/pixel_tinta"
+        android:pathData="M1,2 L11,2 L11,4 L1,4 Z M1,5 L11,5 L11,7 L1,7 Z M1,8 L11,8 L11,10 L1,10 Z" />
+</vector>

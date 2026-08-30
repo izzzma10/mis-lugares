@@ -1,5 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.osmdroid.views.MapView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mapa"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/pixel_fondo">
+
+    <include layout="@layout/barra_pixel" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Zoom propio -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/zoom_mas"
+                style="@style/TextoEtiqueta"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:background="@drawable/borde_pixel"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/pixel_tinta"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/zoom_menos"
+                style="@style/TextoEtiqueta"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/borde_pixel"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/pixel_tinta"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Ficha inferior -->
+        <LinearLayout
+            android:id="@+id/ficha_inferior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/panel_pixel"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ficha_pin"
+                android:layout_width="18dp"
+                android:layout_height="22dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_pin_otros" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="9dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ficha_nombre"
+                    style="@style/TextoNombreLista"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/ficha_direccion"
+                    style="@style/TextoDireccionFila"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ficha_ver"
+                style="@style/TextoBoton"
+                android:layout_width="52dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/boton_pixel_azul"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="VER"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

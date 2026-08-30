@@ -3,14 +3,9 @@ package com.example.mislugares.presentacion;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,32 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
-import com.example.mislugares.modelo.TipoLugar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Pantalla 1 (lista de lugares), reescrita como Fragment en vez de Activity
- * (Anexo B del libro, "Fragments") — mismo comportamiento que antes tenía
- * MainActivity, solo cambia cómo está construida por dentro. MainActivity
- * ahora solo aloja este Fragment (ver activity_lista.xml).
+ * Pantalla 1 (lista de lugares) como Fragment. MainActivity solo lo aloja.
  */
 public class ListaLugaresFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private AdaptadorLugares adaptador;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Un Fragment no recibe onCreateOptionsMenu()/onOptionsItemSelected()
-        // automáticamente como una Activity — hay que pedirlo explícitamente.
-        setHasOptionsMenu(true);
-    }
+    // Estado de la fila de filtros
+    private boolean soloFav = false;
+    private int orden = 0;   // 0 normal · 1 cercania · 2 A-Z asc · 3 A-Z desc
+    private TextView chipTodos, chipFav, chipCerca, chipAz;
 
-    // Un Fragment no tiene setContentView(): en su lugar, infla su propio
-    // layout acá y lo devuelve como la vista del Fragment.
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -53,9 +36,6 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         return inflater.inflate(R.layout.fragment_lista, container, false);
     }
 
-    // Se llama justo después de onCreateView(), ya con la vista lista — acá
-    // es donde un Fragment hace lo que una Activity hacía en onCreate()
-    // después de setContentView(): buscar vistas y configurarlas.
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -63,6 +43,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         Aplicacion aplicacion = (Aplicacion) requireActivity().getApplication();
         adaptador = new AdaptadorLugares(aplicacion.repositorio);
         adaptador.setOnItemClickListener(this);
+        adaptador.setPosicion(aplicacion.posicionActual);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -72,44 +53,36 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         configurarFiltro(view);
     }
 
-    /** Arma el Spinner de arriba de la lista, con "Todos" + cada TipoLugar,
-     *  y filtra el RecyclerView cuando el usuario elige una opción. */
+    /** Fila de chips: TODOS / ★ FAV / CERCA / A-Z. */
     private void configurarFiltro(View view) {
-        Spinner spinnerFiltro = view.findViewById(R.id.spinner_filtro);
+        chipTodos = view.findViewById(R.id.chip_todos);
+        chipFav = view.findViewById(R.id.chip_fav);
+        chipCerca = view.findViewById(R.id.chip_cerca);
+        chipAz = view.findViewById(R.id.chip_az);
 
-        List<String> opciones = new ArrayList<>();
-        opciones.add("Todos");
-        for (TipoLugar tipo : TipoLugar.values()) {
-            opciones.add(tipo.name());
-        }
-
-        ArrayAdapter<String> adapterFiltro = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item, opciones);
-        adapterFiltro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFiltro.setAdapter(adapterFiltro);
-
-        spinnerFiltro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int posicion, long id) {
-                if (posicion == 0) {
-                    adaptador.filtrarPorTipo(null);
-                } else {
-                    adaptador.filtrarPorTipo(TipoLugar.values()[posicion - 1]);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // No hace falta hacer nada acá — siempre queda algo seleccionado.
-            }
+        chipTodos.setOnClickListener(v -> { soloFav = false; orden = 0; refrescarChips(); });
+        chipFav.setOnClickListener(v -> { soloFav = !soloFav; refrescarChips(); });
+        chipCerca.setOnClickListener(v -> { orden = (orden == 1) ? 0 : 1; refrescarChips(); });
+        chipAz.setOnClickListener(v -> {
+            orden = (orden == 2) ? 3 : (orden == 3) ? 0 : 2;
+            refrescarChips();
         });
+
+        refrescarChips();
+    }
+
+    /** Pinta los chips segun el estado y se lo pasa al adaptador. */
+    private void refrescarChips() {
+        chipTodos.setSelected(!soloFav && orden == 0);
+        chipFav.setSelected(soloFav);
+        chipCerca.setSelected(orden == 1);
+        chipAz.setSelected(orden == 2 || orden == 3);
+        adaptador.setFiltro(soloFav, orden);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        // Refresca la lista: si venimos de crear, editar o eliminar un lugar
-        // en otra pantalla, aquí es donde se ve reflejado.
         adaptador.actualizar();
     }
 
@@ -120,20 +93,5 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         Intent intent = new Intent(requireContext(), VistaLugarActivity.class);
         intent.putExtra(VistaLugarActivity.EXTRA_ID, id);
         startActivity(intent);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_lista, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.accion_preferencias) {
-            startActivity(new Intent(requireContext(), PreferenciasActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icono cámara pixel. Cuerpo tinta + lente hueca (evenOdd). Botón claro. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:fillColor="@color/pixel_tinta"
+        android:fillType="evenOdd"
+        android:pathData="M1,4 L4,4 L5,3 L11,3 L12,4 L15,4 L15,14 L1,14 Z M8,6 L10,8 L8,10 L6,8 Z" />
+</vector>

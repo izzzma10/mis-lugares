@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icono galería pixel: marco con "montaña". Botón claro. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:fillColor="@color/pixel_tinta"
+        android:fillType="evenOdd"
+        android:pathData="M1,3 L15,3 L15,13 L1,13 Z M3,11 L6,7 L8,9 L11,5 L13,11 Z" />
+</vector>

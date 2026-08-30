@@ -1,151 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/pixel_fondo">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="20dp"
+    <include layout="@layout/barra_pixel" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre del lugar"
-            android:textStyle="bold"
-            style="@style/TextoPixelCuerpo"
-            android:textColor="@color/pixel_tinta"
-            />
-
-        <EditText
-            android:id="@+id/campo_nombre"
-            android:hint="Ej: Mi café preferido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dirección"
-            android:textStyle="bold"
-            style="@style/TextoPixelCuerpo"
-            android:textColor="@color/pixel_tinta"
-            />
-
-        <EditText
-            android:id="@+id/campo_direccion"
-            android:hint="Ej: Av. Principal 123"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Teléfono"
-            android:textStyle="bold"
-            style="@style/TextoPixelCuerpo"
-            android:textColor="@color/pixel_tinta"
-            />
-
-        <EditText
-            android:id="@+id/campo_telefono"
-            android:hint="Ej: 5551234"
-            android:inputType="phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Posición GPS"
-            android:textStyle="bold"
-            style="@style/TextoPixelCuerpo"
-            android:textColor="@color/pixel_tinta"
-            />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- NOMBRE -->
+            <TextView
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/etiqueta_amarilla"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="NOMBRE"
+                android:textColor="@color/pixel_tinta" />
 
             <EditText
-                android:id="@+id/campo_latitud"
-                android:hint="Latitud"
-                android:inputType="numberDecimal|numberSigned"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/campo_nombre"
+                style="@style/TextoCorrido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="11dp"
+                android:background="@drawable/input_pixel"
+                android:hint="Ej: Mi café preferido"
+                android:minHeight="44dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:textColor="@color/pixel_tinta"
+                android:textColorHint="@color/pixel_hint"
+                android:textCursorDrawable="@drawable/cursor_pixel"
+                android:textSize="18sp" />
+
+            <!-- DIRECCION -->
+            <TextView
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/etiqueta_amarilla"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="DIRECCION"
+                android:textColor="@color/pixel_tinta" />
 
             <EditText
-                android:id="@+id/campo_longitud"
-                android:hint="Longitud"
-                android:inputType="numberDecimal|numberSigned"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/campo_direccion"
+                style="@style/TextoCorrido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="11dp"
+                android:background="@drawable/input_pixel"
+                android:hint="Ej: Av. Principal 123"
+                android:minHeight="44dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:textColor="@color/pixel_tinta"
+                android:textColorHint="@color/pixel_hint"
+                android:textCursorDrawable="@drawable/cursor_pixel"
+                android:textSize="18sp" />
+
+            <!-- TEL + WEB -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/etiqueta_amarilla"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:text="TEL"
+                        android:textColor="@color/pixel_tinta" />
+
+                    <EditText
+                        android:id="@+id/campo_telefono"
+                        style="@style/TextoCorrido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_pixel"
+                        android:hint="5551234567"
+                        android:inputType="phone"
+                        android:minHeight="44dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="7dp"
+                        android:paddingBottom="7dp"
+                        android:textColor="@color/pixel_tinta"
+                        android:textColorHint="@color/pixel_hint"
+                        android:textCursorDrawable="@drawable/cursor_pixel"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/etiqueta_amarilla"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:text="WEB"
+                        android:textColor="@color/pixel_tinta" />
+
+                    <EditText
+                        android:id="@+id/campo_web"
+                        style="@style/TextoCorrido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_pixel"
+                        android:hint="sitio.com"
+                        android:inputType="textUri"
+                        android:minHeight="44dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="7dp"
+                        android:paddingBottom="7dp"
+                        android:textColor="@color/pixel_tinta"
+                        android:textColorHint="@color/pixel_hint"
+                        android:textCursorDrawable="@drawable/cursor_pixel"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- GPS -->
+            <TextView
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/etiqueta_amarilla"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="GPS"
+                android:textColor="@color/pixel_tinta" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="11dp"
+                android:background="@drawable/input_pixel"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/campo_latitud"
+                    style="@style/TextoCorrido"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="Latitud"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textColor="@color/pixel_tinta"
+                    android:textColorHint="@color/pixel_hint"
+                    android:textCursorDrawable="@drawable/cursor_pixel"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/pixel_tinta" />
+
+                <EditText
+                    android:id="@+id/campo_longitud"
+                    style="@style/TextoCorrido"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="Longitud"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textColor="@color/pixel_tinta"
+                    android:textColorHint="@color/pixel_hint"
+                    android:textCursorDrawable="@drawable/cursor_pixel"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/btn_gps"
+                    style="@style/TextoEtiqueta"
+                    android:layout_width="44dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/pixel_azul"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="GPS"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- TIPO -->
+            <TextView
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="TIPO"
+                android:textColor="@color/pixel_tinta" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="11dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/contenedor_tipos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <!-- VALORACION -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/TextoEtiqueta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:text="VALORACION"
+                    android:textColor="@color/pixel_tinta" />
+
+                <RatingBar
+                    android:id="@+id/campo_valoracion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    android:progressTint="@color/pixel_amarillo"
+                    android:secondaryProgressTint="@color/pixel_amarillo"
+                    android:progressBackgroundTint="@color/pixel_tinta" />
+            </LinearLayout>
+
         </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Valoración"
-            android:textStyle="bold"
-            style="@style/TextoPixelCuerpo"
-            android:textColor="@color/pixel_tinta"
-            />
+    <!-- Barra de acciones fija -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <RatingBar
-            android:id="@+id/campo_valoracion"
-            android:isIndicator="false"
-            android:numStars="5"
-            android:stepSize="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tipo de lugar"
-            android:textStyle="bold"
-            style="@style/TextoPixelCuerpo"
-            android:textColor="@color/pixel_tinta"
-            />
-
-        <Spinner
-            android:id="@+id/campo_tipo"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="3dp"
+            android:background="@color/pixel_tinta" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_marginTop="20dp">
+            android:orientation="horizontal"
+            android:background="@color/pixel_barra"
+            android:padding="12dp">
 
-            <Button
+            <TextView
                 android:id="@+id/btn_eliminar"
-                android:text="Eliminar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/fondo_boton_pixel"
-                android:backgroundTint="@color/pixel_rojo"
-                style="@style/TextoPixelCuerpo"
-                android:textColor="@android:color/white"
-                />
+                style="@style/TextoBoton"
+                android:layout_width="96dp"
+                android:layout_height="46dp"
+                android:background="@drawable/boton_pixel_rojo"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:letterSpacing="0"
+                android:text="ELIMINAR"
+                android:textSize="9sp" />
 
-            <Button
+            <TextView
                 android:id="@+id/btn_guardar"
-                android:text="Guardar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/fondo_boton_pixel"
-                android:backgroundTint="@color/pixel_verde"
-                style="@style/TextoPixelCuerpo"
-                android:textColor="@android:color/white"
-                />
+                style="@style/TextoBoton"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/boton_pixel_verde"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="GUARDAR" />
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>

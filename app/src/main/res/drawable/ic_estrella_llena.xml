@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Estrella pixel sobre grid 16x16. Rellena: amarillo con contorno tinta. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:fillColor="@color/pixel_amarillo"
+        android:strokeColor="@color/pixel_tinta"
+        android:strokeWidth="1"
+        android:strokeLineJoin="miter"
+        android:pathData="M8,1 L10,6 L15,6 L11,10 L13,15 L8,12 L3,15 L5,10 L1,6 L6,6 Z" />
+</vector>
