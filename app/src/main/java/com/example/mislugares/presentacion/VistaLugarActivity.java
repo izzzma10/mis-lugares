@@ -1,13 +1,14 @@
 package com.example.mislugares.presentacion;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RatingBar;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.Manifest;
 import android.content.pm.PackageManager;
 
@@ -17,7 +18,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AlertDialog;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
@@ -49,7 +49,7 @@ public class VistaLugarActivity extends AppCompatActivity {
     private TextView tvTelefono;
     private TextView tvUrl;
     private TextView tvGps;
-    private RatingBar rbValoracion;
+    private LinearLayout tiraValoracion;
     private ImageView ivFavorito;
 
     /** Selector de imágenes de la galería: no requiere permiso de lectura (Storage Access Framework). */
@@ -102,9 +102,11 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvTelefono = findViewById(R.id.telefono);
         tvUrl = findViewById(R.id.url);
         tvGps = findViewById(R.id.gps);
-        rbValoracion = findViewById(R.id.valoracion);
         ivFoto = findViewById(R.id.foto);
         ivFavorito = findViewById(R.id.favorito);
+
+        tiraValoracion = findViewById(R.id.tira_valoracion);
+        configurarTiraValoracion();
 
         mostrarLugar();
 
@@ -116,15 +118,6 @@ public class VistaLugarActivity extends AppCompatActivity {
             }
         });
 
-        // Permite calificar el lugar arrastrando las estrellas desde esta
-        // misma pantalla; solo se guarda si el lugar es real (tiene id).
-        rbValoracion.setOnRatingBarChangeListener((ratingBar, valor, fromUser) -> {
-            if (!fromUser) return;
-            lugar.setValoracion(valor);
-            if (id >= 0) {
-                new GuardarLugar(repositorio).actualizar(id, lugar);
-            }
-        });
 
         // "EDITAR" ahora es el chip de la barra superior
         TextView chipEditar = findViewById(R.id.barra_chip);
@@ -142,12 +135,7 @@ public class VistaLugarActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.btnCompartir).setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, lugar.getNombre() + " " + lugar.getUrl());
-            startActivity(intent);
-        });
+        findViewById(R.id.btnCompartir).setOnClickListener(v -> compartirUbicacion());
 
         findViewById(R.id.btn_llamar).setOnClickListener(v -> llamar());
 
@@ -183,14 +171,9 @@ public class VistaLugarActivity extends AppCompatActivity {
         });
 
         ImageView ivEliminarFoto = findViewById(R.id.eliminar_foto);
-        ivEliminarFoto.setOnClickListener(v -> {
-            new AlertDialog.Builder(this)
-                    .setTitle("Eliminar foto")
-                    .setMessage("¿Seguro que quieres eliminar la foto de este lugar?")
-                    .setPositiveButton("Eliminar", (dialogo, boton)-> asignarFoto(""))
-                    .setNegativeButton("Cancelar", null)
-                    .show();
-        });
+        ivEliminarFoto.setOnClickListener(v -> DialogosPixel.mostrar(this, "Eliminar foto",
+                "¿Seguro que quieres eliminar la foto de este lugar? No se puede deshacer.",
+                "Eliminar", true, () -> asignarFoto("")));
     }
 
     /** Refresca los campos de la pantalla a partir de {@link #lugar}. */
@@ -202,10 +185,49 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvUrl.setText(lugar.getUrl());
         tvGps.setText(String.format(Locale.US, "%.4f, %.4f",
                 lugar.getPosicion().getLatitud(), lugar.getPosicion().getLongitud()));
-        rbValoracion.setRating(lugar.getValoracion());
+        Estrellas.pintarValoracion(tiraValoracion, lugar.getValoracion(), true);
         mostrarResumen();
         mostrarFoto(lugar.getFoto());
         mostrarFavorito();
+    }
+
+    /** Calificar tocando o deslizando sobre la tira: pasos de media estrella. */
+    @SuppressLint("ClickableViewAccessibility")
+    private void configurarTiraValoracion() {
+        tiraValoracion.setOnTouchListener((v, evento) -> {
+            float ancho = v.getWidth();
+            if (ancho <= 0f) {
+                return false;
+            }
+            float x = Math.max(0f, Math.min(evento.getX(), ancho));
+            float crudo = x / (ancho / 5f);                 // 0..5
+            float valor = Math.round(crudo * 2f) / 2f;      // a pasos de 0.5
+            valor = Math.max(0.5f, Math.min(5f, valor));
+
+            int accion = evento.getActionMasked();
+            if (accion == MotionEvent.ACTION_DOWN) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+            if (accion == MotionEvent.ACTION_DOWN || accion == MotionEvent.ACTION_MOVE) {
+                aplicarValoracion(valor, false);
+                return true;
+            }
+            if (accion == MotionEvent.ACTION_UP) {
+                aplicarValoracion(valor, true);
+                return true;
+            }
+            return false;
+        });
+    }
+
+    /** Pinta la valoración y, si {@code persistir}, la guarda. */
+    private void aplicarValoracion(float valor, boolean persistir) {
+        lugar.setValoracion(valor);
+        Estrellas.pintarValoracion(tiraValoracion, valor, true);
+        mostrarResumen();
+        if (persistir && id >= 0) {
+            new GuardarLugar(repositorio).actualizar(id, lugar);
+        }
     }
 
     /** "4.5" o "4.5 · 1.2 km" si hay posición conocida. */
@@ -223,8 +245,8 @@ public class VistaLugarActivity extends AppCompatActivity {
 
     private void mostrarFavorito() {
         ivFavorito.setImageResource(lugar.isFavorito()
-                ? R.drawable.ic_estrella_llena
-                : R.drawable.ic_estrella_vacia);
+                ? R.drawable.estrella_fav_activa
+                : R.drawable.estrella_fav_inactiva);
     }
 
     @Override
@@ -238,7 +260,7 @@ public class VistaLugarActivity extends AppCompatActivity {
                 lugar = new VerLugar(repositorio).ver(id);
                 mostrarLugar();
             } catch (Exception e) {
-                Toast.makeText(this, "Este lugar ya no existe", Toast.LENGTH_SHORT).show();
+                SnackPixel.dejarPendiente("Este lugar ya no existe", false);
                 finish();
             }
         }
@@ -297,6 +319,21 @@ public class VistaLugarActivity extends AppCompatActivity {
                 4.0f,
                 posicion,
                 "foto_epsg");
+    }
+
+    /** Comparte la ubicación del lugar como enlace de mapa (texto plano). */
+    private void compartirUbicacion() {
+        GeoPunto pos = lugar.getPosicion();
+        String enlace;
+        if (pos.getLatitud() != 0 || pos.getLongitud() != 0) {
+            enlace = "https://maps.google.com/?q=" + pos.getLatitud() + "," + pos.getLongitud();
+        } else {
+            enlace = "https://maps.google.com/?q=" + Uri.encode(lugar.getDireccion());
+        }
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, lugar.getNombre() + "\n" + enlace);
+        startActivity(intent);
     }
 
     private void llamar() {

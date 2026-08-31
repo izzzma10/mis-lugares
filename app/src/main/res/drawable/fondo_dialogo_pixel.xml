@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contenedor de diálogo: fondo crema, contorno 3dp tinta, sombra sólida 6dp. Radio 0. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="6dp" android:top="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/pixel_tinta" />
+        </shape>
+    </item>
+    <item android:right="6dp" android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/pixel_fondo" />
+            <stroke android:width="3dp" android:color="@color/pixel_tinta" />
+        </shape>
+    </item>
+</layer-list>

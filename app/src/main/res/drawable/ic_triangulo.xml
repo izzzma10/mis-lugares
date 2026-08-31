@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Triángulo pixel hacia arriba (prefijo de texto de error). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="8dp"
+    android:height="8dp"
+    android:viewportWidth="8"
+    android:viewportHeight="8">
+    <path
+        android:fillColor="@color/pixel_rojo"
+        android:pathData="M3,1h2v2h-2z M2,3h4v2h-4z M1,5h6v2h-6z M0,7h8v1h-8z" />
+</vector>

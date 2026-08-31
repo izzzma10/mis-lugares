@@ -38,11 +38,12 @@
 
                 <ImageView
                     android:id="@+id/favorito"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="17dp"
+                    android:layout_height="16dp"
                     android:layout_marginEnd="5dp"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/ic_estrella_llena"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/estrella_fav_activa"
                     android:visibility="gone" />
 
                 <TextView
@@ -70,16 +71,16 @@
             android:gravity="end">
 
             <LinearLayout
-                android:id="@+id/contenedor_estrellas"
+                android:id="@+id/tira_valoracion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView android:id="@+id/estrella_1" android:layout_width="9dp" android:layout_height="9dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
-                <ImageView android:id="@+id/estrella_2" android:layout_width="9dp" android:layout_height="9dp" android:layout_marginStart="1dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
-                <ImageView android:id="@+id/estrella_3" android:layout_width="9dp" android:layout_height="9dp" android:layout_marginStart="1dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
-                <ImageView android:id="@+id/estrella_4" android:layout_width="9dp" android:layout_height="9dp" android:layout_marginStart="1dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
-                <ImageView android:id="@+id/estrella_5" android:layout_width="9dp" android:layout_height="9dp" android:layout_marginStart="1dp" android:importantForAccessibility="no" android:src="@drawable/ic_estrella_vacia" />
+                <ImageView android:id="@+id/estrella_1" android:layout_width="15dp" android:layout_height="14dp" android:layout_marginEnd="1dp" android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/estrella_vacia" />
+                <ImageView android:id="@+id/estrella_2" android:layout_width="15dp" android:layout_height="14dp" android:layout_marginEnd="1dp" android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/estrella_vacia" />
+                <ImageView android:id="@+id/estrella_3" android:layout_width="15dp" android:layout_height="14dp" android:layout_marginEnd="1dp" android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/estrella_vacia" />
+                <ImageView android:id="@+id/estrella_4" android:layout_width="15dp" android:layout_height="14dp" android:layout_marginEnd="1dp" android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/estrella_vacia" />
+                <ImageView android:id="@+id/estrella_5" android:layout_width="15dp" android:layout_height="14dp" android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/estrella_vacia" />
             </LinearLayout>
 
             <TextView

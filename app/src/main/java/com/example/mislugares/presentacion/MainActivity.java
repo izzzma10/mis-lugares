@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.mislugares.R;
 
@@ -12,6 +14,8 @@ import com.example.mislugares.R;
  * Solo aloja ListaLugaresFragment (Anexo B del libro, "Fragments").
  */
 public class MainActivity extends AppCompatActivity {
+
+    private GestorLocalizacion gestorLocalizacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,5 +42,27 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.contenedor_lista, new ListaLugaresFragment())
                     .commit();
         }
+
+        // Al entrar a la app pedimos el permiso de ubicación para que la lista
+        // muestre los KM desde el primer momento, sin tener que ir a Ajustes.
+        gestorLocalizacion = new GestorLocalizacion(this);
+        gestorLocalizacion.setAlObtenerUbicacion(this::refrescarLista);
+        gestorLocalizacion.solicitarUbicacionActual();
+    }
+
+    /** Reordena/repinta la lista cuando ya hay una ubicación conocida. */
+    private void refrescarLista() {
+        Fragment fragmento = getSupportFragmentManager()
+                .findFragmentById(R.id.contenedor_lista);
+        if (fragmento instanceof ListaLugaresFragment) {
+            ((ListaLugaresFragment) fragmento).refrescar();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        gestorLocalizacion.manejarResultadoPermiso(requestCode, grantResults);
     }
 }

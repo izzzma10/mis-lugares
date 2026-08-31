@@ -84,6 +84,17 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         adaptador.actualizar();
+        SnackPixel.mostrarPendiente(requireActivity());
+    }
+
+    /** La llama MainActivity cuando llega una ubicación nueva: repinta los KM. */
+    public void refrescar() {
+        if (adaptador == null) {
+            return;
+        }
+        adaptador.setPosicion(
+                ((Aplicacion) requireActivity().getApplication()).posicionActual);
+        adaptador.actualizar();
     }
 
     @Override

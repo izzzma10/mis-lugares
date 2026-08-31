@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -117,11 +118,12 @@
 
                     <ImageView
                         android:id="@+id/favorito"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
+                        android:layout_width="34dp"
+                        android:layout_height="32dp"
                         android:layout_marginStart="8dp"
                         android:contentDescription="Favorito"
-                        android:src="@drawable/ic_estrella_vacia" />
+                        android:scaleType="fitXY"
+                        android:src="@drawable/estrella_fav_inactiva" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -131,16 +133,19 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="8dp">
 
-                    <RatingBar
-                        android:id="@+id/valoracion"
+                    <LinearLayout
+                        android:id="@+id/tira_valoracion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:isIndicator="false"
-                        android:numStars="5"
-                        android:stepSize="0.5"
-                        android:progressTint="@color/pixel_amarillo"
-                        android:secondaryProgressTint="@color/pixel_amarillo"
-                        android:progressBackgroundTint="@color/pixel_tinta" />
+                        android:layout_marginStart="-5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView android:id="@+id/det_estrella_1" android:layout_width="44dp" android:layout_height="44dp" android:padding="5dp" android:importantForAccessibility="no" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" />
+                        <ImageView android:id="@+id/det_estrella_2" android:layout_width="44dp" android:layout_height="44dp" android:padding="5dp" android:importantForAccessibility="no" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" />
+                        <ImageView android:id="@+id/det_estrella_3" android:layout_width="44dp" android:layout_height="44dp" android:padding="5dp" android:importantForAccessibility="no" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" />
+                        <ImageView android:id="@+id/det_estrella_4" android:layout_width="44dp" android:layout_height="44dp" android:padding="5dp" android:importantForAccessibility="no" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" />
+                        <ImageView android:id="@+id/det_estrella_5" android:layout_width="44dp" android:layout_height="44dp" android:padding="5dp" android:importantForAccessibility="no" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/resumen_valoracion"
@@ -310,10 +315,10 @@
                     android:layout_height="46dp"
                     android:layout_weight="1"
                     android:maxLines="1"
-                    android:textSize="8sp"
                     android:letterSpacing="0"
-                    android:paddingStart="2dp"
-                    android:paddingEnd="2dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="8dp"
+                    android:textSize="10sp"
                     android:background="@drawable/boton_pixel_azul"
                     android:clickable="true"
                     android:focusable="true"
@@ -325,12 +330,12 @@
                     style="@style/TextoBoton"
                     android:layout_width="0dp"
                     android:layout_height="46dp"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:maxLines="1"
-                    android:textSize="8sp"
                     android:letterSpacing="0"
-                    android:paddingStart="2dp"
-                    android:paddingEnd="2dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="8dp"
+                    android:textSize="10sp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/boton_pixel_amarillo"
                     android:clickable="true"
@@ -346,10 +351,10 @@
                     android:layout_height="46dp"
                     android:layout_weight="1"
                     android:maxLines="1"
-                    android:textSize="8sp"
                     android:letterSpacing="0"
-                    android:paddingStart="2dp"
-                    android:paddingEnd="2dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="8dp"
+                    android:textSize="10sp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/boton_pixel_crema"
                     android:clickable="true"

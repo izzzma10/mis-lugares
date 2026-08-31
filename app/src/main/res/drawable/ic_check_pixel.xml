@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Check pixel blanco (snackbar de éxito). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M2,7h2v2h-2z M3,8h2v2h-2z M4,9h2v2h-2z M5,10h2v2h-2z M6,9h2v2h-2z M8,7h2v2h-2z M9,6h2v2h-2z M10,5h2v2h-2z M11,4h2v2h-2z M12,3h2v2h-2z" />
+</vector>

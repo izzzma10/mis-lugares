@@ -19,5 +19,6 @@
     <color name="pixel_mapa_calle">#C9BDA3</color>    <!-- calles -->
     <color name="pixel_mapa_verde">#BCD6A8</color>    <!-- áreas verdes -->
     <color name="pixel_divisor">#2E241C10</color>     <!-- #241C10 al 18%: divisores de lista -->
+    <color name="pixel_morado">#8E44AD</color>        <!-- pin de BAR / COPAS -->
 
 </resources>

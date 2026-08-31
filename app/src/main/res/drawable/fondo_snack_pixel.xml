@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Snackbar pixel: fondo tinta, contorno 3dp tinta, sombra sólida 4dp al 40%. Radio 0. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="4dp" android:top="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#66241C10" />
+        </shape>
+    </item>
+    <item android:right="4dp" android:bottom="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/pixel_tinta" />
+            <stroke android:width="3dp" android:color="@color/pixel_tinta" />
+        </shape>
+    </item>
+</layer-list>

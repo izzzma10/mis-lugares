@@ -1,19 +1,18 @@
 package com.example.mislugares.presentacion;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.Gravity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
@@ -25,7 +24,8 @@ import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
 import com.example.mislugares.modelo.TipoLugar;
 
-public class EdicionLugarActivity extends AppCompatActivity {
+public class EdicionLugarActivity extends AppCompatActivity
+        implements HojaTipoFragment.Listener {
 
     public static final String EXTRA_ID = "id";
 
@@ -35,10 +35,13 @@ public class EdicionLugarActivity extends AppCompatActivity {
     private EditText campoWeb;
     private EditText campoLatitud;
     private EditText campoLongitud;
-    private RatingBar campoValoracion;
-    private LinearLayout contenedorTipos;
+    private LinearLayout tiraValoracion;
+    private ImageView pinTipo;
+    private TextView textoTipo;
+    private TextView errorNombre;
 
     private TipoLugar tipoSeleccionado = TipoLugar.OTROS;
+    private float valoracionSeleccionada = 0f;
 
     private RepositorioLugares repositorio;
     private int id = -1;
@@ -57,10 +60,23 @@ public class EdicionLugarActivity extends AppCompatActivity {
         campoWeb = findViewById(R.id.campo_web);
         campoLatitud = findViewById(R.id.campo_latitud);
         campoLongitud = findViewById(R.id.campo_longitud);
-        campoValoracion = findViewById(R.id.campo_valoracion);
-        contenedorTipos = findViewById(R.id.contenedor_tipos);
+        tiraValoracion = findViewById(R.id.tira_valoracion);
+        pinTipo = findViewById(R.id.pin_tipo);
+        textoTipo = findViewById(R.id.texto_tipo);
+        findViewById(R.id.selector_tipo).setOnClickListener(v -> abrirHojaTipo());
 
-        construirChipsTipo();
+        errorNombre = findViewById(R.id.error_nombre);
+        errorNombre.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_triangulo, 0, 0, 0);
+        campoNombre.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) { }
+            @Override public void onTextChanged(CharSequence s, int a, int b, int c) { }
+            @Override public void afterTextChanged(Editable s) { limpiarErrorNombre(); }
+        });
+
+        configurarTiraValoracion();
+        Estrellas.pintarValoracion(tiraValoracion, valoracionSeleccionada, true);
+        mostrarTipoEnSelector();
 
         id = getIntent().getIntExtra(EXTRA_ID, -1);
 
@@ -79,54 +95,63 @@ public class EdicionLugarActivity extends AppCompatActivity {
             btnEliminar.setOnClickListener(v -> eliminar());
         } else {
             btnEliminar.setVisibility(View.GONE);
-            seleccionarTipo(TipoLugar.OTROS);
         }
 
         findViewById(R.id.btn_guardar).setOnClickListener(v -> guardar());
         findViewById(R.id.btn_gps).setOnClickListener(v -> rellenarGps());
     }
 
-    /** Crea un chip TextView por cada valor del enum TipoLugar y lo mete en el contenedor. */
-    private void construirChipsTipo() {
-        for (TipoLugar tipo : TipoLugar.values()) {
-            TextView chip = new TextView(this);
-            chip.setText(tipo.name());
-            chip.setTag(tipo);
-            chip.setAllCaps(true);
-            chip.setGravity(Gravity.CENTER);
-            chip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 9);
-            chip.setTypeface(ResourcesCompat.getFont(this, R.font.silkscreen));
-            chip.setTextColor(ContextCompat.getColorStateList(this, R.color.chip_texto));
-            chip.setBackgroundResource(R.drawable.chip_pixel);
-            chip.setPadding(dp(8), dp(6), dp(8), dp(6));
-            chip.setClickable(true);
-            chip.setFocusable(true);
-            chip.setOnClickListener(v -> seleccionarTipo((TipoLugar) v.getTag()));
-
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMarginEnd(dp(6));
-            chip.setLayoutParams(lp);
-
-            contenedorTipos.addView(chip);
-        }
+    /** Abre la hoja inferior para elegir el tipo, con el actual visible. */
+    private void abrirHojaTipo() {
+        HojaTipoFragment.nueva(tipoSeleccionado)
+                .show(getSupportFragmentManager(), "hoja_tipo");
     }
 
-    /** Marca visualmente el chip elegido y guarda el tipo. */
-    private void seleccionarTipo(TipoLugar tipo) {
+    @Override
+    public void onTipoElegido(TipoLugar tipo) {
         tipoSeleccionado = tipo;
-        for (int i = 0; i < contenedorTipos.getChildCount(); i++) {
-            View chip = contenedorTipos.getChildAt(i);
-            chip.setSelected(chip.getTag() == tipo);
-        }
+        mostrarTipoEnSelector();
+    }
+
+    /** Refresca el pin y el texto del selector de tipo. */
+    private void mostrarTipoEnSelector() {
+        pinTipo.setImageResource(Tipos.pin(tipoSeleccionado));
+        textoTipo.setText(Tipos.nombre(tipoSeleccionado));
+    }
+
+    /** Calificar tocando o deslizando sobre la tira: pasos de media estrella.
+     *  Mismo comportamiento que el detalle; acá solo se guarda al pulsar GUARDAR. */
+    @SuppressLint("ClickableViewAccessibility")
+    private void configurarTiraValoracion() {
+        tiraValoracion.setOnTouchListener((v, evento) -> {
+            float ancho = v.getWidth();
+            if (ancho <= 0f) {
+                return false;
+            }
+            float x = Math.max(0f, Math.min(evento.getX(), ancho));
+            float valor = Math.round(x / (ancho / 5f) * 2f) / 2f;   // pasos de 0.5
+            valor = Math.max(0.5f, Math.min(5f, valor));
+
+            int accion = evento.getActionMasked();
+            if (accion == MotionEvent.ACTION_DOWN) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+            if (accion == MotionEvent.ACTION_DOWN
+                    || accion == MotionEvent.ACTION_MOVE
+                    || accion == MotionEvent.ACTION_UP) {
+                valoracionSeleccionada = valor;
+                Estrellas.pintarValoracion(tiraValoracion, valor, true);
+                return true;
+            }
+            return false;
+        });
     }
 
     /** Rellena lat/lon con la última ubicación conocida por la app. */
     private void rellenarGps() {
         GeoPunto pos = ((Aplicacion) getApplication()).posicionActual;
         if (pos == null || pos.equals(GeoPunto.SIN_POSICION)) {
-            Toast.makeText(this, "Sin ubicación disponible todavía", Toast.LENGTH_SHORT).show();
+            SnackPixel.error(this, "Sin ubicación disponible todavía");
             return;
         }
         campoLatitud.setText(String.valueOf(pos.getLatitud()));
@@ -140,27 +165,29 @@ public class EdicionLugarActivity extends AppCompatActivity {
         campoWeb.setText(lugar.getUrl());
         campoLatitud.setText(String.valueOf(lugar.getPosicion().getLatitud()));
         campoLongitud.setText(String.valueOf(lugar.getPosicion().getLongitud()));
-        campoValoracion.setRating(lugar.getValoracion());
-        seleccionarTipo(lugar.getTipo());
+        valoracionSeleccionada = lugar.getValoracion();
+        Estrellas.pintarValoracion(tiraValoracion, valoracionSeleccionada, true);
+        tipoSeleccionado = lugar.getTipo();
+        mostrarTipoEnSelector();
     }
 
     private void guardar() {
         String nombre = campoNombre.getText().toString();
         String direccion = campoDireccion.getText().toString();
 
-        if (nombre.isEmpty() || direccion.isEmpty()) {
-            Toast.makeText(this,
-                    "El nombre y la dirección son obligatorios",
-                    Toast.LENGTH_SHORT).show();
+        if (nombre.isEmpty()) {
+            mostrarErrorNombre();
+            return;
+        }
+        if (direccion.isEmpty()) {
+            SnackPixel.error(this, "La dirección es obligatoria");
             return;
         }
 
         String telefono = campoTelefono.getText().toString().trim();
 
         if (!telefono.matches("\\d{10}")) {
-            Toast.makeText(this,
-                    "El teléfono debe tener 10 digítos",
-                    Toast.LENGTH_SHORT).show();
+            SnackPixel.error(this, "El teléfono debe tener 10 dígitos");
             return;
         }
 
@@ -168,18 +195,18 @@ public class EdicionLugarActivity extends AppCompatActivity {
         String textoLongitud = campoLongitud.getText().toString().trim();
 
         if (!textoLatitud.isEmpty() && !esNumeroValido(textoLatitud)) {
-            Toast.makeText(this, "La latitud no es un número válido", Toast.LENGTH_SHORT).show();
+            SnackPixel.error(this, "La latitud no es un número válido");
             return;
         }
         if (!textoLongitud.isEmpty() && !esNumeroValido(textoLongitud)) {
-            Toast.makeText(this, "La longitud no es un número válido", Toast.LENGTH_SHORT).show();
+            SnackPixel.error(this, "La longitud no es un número válido");
             return;
         }
 
         double latitud = parseDoubleSeguro(textoLatitud);
         double longitud = parseDoubleSeguro(textoLongitud);
 
-        float valoracion = campoValoracion.getRating();
+        float valoracion = valoracionSeleccionada;
         TipoLugar tipo = tipoSeleccionado;
 
         String url = campoWeb.getText().toString().trim();
@@ -197,29 +224,43 @@ public class EdicionLugarActivity extends AppCompatActivity {
             guardarLugar.guardarNuevo(lugar);
         }
 
-        Toast.makeText(this, "Lugar guardado: " + nombre, Toast.LENGTH_SHORT).show();
+        SnackPixel.dejarPendiente("Lugar guardado", true);
         setResult(RESULT_OK);
         finish();
     }
 
     private void eliminar() {
-        new AlertDialog.Builder(this)
-                .setTitle("Eliminar lugar")
-                .setMessage("¿Seguro que querés eliminar este lugar? Esta acción no se puede deshacer.")
-                .setPositiveButton("Eliminar", (dialogo, boton) -> {
+        DialogosPixel.mostrar(this, "Eliminar lugar",
+                "¿Seguro que quieres eliminar este lugar? No se puede deshacer.",
+                "Eliminar", true, () -> {
                     if (id >= 0) {
                         new BorrarLugar(repositorio).borrar(id);
                     }
-                    Toast.makeText(this, "Lugar eliminado", Toast.LENGTH_SHORT).show();
+                    SnackPixel.dejarPendiente("Lugar eliminado", true);
                     setResult(RESULT_CANCELED);
                     finish();
-                })
-                .setNegativeButton("Cancelar", null)
-                .show();
+                });
     }
 
-    private int dp(int valor) {
-        return Math.round(valor * getResources().getDisplayMetrics().density);
+    private void mostrarErrorNombre() {
+        errorNombre.setText("El nombre no puede quedar vacío");
+        errorNombre.setVisibility(View.VISIBLE);
+        fondoCampoNombre(R.drawable.input_pixel_error);
+    }
+
+    private void limpiarErrorNombre() {
+        if (errorNombre.getVisibility() == View.VISIBLE) {
+            errorNombre.setVisibility(View.GONE);
+            fondoCampoNombre(R.drawable.input_pixel);
+        }
+    }
+
+    /** Cambia el fondo del campo sin perder el padding fijado en el XML. */
+    private void fondoCampoNombre(int recurso) {
+        int l = campoNombre.getPaddingLeft(), t = campoNombre.getPaddingTop(),
+                r = campoNombre.getPaddingRight(), b = campoNombre.getPaddingBottom();
+        campoNombre.setBackgroundResource(recurso);
+        campoNombre.setPadding(l, t, r, b);
     }
 
     private double parseDoubleSeguro(String texto) {

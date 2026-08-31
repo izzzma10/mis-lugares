@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Triángulo pixel apuntando abajo, rejilla 12x7 (filas de 12,10,8,6,4,2,1). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="12dp"
+    android:height="7dp"
+    android:viewportWidth="12"
+    android:viewportHeight="7">
+    <path
+        android:fillColor="@color/pixel_fondo"
+        android:pathData="M0,0h12v1h-12z M1,1h10v1h-10z M2,2h8v1h-8z M3,3h6v1h-6z M4,4h4v1h-4z M5,5h2v1h-2z M5.5,6h1v1h-1z" />
+</vector>

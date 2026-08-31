@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Equis pixel blanca (snackbar de error). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M3,3h2v2h-2z M5,5h2v2h-2z M7,7h2v2h-2z M9,9h2v2h-2z M11,11h2v2h-2z M11,3h2v2h-2z M9,5h2v2h-2z M5,9h2v2h-2z M3,11h2v2h-2z" />
+</vector>

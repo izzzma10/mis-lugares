@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mislugares.Aplicacion;
@@ -81,7 +82,7 @@ public class AdaptadorLugares extends
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nombre, direccion, distancia;
         public ImageView foto, favorito;
-        public ImageView[] estrellas = new ImageView[5];
+        public LinearLayout tiraValoracion;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -90,40 +91,18 @@ public class AdaptadorLugares extends
             distancia = itemView.findViewById(R.id.distancia);
             foto = itemView.findViewById(R.id.foto);
             favorito = itemView.findViewById(R.id.favorito);
-            estrellas[0] = itemView.findViewById(R.id.estrella_1);
-            estrellas[1] = itemView.findViewById(R.id.estrella_2);
-            estrellas[2] = itemView.findViewById(R.id.estrella_3);
-            estrellas[3] = itemView.findViewById(R.id.estrella_4);
-            estrellas[4] = itemView.findViewById(R.id.estrella_5);
+            tiraValoracion = itemView.findViewById(R.id.tira_valoracion);
         }
 
         public void personaliza(Lugar lugar) {
             nombre.setText(lugar.getNombre());
             direccion.setText(lugar.getDireccion());
 
-            int idPin;
-            switch (lugar.getTipo()) {
-                case EDUCACION:
-                    idPin = R.drawable.ic_pin_azul; break;
-                case NATURALEZA:
-                    idPin = R.drawable.ic_pin_verde; break;
-                case RESTAURANTE: case BAR: case COPAS:
-                    idPin = R.drawable.ic_pin_rojo; break;
-                case ESPECTACULO:
-                    idPin = R.drawable.ic_pin_amarillo; break;
-                default:
-                    idPin = R.drawable.ic_pin_otros; break;
-            }
-            foto.setImageResource(idPin);
+            foto.setImageResource(Tipos.pin(lugar.getTipo()));
 
             favorito.setVisibility(lugar.isFavorito() ? View.VISIBLE : View.GONE);
 
-            int llenas = Math.round(lugar.getValoracion());
-            for (int i = 0; i < 5; i++) {
-                estrellas[i].setImageResource((i < llenas)
-                        ? R.drawable.ic_estrella_llena
-                        : R.drawable.ic_estrella_vacia);
-            }
+            Estrellas.pintarValoracion(tiraValoracion, lugar.getValoracion(), true);
 
             GeoPunto pos = ((Aplicacion) itemView.getContext()
                     .getApplicationContext()).posicionActual;

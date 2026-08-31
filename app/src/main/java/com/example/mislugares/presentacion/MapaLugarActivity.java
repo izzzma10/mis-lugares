@@ -172,14 +172,6 @@ public class MapaLugarActivity extends AppCompatActivity {
     }
 
     private static int pinDe(TipoLugar tipo) {
-        switch (tipo) {
-            case EDUCACION:   return R.drawable.ic_pin_azul;
-            case NATURALEZA:  return R.drawable.ic_pin_verde;
-            case RESTAURANTE:
-            case BAR:
-            case COPAS:       return R.drawable.ic_pin_rojo;
-            case ESPECTACULO: return R.drawable.ic_pin_amarillo;
-            default:          return R.drawable.ic_pin_otros;
-        }
+        return Tipos.pin(tipo);
     }
 }

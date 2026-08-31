@@ -18,10 +18,16 @@ public class GestorLocalizacion {
 
     private final Activity actividad;
     private final FusedLocationProviderClient proveedorUbicacion;
+    private Runnable alObtenerUbicacion;
 
     public GestorLocalizacion(Activity actividad) {
         this.actividad = actividad;
         this.proveedorUbicacion = LocationServices.getFusedLocationProviderClient(actividad);
+    }
+
+    /** Se ejecuta cuando ya hay una ubicación nueva guardada (para refrescar la UI). */
+    public void setAlObtenerUbicacion(Runnable accion) {
+        this.alObtenerUbicacion = accion;
     }
 
     public void solicitarUbicacionActual() {
@@ -46,6 +52,9 @@ public class GestorLocalizacion {
         }
         GeoPunto punto = new GeoPunto(ubicacion.getLongitude(), ubicacion.getLatitude());
         ((Aplicacion) actividad.getApplication()).posicionActual = punto;
+        if (alObtenerUbicacion != null) {
+            alObtenerUbicacion.run();
+        }
     }
 
     public void manejarResultadoPermiso(int codigoSolicitud, int[] resultados) {
