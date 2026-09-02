@@ -49,6 +49,7 @@ public class VistaLugarActivity extends AppCompatActivity {
     private TextView tvTelefono;
     private TextView tvUrl;
     private TextView tvGps;
+    private TextView tvNota;
     private LinearLayout tiraValoracion;
     private ImageView ivFavorito;
 
@@ -102,6 +103,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvTelefono = findViewById(R.id.telefono);
         tvUrl = findViewById(R.id.url);
         tvGps = findViewById(R.id.gps);
+        tvNota = findViewById(R.id.nota);
         ivFoto = findViewById(R.id.foto);
         ivFavorito = findViewById(R.id.favorito);
 
@@ -185,6 +187,13 @@ public class VistaLugarActivity extends AppCompatActivity {
         tvUrl.setText(lugar.getUrl());
         tvGps.setText(String.format(Locale.US, "%.4f, %.4f",
                 lugar.getPosicion().getLatitud(), lugar.getPosicion().getLongitud()));
+
+        String nota = lugar.getComentario() != null ? lugar.getComentario().trim() : "";
+        boolean hayNota = !nota.isEmpty();
+        tvNota.setText(nota);
+        tvNota.setVisibility(hayNota ? View.VISIBLE : View.GONE);
+        findViewById(R.id.nota_fila).setVisibility(hayNota ? View.VISIBLE : View.GONE);
+        findViewById(R.id.nota_divisor).setVisibility(hayNota ? View.VISIBLE : View.GONE);
         Estrellas.pintarValoracion(tiraValoracion, lugar.getValoracion(), true);
         mostrarResumen();
         mostrarFoto(lugar.getFoto());

@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_pixel"
                 android:hint="Ej: Mi café preferido"
+                android:inputType="text|textCapWords"
                 android:minHeight="44dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
@@ -48,6 +49,85 @@
                 android:textColorHint="@color/pixel_hint"
                 android:textCursorDrawable="@drawable/cursor_pixel"
                 android:textSize="18sp" />
+
+            <!-- Panel de sugerencias de ubicación (se muestra bajo el input) -->
+            <LinearLayout
+                android:id="@+id/panel_sugerencias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/fondo_panel_pixel"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/pixel_tinta"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/silkscreen_bold"
+                        android:letterSpacing="0.1"
+                        android:text="SUGERENCIAS"
+                        android:textColor="@color/pixel_fondo"
+                        android:textSize="8sp" />
+
+                    <TextView
+                        android:id="@+id/contador_sugerencias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/silkscreen_bold"
+                        android:textColor="@color/pixel_amarillo"
+                        android:textSize="8sp" />
+                </LinearLayout>
+
+                <com.example.mislugares.presentacion.RecyclerSugerencias
+                    android:id="@+id/lista_sugerencias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+
+                <LinearLayout
+                    android:id="@+id/fila_usar_tal_cual"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:background="@drawable/fondo_fila_escape"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:background="@color/pixel_tinta"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_lapiz_pixel" />
+
+                    <TextView
+                        android:id="@+id/texto_usar_tal_cual"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="9dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/vt323"
+                        android:maxLines="1"
+                        android:textColor="@color/pixel_tinta_suave"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/error_nombre"
@@ -352,6 +432,182 @@
                         android:src="@drawable/flecha_abajo_pixel" />
                 </FrameLayout>
             </LinearLayout>
+
+            <!-- NOTA -->
+            <TextView
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/etiqueta_amarilla"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="NOTA"
+                android:textColor="@color/pixel_tinta" />
+
+            <EditText
+                android:id="@+id/campo_nota"
+                style="@style/TextoCorrido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_pixel"
+                android:gravity="top|start"
+                android:hint="Ej: Pedir la mesa junto a la ventana"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minHeight="88dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:textColor="@color/pixel_tinta"
+                android:textColorHint="@color/pixel_hint"
+                android:textCursorDrawable="@drawable/cursor_pixel"
+                android:textSize="18sp" />
+
+            <!-- FOTO -->
+            <TextView
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/etiqueta_amarilla"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="FOTO"
+                android:textColor="@color/pixel_tinta" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Estado vacío: caja discontinua, mitad cámara / mitad galería -->
+                <LinearLayout
+                    android:id="@+id/foto_vacio"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="@drawable/borde_discontinuo"
+                    android:layerType="software"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/foto_camara"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_foto_camara" />
+
+                        <TextView
+                            style="@style/TextoEtiqueta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="CÁMARA"
+                            android:textColor="@color/pixel_tinta" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/pixel_tinta" />
+
+                    <LinearLayout
+                        android:id="@+id/foto_galeria"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_foto_galeria" />
+
+                        <TextView
+                            style="@style/TextoEtiqueta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="GALERÍA"
+                            android:textColor="@color/pixel_tinta" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Estado con foto: vista previa con marco -->
+                <FrameLayout
+                    android:id="@+id/foto_marco"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/borde_pixel"
+                    android:padding="3dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/foto_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="Foto del lugar"
+                        android:scaleType="centerCrop" />
+                </FrameLayout>
+
+                <!-- Mini botones sobre la foto -->
+                <LinearLayout
+                    android:id="@+id/foto_acciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/foto_recamara"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/input_pixel"
+                        android:contentDescription="Tomar otra foto"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_foto_camara" />
+
+                    <ImageView
+                        android:id="@+id/foto_regaleria"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/input_pixel"
+                        android:contentDescription="Elegir otra de galería"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_foto_galeria" />
+
+                    <ImageView
+                        android:id="@+id/foto_borrar"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/boton_foto_rojo"
+                        android:contentDescription="Quitar foto"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_foto_borrar" />
+                </LinearLayout>
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>

@@ -297,6 +297,42 @@
                         android:paddingBottom="5dp"
                         android:textColor="@color/pixel_tinta_suave" />
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/nota_divisor"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/pixel_divisor" />
+
+                <LinearLayout
+                    android:id="@+id/nota_fila"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/etiqueta_tinta"
+                        android:gravity="center"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:text="NOTA"
+                        android:textColor="@color/pixel_fondo" />
+
+                    <TextView
+                        android:id="@+id/nota"
+                        style="@style/TextoCorrido"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/pixel_tinta" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- ===== Fila de 3 botones ===== -->

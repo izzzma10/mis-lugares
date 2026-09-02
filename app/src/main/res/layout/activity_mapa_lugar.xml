@@ -99,6 +99,19 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/ficha_ir"
+                style="@style/TextoBoton"
+                android:layout_width="52dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/boton_pixel_verde"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="IR"
+                android:textSize="9sp" />
+
+            <TextView
                 android:id="@+id/ficha_ver"
                 style="@style/TextoBoton"
                 android:layout_width="52dp"

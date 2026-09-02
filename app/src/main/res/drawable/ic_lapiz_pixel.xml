@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lápiz pixel 14x14, amarillo. Para la fila "Usar tal cual". -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="14dp"
+    android:height="14dp"
+    android:viewportWidth="14"
+    android:viewportHeight="14">
+    <path
+        android:fillColor="@color/pixel_amarillo"
+        android:pathData="M9,2h3v1h-3z M8,3h4v1h-4z M7,4h3v1h-3z M6,5h3v1h-3z M5,6h3v1h-3z M4,7h3v1h-3z M3,8h3v1h-3z M2,9h3v1h-3z M2,10h2v1h-2z M2,11h1v1h-1z" />
+</vector>

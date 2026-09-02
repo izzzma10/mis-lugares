@@ -1,6 +1,7 @@
 package com.example.mislugares.presentacion;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,9 +18,9 @@ import com.example.mislugares.modelo.TipoLugar;
 import com.example.mislugares.datos.RepositorioLugares;
 
 import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.ITileSource;
-import org.osmdroid.tileprovider.tilesource.XYTileSource;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.util.MapTileIndex;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
@@ -41,6 +42,7 @@ public class MapaLugarActivity extends AppCompatActivity {
     private TextView fichaNombre;
     private TextView fichaDireccion;
     private TextView fichaVer;
+    private TextView fichaIr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +68,26 @@ public class MapaLugarActivity extends AppCompatActivity {
         fichaNombre = findViewById(R.id.ficha_nombre);
         fichaDireccion = findViewById(R.id.ficha_direccion);
         fichaVer = findViewById(R.id.ficha_ver);
+        fichaIr = findViewById(R.id.ficha_ir);
 
-        // Mapa (tiles de CARTO, uso libre para apps externas)
+        // Mapa: tiles de Esri "World Street Map", sin API key. Esri sirve las
+        // teselas como z/y/x (fila antes que columna), por eso el getTileURLString.
         mapa = findViewById(R.id.mapa);
-        ITileSource carto = new XYTileSource(
-                "CartoVoyager", 0, 20, 256, ".png",
+        OnlineTileSourceBase esri = new OnlineTileSourceBase(
+                "EsriWorldStreetMap", 0, 19, 256, "",
                 new String[]{
-                        "https://a.basemaps.cartocdn.com/rastertiles/voyager/",
-                        "https://b.basemaps.cartocdn.com/rastertiles/voyager/",
-                        "https://c.basemaps.cartocdn.com/rastertiles/voyager/"
-                });
-        mapa.setTileSource(carto);
+                        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/"
+                },
+                "Esri, HERE, Garmin, USGS, NGA") {
+            @Override
+            public String getTileURLString(long pMapTileIndex) {
+                return getBaseUrl()
+                        + MapTileIndex.getZoom(pMapTileIndex) + "/"
+                        + MapTileIndex.getY(pMapTileIndex) + "/"
+                        + MapTileIndex.getX(pMapTileIndex);
+            }
+        };
+        mapa.setTileSource(esri);
         mapa.setMultiTouchControls(true);
         // Ocultar el zoom nativo: usamos los botones propios.
         mapa.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
@@ -150,7 +161,23 @@ public class MapaLugarActivity extends AppCompatActivity {
             intent.putExtra(VistaLugarActivity.EXTRA_ID, id);
             startActivity(intent);
         });
+        fichaIr.setOnClickListener(v -> irEnMapaExterno(lugar));
         fichaInferior.setVisibility(View.VISIBLE);
+    }
+
+    /** Abre la navegación hacia el lugar en Google Maps (o el navegador si no está). */
+    private void irEnMapaExterno(Lugar lugar) {
+        GeoPunto p = lugar.getPosicion();
+        String destino = p.getLatitud() + "," + p.getLongitud();
+        Intent maps = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("google.navigation:q=" + destino));
+        maps.setPackage("com.google.android.apps.maps");
+        if (maps.resolveActivity(getPackageManager()) != null) {
+            startActivity(maps);
+        } else {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+                    "https://www.google.com/maps/dir/?api=1&destination=" + destino)));
+        }
     }
 
     private void centrarEnMiUbicacion() {

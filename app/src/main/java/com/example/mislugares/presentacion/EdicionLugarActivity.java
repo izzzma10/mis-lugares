@@ -1,7 +1,11 @@
 package com.example.mislugares.presentacion;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -11,8 +15,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
@@ -33,6 +45,7 @@ public class EdicionLugarActivity extends AppCompatActivity
     private EditText campoDireccion;
     private EditText campoTelefono;
     private EditText campoWeb;
+    private EditText campoNota;
     private EditText campoLatitud;
     private EditText campoLongitud;
     private LinearLayout tiraValoracion;
@@ -40,12 +53,53 @@ public class EdicionLugarActivity extends AppCompatActivity
     private TextView textoTipo;
     private TextView errorNombre;
 
+    private View fotoVacio;
+    private View fotoMarco;
+    private View fotoAcciones;
+    private ImageView fotoPreview;
+
     private TipoLugar tipoSeleccionado = TipoLugar.OTROS;
     private float valoracionSeleccionada = 0f;
+    private String fotoSeleccionada = "";
+    private Uri uriFotoCamara;
+
+    // Panel de sugerencias del campo NOMBRE
+    private final Handler manejador = new Handler(Looper.getMainLooper());
+    private View panelSugerencias;
+    private RecyclerSugerencias listaSugerencias;
+    private AdaptadorSugerencias adaptadorSug;
+    private TextView contadorSugerencias;
+    private TextView textoUsarTalCual;
+    private Runnable busquedaPendiente;
+    private long tokenBusqueda = 0;
+    private boolean rellenandoDesdeSugerencia = false;
 
     private RepositorioLugares repositorio;
     private int id = -1;
     private Lugar lugarExistente;
+
+    /** Elegir imagen de la galería (SAF, sin permiso de lectura). */
+    private final ActivityResultLauncher<String> selectorGaleria =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri == null) {
+                    return;
+                }
+                try {
+                    getContentResolver().takePersistableUriPermission(
+                            uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } catch (SecurityException ignorado) {
+                    // Algunos proveedores no permiten persistir el permiso.
+                }
+                asignarFoto(uri.toString());
+            });
+
+    /** Capturar foto con la app de cámara del sistema (sin permiso de CÁMARA). */
+    private final ActivityResultLauncher<Uri> tomarFoto =
+            registerForActivityResult(new ActivityResultContracts.TakePicture(), exito -> {
+                if (exito && uriFotoCamara != null) {
+                    asignarFoto(uriFotoCamara.toString());
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +112,7 @@ public class EdicionLugarActivity extends AppCompatActivity
         campoDireccion = findViewById(R.id.campo_direccion);
         campoTelefono = findViewById(R.id.campo_telefono);
         campoWeb = findViewById(R.id.campo_web);
+        campoNota = findViewById(R.id.campo_nota);
         campoLatitud = findViewById(R.id.campo_latitud);
         campoLongitud = findViewById(R.id.campo_longitud);
         tiraValoracion = findViewById(R.id.tira_valoracion);
@@ -71,12 +126,27 @@ public class EdicionLugarActivity extends AppCompatActivity
         campoNombre.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) { }
             @Override public void onTextChanged(CharSequence s, int a, int b, int c) { }
-            @Override public void afterTextChanged(Editable s) { limpiarErrorNombre(); }
+            @Override public void afterTextChanged(Editable s) {
+                limpiarErrorNombre();
+                programarBusqueda(s.toString());
+            }
         });
+        configurarPanelSugerencias();
 
         configurarTiraValoracion();
         Estrellas.pintarValoracion(tiraValoracion, valoracionSeleccionada, true);
         mostrarTipoEnSelector();
+
+        fotoVacio = findViewById(R.id.foto_vacio);
+        fotoMarco = findViewById(R.id.foto_marco);
+        fotoAcciones = findViewById(R.id.foto_acciones);
+        fotoPreview = findViewById(R.id.foto_preview);
+        findViewById(R.id.foto_camara).setOnClickListener(v -> abrirCamara());
+        findViewById(R.id.foto_recamara).setOnClickListener(v -> abrirCamara());
+        findViewById(R.id.foto_galeria).setOnClickListener(v -> selectorGaleria.launch("image/*"));
+        findViewById(R.id.foto_regaleria).setOnClickListener(v -> selectorGaleria.launch("image/*"));
+        findViewById(R.id.foto_borrar).setOnClickListener(v -> asignarFoto(""));
+        mostrarFoto();
 
         id = getIntent().getIntExtra(EXTRA_ID, -1);
 
@@ -101,6 +171,12 @@ public class EdicionLugarActivity extends AppCompatActivity
         findViewById(R.id.btn_gps).setOnClickListener(v -> rellenarGps());
     }
 
+    @Override
+    protected void onDestroy() {
+        manejador.removeCallbacksAndMessages(null);
+        super.onDestroy();
+    }
+
     /** Abre la hoja inferior para elegir el tipo, con el actual visible. */
     private void abrirHojaTipo() {
         HojaTipoFragment.nueva(tipoSeleccionado)
@@ -117,6 +193,115 @@ public class EdicionLugarActivity extends AppCompatActivity
     private void mostrarTipoEnSelector() {
         pinTipo.setImageResource(Tipos.pin(tipoSeleccionado));
         textoTipo.setText(Tipos.nombre(tipoSeleccionado));
+    }
+
+    /** Cablea el panel de sugerencias que aparece bajo el input NOMBRE. */
+    private void configurarPanelSugerencias() {
+        panelSugerencias = findViewById(R.id.panel_sugerencias);
+        contadorSugerencias = findViewById(R.id.contador_sugerencias);
+        textoUsarTalCual = findViewById(R.id.texto_usar_tal_cual);
+
+        listaSugerencias = findViewById(R.id.lista_sugerencias);
+        listaSugerencias.setLayoutManager(new LinearLayoutManager(this));
+        listaSugerencias.addItemDecoration(new AdaptadorSugerencias.Divisor(this));
+        adaptadorSug = new AdaptadorSugerencias(this::aplicarSugerencia);
+        listaSugerencias.setAdapter(adaptadorSug);
+
+        findViewById(R.id.fila_usar_tal_cual).setOnClickListener(v -> ocultarPanel());
+        campoNombre.setOnFocusChangeListener((v, tieneFoco) -> {
+            if (!tieneFoco) {
+                ocultarPanel();
+            }
+        });
+    }
+
+    /** Lanza una búsqueda 350 ms después de la última tecla (mín. 3 caracteres). */
+    private void programarBusqueda(String texto) {
+        if (rellenandoDesdeSugerencia) {
+            return;
+        }
+        if (busquedaPendiente != null) {
+            manejador.removeCallbacks(busquedaPendiente);
+        }
+        final String consulta = texto.trim();
+        if (consulta.length() < 3) {
+            ocultarPanel();
+            return;
+        }
+        // Sesgo hacia la posición actual (o Monterrey si aún no hay GPS) para
+        // priorizar lugares cercanos; el filtro por país va dentro del buscador.
+        double sesgoLat = 25.6866, sesgoLon = -100.3161;
+        GeoPunto pos = ((Aplicacion) getApplication()).posicionActual;
+        if (pos != null && !pos.equals(GeoPunto.SIN_POSICION)) {
+            sesgoLat = pos.getLatitud();
+            sesgoLon = pos.getLongitud();
+        }
+        final double biasLat = sesgoLat, biasLon = sesgoLon;
+
+        final long token = ++tokenBusqueda;
+        busquedaPendiente = () -> BuscadorLugares.buscar(consulta, biasLat, biasLon, resultados -> {
+            if (token != tokenBusqueda || isFinishing()) {
+                return;   // llegó tarde: ya hay otra búsqueda más nueva
+            }
+            mostrarSugerencias(resultados);
+        });
+        manejador.postDelayed(busquedaPendiente, 350);
+    }
+
+    private void mostrarSugerencias(List<BuscadorLugares.Resultado> resultados) {
+        if (rellenandoDesdeSugerencia || !campoNombre.hasFocus()) {
+            return;
+        }
+        if (resultados.isEmpty()) {
+            ocultarPanel();
+            return;
+        }
+        GeoPunto pos = ((Aplicacion) getApplication()).posicionActual;
+        adaptadorSug.actualizar(resultados, pos);
+        contadorSugerencias.setText(String.valueOf(resultados.size()));
+        textoUsarTalCual.setText(
+                "Usar \"" + campoNombre.getText().toString().trim() + "\" tal cual");
+        panelSugerencias.setVisibility(View.VISIBLE);
+        panelSugerencias.announceForAccessibility(
+                resultados.size() + " sugerencias disponibles");
+    }
+
+    private void ocultarPanel() {
+        if (panelSugerencias != null) {
+            panelSugerencias.setVisibility(View.GONE);
+        }
+    }
+
+    /** Vuelca la sugerencia en cascada; el flag evita que el panel se reabra. */
+    private void aplicarSugerencia(BuscadorLugares.Resultado r) {
+        rellenandoDesdeSugerencia = true;
+        if (busquedaPendiente != null) {
+            manejador.removeCallbacks(busquedaPendiente);
+            busquedaPendiente = null;
+        }
+        tokenBusqueda++;
+
+        campoNombre.setText(r.nombre);
+        campoNombre.setSelection(campoNombre.getText().length());
+        if (!r.direccion.isEmpty()) {
+            campoDireccion.setText(r.direccion);
+        }
+        campoLatitud.setText(String.valueOf(r.latitud));
+        campoLongitud.setText(String.valueOf(r.longitud));
+        if (r.tipo != null) {
+            tipoSeleccionado = r.tipo;
+            mostrarTipoEnSelector();
+        }
+
+        ocultarPanel();
+        rellenandoDesdeSugerencia = false;
+
+        // Enfoca el siguiente campo vacío.
+        if (campoTelefono.getText().toString().trim().isEmpty()) {
+            campoTelefono.requestFocus();
+        } else if (campoWeb.getText().toString().trim().isEmpty()) {
+            campoWeb.requestFocus();
+        }
     }
 
     /** Calificar tocando o deslizando sobre la tira: pasos de media estrella.
@@ -147,6 +332,45 @@ public class EdicionLugarActivity extends AppCompatActivity
         });
     }
 
+    /** Crea un fichero vacío en el almacenamiento privado y lanza la cámara sobre él. */
+    private void abrirCamara() {
+        try {
+            File directorio = getExternalFilesDir("Pictures");
+            File archivo = File.createTempFile(
+                    "foto_" + System.currentTimeMillis() / 1000, ".jpg", directorio);
+            uriFotoCamara = FileProvider.getUriForFile(
+                    this, getPackageName() + ".fileprovider", archivo);
+            tomarFoto.launch(uriFotoCamara);
+        } catch (IOException e) {
+            SnackPixel.error(this, "No se pudo preparar la foto");
+        }
+    }
+
+    /** Guarda la URI elegida (o "" para quitarla) y refresca el bloque de foto. */
+    private void asignarFoto(String uriFoto) {
+        fotoSeleccionada = uriFoto == null ? "" : uriFoto;
+        mostrarFoto();
+    }
+
+    /** Alterna entre la caja "añadir foto" y la vista previa con sus botones. */
+    private void mostrarFoto() {
+        boolean hay = fotoSeleccionada != null && !fotoSeleccionada.isEmpty();
+        fotoVacio.setVisibility(hay ? View.GONE : View.VISIBLE);
+        fotoMarco.setVisibility(hay ? View.VISIBLE : View.GONE);
+        fotoAcciones.setVisibility(hay ? View.VISIBLE : View.GONE);
+        if (!hay) {
+            return;
+        }
+        if (fotoSeleccionada.contains("://")) {
+            fotoPreview.setImageURI(Uri.parse(fotoSeleccionada));
+        } else {
+            int recurso = getResources().getIdentifier(
+                    fotoSeleccionada, "drawable", getPackageName());
+            fotoPreview.setImageResource(
+                    recurso != 0 ? recurso : R.drawable.foto_placeholder);
+        }
+    }
+
     /** Rellena lat/lon con la última ubicación conocida por la app. */
     private void rellenarGps() {
         GeoPunto pos = ((Aplicacion) getApplication()).posicionActual;
@@ -159,12 +383,17 @@ public class EdicionLugarActivity extends AppCompatActivity
     }
 
     private void rellenaFormulario(Lugar lugar) {
+        rellenandoDesdeSugerencia = true;   // no dispares autocompletado al precargar
         campoNombre.setText(lugar.getNombre());
+        rellenandoDesdeSugerencia = false;
         campoDireccion.setText(lugar.getDireccion());
         campoTelefono.setText(String.valueOf(lugar.getTelefono()));
         campoWeb.setText(lugar.getUrl());
+        campoNota.setText(lugar.getComentario());
         campoLatitud.setText(String.valueOf(lugar.getPosicion().getLatitud()));
         campoLongitud.setText(String.valueOf(lugar.getPosicion().getLongitud()));
+        fotoSeleccionada = lugar.getFoto() != null ? lugar.getFoto() : "";
+        mostrarFoto();
         valoracionSeleccionada = lugar.getValoracion();
         Estrellas.pintarValoracion(tiraValoracion, valoracionSeleccionada, true);
         tipoSeleccionado = lugar.getTipo();
@@ -210,8 +439,8 @@ public class EdicionLugarActivity extends AppCompatActivity
         TipoLugar tipo = tipoSeleccionado;
 
         String url = campoWeb.getText().toString().trim();
-        String comentario = lugarExistente != null ? lugarExistente.getComentario() : "";
-        String foto = lugarExistente != null ? lugarExistente.getFoto() : "";
+        String comentario = campoNota.getText().toString().trim();
+        String foto = fotoSeleccionada;
 
         Lugar lugar = new Lugar(nombre, direccion, telefono, url, comentario,
                 valoracion, new GeoPunto(longitud, latitud), foto);

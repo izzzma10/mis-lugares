@@ -109,7 +109,8 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/borde_pixel">
+                android:background="@drawable/borde_pixel"
+                android:padding="3dp">
 
                 <TextView
                     android:id="@+id/maximo_menos"
