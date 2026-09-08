@@ -55,11 +55,11 @@ public class MapaLugarActivity extends AppCompatActivity {
         repositorio = ((Aplicacion) getApplication()).repositorio;
 
         // Barra
-        ((TextView) findViewById(R.id.barra_titulo)).setText("MAPA");
+        ((TextView) findViewById(R.id.barra_titulo)).setText(getString(R.string.barra_mapa));
         findViewById(R.id.barra_atras).setOnClickListener(v -> finish());
         TextView chipGps = findViewById(R.id.barra_chip);
         chipGps.setVisibility(View.VISIBLE);
-        chipGps.setText("GPS");
+        chipGps.setText(getString(R.string.etiqueta_gps));
         chipGps.setOnClickListener(v -> centrarEnMiUbicacion());
 
         // Ficha inferior

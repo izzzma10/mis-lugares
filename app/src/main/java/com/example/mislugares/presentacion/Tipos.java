@@ -56,7 +56,27 @@ final class Tipos {
         return R.drawable.ic_pin_otros;
     }
 
-    static String nombre(TipoLugar tipo) {
-        return tipo == null ? "SIN TIPO" : tipo.name();
+    /** Recurso de texto (traducible) con el nombre del tipo. */
+    static int nombreRes(TipoLugar tipo) {
+        if (tipo == null) {
+            return R.string.tipo_sin;
+        }
+        switch (tipo) {
+            case RESTAURANTE: return R.string.tipo_restaurante;
+            case BAR:         return R.string.tipo_bar;
+            case COPAS:       return R.string.tipo_copas;
+            case ESPECTACULO: return R.string.tipo_espectaculo;
+            case HOTEL:       return R.string.tipo_hotel;
+            case COMPRAS:     return R.string.tipo_compras;
+            case EDUCACION:   return R.string.tipo_educacion;
+            case DEPORTE:     return R.string.tipo_deporte;
+            case NATURALEZA:  return R.string.tipo_naturaleza;
+            case GASOLINERA:  return R.string.tipo_gasolinera;
+            default:          return R.string.tipo_otros;
+        }
+    }
+
+    static String nombre(Context contexto, TipoLugar tipo) {
+        return contexto.getString(nombreRes(tipo));
     }
 }

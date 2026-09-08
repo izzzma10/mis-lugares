@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:duplicateParentState="true"
-                android:text="LISTA"
+                android:text="@string/tab_lista"
                 android:textColor="@color/tab_contenido" />
         </LinearLayout>
 
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:duplicateParentState="true"
-                android:text="MAPA"
+                android:text="@string/tab_mapa"
                 android:textColor="@color/tab_contenido" />
         </LinearLayout>
 
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:duplicateParentState="true"
-                android:text="AJUSTES"
+                android:text="@string/tab_ajustes"
                 android:textColor="@color/tab_contenido" />
         </LinearLayout>
     </LinearLayout>

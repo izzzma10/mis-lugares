@@ -28,7 +28,7 @@
                     android:id="@+id/foto"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:contentDescription="fotografia"
+                    android:contentDescription="@string/cd_fotografia"
                     android:scaleType="centerCrop"
                     android:src="@drawable/foto_placeholder" />
 
@@ -52,7 +52,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:background="@drawable/input_pixel"
-                        android:contentDescription="Tomar foto"
+                        android:contentDescription="@string/cd_tomar_foto"
                         android:padding="6dp"
                         android:src="@drawable/ic_foto_camara" />
 
@@ -62,7 +62,7 @@
                         android:layout_height="32dp"
                         android:layout_marginStart="5dp"
                         android:background="@drawable/input_pixel"
-                        android:contentDescription="Elegir de galería"
+                        android:contentDescription="@string/cd_elegir_galeria"
                         android:padding="6dp"
                         android:src="@drawable/ic_foto_galeria" />
 
@@ -72,7 +72,7 @@
                         android:layout_height="32dp"
                         android:layout_marginStart="5dp"
                         android:background="@drawable/boton_foto_rojo"
-                        android:contentDescription="Eliminar foto"
+                        android:contentDescription="@string/cd_eliminar_foto"
                         android:padding="6dp"
                         android:src="@drawable/ic_foto_borrar" />
                 </LinearLayout>
@@ -121,7 +121,7 @@
                         android:layout_width="34dp"
                         android:layout_height="32dp"
                         android:layout_marginStart="8dp"
-                        android:contentDescription="Favorito"
+                        android:contentDescription="@string/cd_favorito"
                         android:scaleType="fitXY"
                         android:src="@drawable/estrella_fav_inactiva" />
                 </LinearLayout>
@@ -180,7 +180,7 @@
                         android:gravity="center"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="DIR"
+                        android:text="@string/etiqueta_dir"
                         android:textColor="@color/pixel_fondo" />
 
                     <TextView
@@ -214,7 +214,7 @@
                         android:gravity="center"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="TEL"
+                        android:text="@string/etiqueta_tel"
                         android:textColor="@color/pixel_fondo" />
 
                     <TextView
@@ -248,7 +248,7 @@
                         android:gravity="center"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="WEB"
+                        android:text="@string/etiqueta_web"
                         android:textColor="@color/pixel_fondo" />
 
                     <TextView
@@ -282,7 +282,7 @@
                         android:gravity="center"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="GPS"
+                        android:text="@string/etiqueta_gps"
                         android:textColor="@color/pixel_fondo" />
 
                     <TextView
@@ -318,7 +318,7 @@
                         android:gravity="center"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="NOTA"
+                        android:text="@string/etiqueta_nota"
                         android:textColor="@color/pixel_fondo" />
 
                     <TextView
@@ -359,7 +359,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="MAPA" />
+                    android:text="@string/boton_mapa" />
 
                 <TextView
                     android:id="@+id/btnCompartir"
@@ -377,7 +377,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="COMPARTIR"
+                    android:text="@string/boton_compartir"
                     android:textColor="@color/pixel_tinta" />
 
                 <TextView
@@ -396,7 +396,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="LLAMAR"
+                    android:text="@string/boton_llamar"
                     android:textColor="@color/pixel_tinta" />
             </LinearLayout>
 

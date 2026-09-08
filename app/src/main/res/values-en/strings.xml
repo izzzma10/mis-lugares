@@ -1,0 +1,143 @@
+<resources>
+    <string name="app_name">My Places</string>
+    <string name="logo_del_tipo">Type logo</string>
+
+    <!-- Splash -->
+    <string name="splash_titulo">MY\nPLACES</string>
+    <string name="splash_cargando">loading</string>
+
+    <!-- Bar / navigation -->
+    <string name="atras">Back</string>
+    <string name="barra_lista">MY PLACES</string>
+    <string name="barra_detalle">DETAILS</string>
+    <string name="barra_mapa">MAP</string>
+    <string name="barra_preferencias">SETTINGS</string>
+    <string name="barra_nuevo_lugar">NEW PLACE</string>
+    <string name="barra_editar_lugar">EDIT PLACE</string>
+
+    <!-- Tabs -->
+    <string name="tab_lista">LIST</string>
+    <string name="tab_mapa">MAP</string>
+    <string name="tab_ajustes">SETTINGS</string>
+
+    <!-- List -->
+    <string name="filtro_todos">ALL</string>
+    <string name="filtro_favoritos">★ FAV</string>
+    <string name="filtro_cerca">NEAR</string>
+    <string name="filtro_az">A-Z</string>
+    <string name="agregar_lugar">Add place</string>
+    <string name="km_desconocido">… KM</string>
+    <string name="km_formato">%.1f KM</string>
+
+    <!-- Details -->
+    <string name="editar">EDIT</string>
+    <string name="etiqueta_dir">ADDR</string>
+    <string name="etiqueta_tel">TEL</string>
+    <string name="etiqueta_web">WEB</string>
+    <string name="etiqueta_gps">GPS</string>
+    <string name="etiqueta_nota">NOTE</string>
+    <string name="boton_mapa">MAP</string>
+    <string name="boton_compartir">SHARE</string>
+    <string name="boton_llamar">CALL</string>
+    <string name="boton_ir">GO</string>
+    <string name="boton_ver">VIEW</string>
+    <string name="cd_fotografia">photo</string>
+    <string name="cd_favorito">Favorite</string>
+    <string name="cd_tomar_foto">Take photo</string>
+    <string name="cd_elegir_galeria">Pick from gallery</string>
+    <string name="cd_eliminar_foto">Delete photo</string>
+    <string name="gps_formato">%1$.4f, %2$.4f</string>
+    <string name="resumen_valoracion">%.1f</string>
+    <string name="resumen_valoracion_km">%1$.1f · %2$.1f km</string>
+    <string name="lugar_no_existe">This place no longer exists</string>
+
+    <!-- Edit -->
+    <string name="campo_nombre">NAME</string>
+    <string name="hint_nombre">e.g. My favorite café</string>
+    <string name="campo_direccion">ADDRESS</string>
+    <string name="hint_direccion">e.g. 123 Main Ave</string>
+    <string name="campo_tel">TEL</string>
+    <string name="hint_tel">5551234567</string>
+    <string name="campo_web">WEB</string>
+    <string name="hint_web">site.com</string>
+    <string name="campo_gps">GPS</string>
+    <string name="hint_latitud">Latitude</string>
+    <string name="hint_longitud">Longitude</string>
+    <string name="campo_valoracion">RATING</string>
+    <string name="campo_tipo">TYPE</string>
+    <string name="cd_tipo">Place type. Tap to change.</string>
+    <string name="campo_nota">NOTE</string>
+    <string name="hint_nota">e.g. Ask for the table by the window</string>
+    <string name="campo_foto">PHOTO</string>
+    <string name="foto_camara">CAMERA</string>
+    <string name="foto_galeria">GALLERY</string>
+    <string name="cd_foto_lugar">Place photo</string>
+    <string name="cd_tomar_otra_foto">Take another photo</string>
+    <string name="cd_elegir_otra_galeria">Pick another from gallery</string>
+    <string name="cd_quitar_foto">Remove photo</string>
+    <string name="boton_eliminar">DELETE</string>
+    <string name="boton_guardar">SAVE</string>
+    <string name="cd_estrella_una">1 star</string>
+    <string name="cd_estrella_2">2 stars</string>
+    <string name="cd_estrella_3">3 stars</string>
+    <string name="cd_estrella_4">4 stars</string>
+    <string name="cd_estrella_5">5 stars</string>
+    <string name="cd_estrellas">%d stars</string>
+
+    <!-- Suggestions panel -->
+    <string name="sugerencias_titulo">SUGGESTIONS</string>
+    <string name="usar_tal_cual">Use \"%s\" as is</string>
+    <string name="sugerencias_disponibles">%d suggestions available</string>
+
+    <!-- Edit: validation and notices -->
+    <string name="err_nombre_vacio">The name can\'t be empty</string>
+    <string name="err_direccion">The address is required</string>
+    <string name="err_telefono">The phone number must have 10 digits</string>
+    <string name="err_latitud">The latitude is not a valid number</string>
+    <string name="err_longitud">The longitude is not a valid number</string>
+    <string name="err_foto">Couldn\'t prepare the photo</string>
+    <string name="err_sin_ubicacion">No location available yet</string>
+    <string name="lugar_guardado">Place saved</string>
+    <string name="lugar_eliminado">Place deleted</string>
+    <string name="dlg_eliminar_lugar_titulo">Delete place</string>
+    <string name="dlg_eliminar_lugar_msg">Delete this place for good? This can\'t be undone.</string>
+    <string name="dlg_eliminar_foto_titulo">Delete photo</string>
+    <string name="dlg_eliminar_foto_msg">Delete this place\'s photo? This can\'t be undone.</string>
+    <string name="dlg_eliminar">Delete</string>
+    <string name="dlg_cancelar">CANCEL</string>
+
+    <!-- Type sheet -->
+    <string name="elegir_tipo">CHOOSE TYPE</string>
+    <string name="cerrar">Close</string>
+
+    <!-- Place types -->
+    <string name="tipo_sin">NO TYPE</string>
+    <string name="tipo_restaurante">RESTAURANT</string>
+    <string name="tipo_bar">BAR</string>
+    <string name="tipo_copas">DRINKS</string>
+    <string name="tipo_espectaculo">SHOW</string>
+    <string name="tipo_hotel">HOTEL</string>
+    <string name="tipo_compras">SHOPPING</string>
+    <string name="tipo_educacion">EDUCATION</string>
+    <string name="tipo_deporte">SPORTS</string>
+    <string name="tipo_naturaleza">NATURE</string>
+    <string name="tipo_gasolinera">GAS STATION</string>
+    <string name="tipo_otros">OTHER</string>
+
+    <!-- Settings -->
+    <string name="pref_ordenar">SORT PLACES BY</string>
+    <string name="pref_orden_sin">UNSORTED</string>
+    <string name="pref_orden_valoracion">RATING</string>
+    <string name="pref_orden_cercania">NEARBY</string>
+    <string name="pref_maximo">MAX TO SHOW</string>
+    <string name="pref_mostrar_km">Show distance in km</string>
+    <string name="pref_solo_favoritos">Favorites only on open</string>
+    <string name="pref_idioma">LANGUAGE</string>
+    <string name="pref_idioma_es">ESPAÑOL</string>
+    <string name="pref_idioma_en">ENGLISH</string>
+    <string name="pref_pie">v1.0 · %d saved places</string>
+
+    <!-- Generic -->
+    <string name="mas">+</string>
+    <string name="menos">-</string>
+</resources>

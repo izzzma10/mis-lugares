@@ -108,7 +108,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="IR"
+                android:text="@string/boton_ir"
                 android:textSize="9sp" />
 
             <TextView
@@ -121,7 +121,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="VER"
+                android:text="@string/boton_ver"
                 android:textSize="9sp" />
         </LinearLayout>
 

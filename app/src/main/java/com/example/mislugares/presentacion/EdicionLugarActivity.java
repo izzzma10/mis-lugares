@@ -153,7 +153,7 @@ public class EdicionLugarActivity extends AppCompatActivity
         // Barra: título y color según crear / editar
         boolean editando = id >= 0;
         ((TextView) findViewById(R.id.barra_titulo))
-                .setText(editando ? "EDITAR LUGAR" : "NUEVO LUGAR");
+                .setText(getString(editando ? R.string.barra_editar_lugar : R.string.barra_nuevo_lugar));
         findViewById(R.id.barra_atras).setOnClickListener(v -> finish());
         findViewById(R.id.barra_fondo).setBackgroundColor(ContextCompat.getColor(
                 this, editando ? R.color.pixel_azul : R.color.pixel_verde));
@@ -192,7 +192,7 @@ public class EdicionLugarActivity extends AppCompatActivity
     /** Refresca el pin y el texto del selector de tipo. */
     private void mostrarTipoEnSelector() {
         pinTipo.setImageResource(Tipos.pin(tipoSeleccionado));
-        textoTipo.setText(Tipos.nombre(tipoSeleccionado));
+        textoTipo.setText(Tipos.nombre(this, tipoSeleccionado));
     }
 
     /** Cablea el panel de sugerencias que aparece bajo el input NOMBRE. */
@@ -260,10 +260,10 @@ public class EdicionLugarActivity extends AppCompatActivity
         adaptadorSug.actualizar(resultados, pos);
         contadorSugerencias.setText(String.valueOf(resultados.size()));
         textoUsarTalCual.setText(
-                "Usar \"" + campoNombre.getText().toString().trim() + "\" tal cual");
+                getString(R.string.usar_tal_cual, campoNombre.getText().toString().trim()));
         panelSugerencias.setVisibility(View.VISIBLE);
         panelSugerencias.announceForAccessibility(
-                resultados.size() + " sugerencias disponibles");
+                getString(R.string.sugerencias_disponibles, resultados.size()));
     }
 
     private void ocultarPanel() {
@@ -342,7 +342,7 @@ public class EdicionLugarActivity extends AppCompatActivity
                     this, getPackageName() + ".fileprovider", archivo);
             tomarFoto.launch(uriFotoCamara);
         } catch (IOException e) {
-            SnackPixel.error(this, "No se pudo preparar la foto");
+            SnackPixel.error(this, getString(R.string.err_foto));
         }
     }
 
@@ -375,7 +375,7 @@ public class EdicionLugarActivity extends AppCompatActivity
     private void rellenarGps() {
         GeoPunto pos = ((Aplicacion) getApplication()).posicionActual;
         if (pos == null || pos.equals(GeoPunto.SIN_POSICION)) {
-            SnackPixel.error(this, "Sin ubicación disponible todavía");
+            SnackPixel.error(this, getString(R.string.err_sin_ubicacion));
             return;
         }
         campoLatitud.setText(String.valueOf(pos.getLatitud()));
@@ -409,14 +409,14 @@ public class EdicionLugarActivity extends AppCompatActivity
             return;
         }
         if (direccion.isEmpty()) {
-            SnackPixel.error(this, "La dirección es obligatoria");
+            SnackPixel.error(this, getString(R.string.err_direccion));
             return;
         }
 
         String telefono = campoTelefono.getText().toString().trim();
 
         if (!telefono.matches("\\d{10}")) {
-            SnackPixel.error(this, "El teléfono debe tener 10 dígitos");
+            SnackPixel.error(this, getString(R.string.err_telefono));
             return;
         }
 
@@ -424,11 +424,11 @@ public class EdicionLugarActivity extends AppCompatActivity
         String textoLongitud = campoLongitud.getText().toString().trim();
 
         if (!textoLatitud.isEmpty() && !esNumeroValido(textoLatitud)) {
-            SnackPixel.error(this, "La latitud no es un número válido");
+            SnackPixel.error(this, getString(R.string.err_latitud));
             return;
         }
         if (!textoLongitud.isEmpty() && !esNumeroValido(textoLongitud)) {
-            SnackPixel.error(this, "La longitud no es un número válido");
+            SnackPixel.error(this, getString(R.string.err_longitud));
             return;
         }
 
@@ -453,26 +453,26 @@ public class EdicionLugarActivity extends AppCompatActivity
             guardarLugar.guardarNuevo(lugar);
         }
 
-        SnackPixel.dejarPendiente("Lugar guardado", true);
+        SnackPixel.dejarPendiente(getString(R.string.lugar_guardado), true);
         setResult(RESULT_OK);
         finish();
     }
 
     private void eliminar() {
-        DialogosPixel.mostrar(this, "Eliminar lugar",
-                "¿Seguro que quieres eliminar este lugar? No se puede deshacer.",
-                "Eliminar", true, () -> {
+        DialogosPixel.mostrar(this, getString(R.string.dlg_eliminar_lugar_titulo),
+                getString(R.string.dlg_eliminar_lugar_msg),
+                getString(R.string.dlg_eliminar), true, () -> {
                     if (id >= 0) {
                         new BorrarLugar(repositorio).borrar(id);
                     }
-                    SnackPixel.dejarPendiente("Lugar eliminado", true);
+                    SnackPixel.dejarPendiente(getString(R.string.lugar_eliminado), true);
                     setResult(RESULT_CANCELED);
                     finish();
                 });
     }
 
     private void mostrarErrorNombre() {
-        errorNombre.setText("El nombre no puede quedar vacío");
+        errorNombre.setText(getString(R.string.err_nombre_vacio));
         errorNombre.setVisibility(View.VISIBLE);
         fondoCampoNombre(R.drawable.input_pixel_error);
     }

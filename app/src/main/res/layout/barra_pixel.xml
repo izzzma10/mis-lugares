@@ -23,7 +23,7 @@
             android:layout_width="18dp"
             android:layout_height="16dp"
             android:layout_marginEnd="10dp"
-            android:contentDescription="Atrás"
+            android:contentDescription="@string/atras"
             android:src="@drawable/ic_flecha_atras" />
 
         <TextView

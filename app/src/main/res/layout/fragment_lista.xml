@@ -31,7 +31,7 @@
             android:paddingEnd="8dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            android:text="TODOS"
+            android:text="@string/filtro_todos"
             android:textColor="@color/chip_texto" />
 
         <TextView
@@ -49,7 +49,7 @@
             android:paddingEnd="8dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            android:text="★ FAV"
+            android:text="@string/filtro_favoritos"
             android:textColor="@color/chip_texto" />
 
         <TextView
@@ -66,7 +66,7 @@
             android:paddingEnd="8dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            android:text="CERCA"
+            android:text="@string/filtro_cerca"
             android:textColor="@color/chip_texto" />
 
         <View
@@ -88,7 +88,7 @@
             android:paddingEnd="8dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            android:text="A-Z"
+            android:text="@string/filtro_az"
             android:textColor="@color/chip_texto_azul" />
     </LinearLayout>
 

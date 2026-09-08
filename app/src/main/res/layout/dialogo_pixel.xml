@@ -80,7 +80,7 @@
             android:focusable="true"
             android:fontFamily="@font/silkscreen"
             android:gravity="center"
-            android:text="CANCELAR"
+            android:text="@string/dlg_cancelar"
             android:textAllCaps="true"
             android:textColor="@color/pixel_tinta"
             android:textSize="9sp"

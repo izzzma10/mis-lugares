@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
 
-        ((TextView) findViewById(R.id.barra_titulo)).setText("MIS LUGARES");
+        ((TextView) findViewById(R.id.barra_titulo)).setText(getString(R.string.barra_lista));
         findViewById(R.id.barra_atras).setVisibility(View.GONE);
 
         // FAB "+"

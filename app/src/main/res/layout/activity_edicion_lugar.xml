@@ -29,7 +29,7 @@
                 android:paddingEnd="6dp"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="NOMBRE"
+                android:text="@string/campo_nombre"
                 android:textColor="@color/pixel_tinta" />
 
             <EditText
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_pixel"
-                android:hint="Ej: Mi café preferido"
+                android:hint="@string/hint_nombre"
                 android:inputType="text|textCapWords"
                 android:minHeight="44dp"
                 android:paddingStart="8dp"
@@ -76,7 +76,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/silkscreen_bold"
                         android:letterSpacing="0.1"
-                        android:text="SUGERENCIAS"
+                        android:text="@string/sugerencias_titulo"
                         android:textColor="@color/pixel_fondo"
                         android:textSize="8sp" />
 
@@ -155,7 +155,7 @@
                 android:paddingEnd="6dp"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="DIRECCION"
+                android:text="@string/campo_direccion"
                 android:textColor="@color/pixel_tinta" />
 
             <EditText
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="11dp"
                 android:background="@drawable/input_pixel"
-                android:hint="Ej: Av. Principal 123"
+                android:hint="@string/hint_direccion"
                 android:minHeight="44dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
@@ -198,7 +198,7 @@
                         android:paddingEnd="6dp"
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
-                        android:text="TEL"
+                        android:text="@string/campo_tel"
                         android:textColor="@color/pixel_tinta" />
 
                     <EditText
@@ -207,7 +207,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_pixel"
-                        android:hint="5551234567"
+                        android:hint="@string/hint_tel"
                         android:inputType="phone"
                         android:minHeight="44dp"
                         android:paddingStart="8dp"
@@ -237,7 +237,7 @@
                         android:paddingEnd="6dp"
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
-                        android:text="WEB"
+                        android:text="@string/campo_web"
                         android:textColor="@color/pixel_tinta" />
 
                     <EditText
@@ -246,7 +246,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_pixel"
-                        android:hint="sitio.com"
+                        android:hint="@string/hint_web"
                         android:inputType="textUri"
                         android:minHeight="44dp"
                         android:paddingStart="8dp"
@@ -272,7 +272,7 @@
                 android:paddingEnd="6dp"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="GPS"
+                android:text="@string/campo_gps"
                 android:textColor="@color/pixel_tinta" />
 
             <LinearLayout
@@ -290,7 +290,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:hint="Latitud"
+                    android:hint="@string/hint_latitud"
                     android:inputType="numberDecimal|numberSigned"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
@@ -312,7 +312,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:hint="Longitud"
+                    android:hint="@string/hint_longitud"
                     android:inputType="numberDecimal|numberSigned"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
@@ -330,7 +330,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="GPS"
+                    android:text="@string/campo_gps"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -341,7 +341,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="6dp"
-                android:text="VALORACION"
+                android:text="@string/campo_valoracion"
                 android:textColor="@color/pixel_tinta" />
 
             <LinearLayout
@@ -351,11 +351,11 @@
                 android:layout_marginStart="-7dp"
                 android:orientation="horizontal">
 
-                <ImageView android:id="@+id/form_estrella_1" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="1 estrella" />
-                <ImageView android:id="@+id/form_estrella_2" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="2 estrellas" />
-                <ImageView android:id="@+id/form_estrella_3" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="3 estrellas" />
-                <ImageView android:id="@+id/form_estrella_4" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="4 estrellas" />
-                <ImageView android:id="@+id/form_estrella_5" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="5 estrellas" />
+                <ImageView android:id="@+id/form_estrella_1" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="@string/cd_estrella_una" />
+                <ImageView android:id="@+id/form_estrella_2" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="@string/cd_estrella_2" />
+                <ImageView android:id="@+id/form_estrella_3" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="@string/cd_estrella_3" />
+                <ImageView android:id="@+id/form_estrella_4" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="@string/cd_estrella_4" />
+                <ImageView android:id="@+id/form_estrella_5" android:layout_width="44dp" android:layout_height="44dp" android:padding="7dp" android:scaleType="fitCenter" android:src="@drawable/estrella_fav_inactiva" android:background="?android:attr/selectableItemBackgroundBorderless" android:contentDescription="@string/cd_estrella_5" />
             </LinearLayout>
 
             <!-- TIPO -->
@@ -370,7 +370,7 @@
                 android:paddingEnd="6dp"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="TIPO"
+                android:text="@string/campo_tipo"
                 android:textColor="@color/pixel_tinta" />
 
             <LinearLayout
@@ -382,7 +382,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@drawable/input_pixel"
-                android:contentDescription="Tipo de lugar. Toca para cambiar.">
+                android:contentDescription="@string/cd_tipo">
 
                 <FrameLayout
                     android:layout_width="38dp"
@@ -445,7 +445,7 @@
                 android:paddingEnd="6dp"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="NOTA"
+                android:text="@string/campo_nota"
                 android:textColor="@color/pixel_tinta" />
 
             <EditText
@@ -455,7 +455,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_pixel"
                 android:gravity="top|start"
-                android:hint="Ej: Pedir la mesa junto a la ventana"
+                android:hint="@string/hint_nota"
                 android:inputType="textMultiLine|textCapSentences"
                 android:minHeight="88dp"
                 android:paddingStart="8dp"
@@ -479,7 +479,7 @@
                 android:paddingEnd="6dp"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="FOTO"
+                android:text="@string/campo_foto"
                 android:textColor="@color/pixel_tinta" />
 
             <FrameLayout
@@ -516,7 +516,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
-                            android:text="CÁMARA"
+                            android:text="@string/foto_camara"
                             android:textColor="@color/pixel_tinta" />
                     </LinearLayout>
 
@@ -546,7 +546,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
-                            android:text="GALERÍA"
+                            android:text="@string/foto_galeria"
                             android:textColor="@color/pixel_tinta" />
                     </LinearLayout>
                 </LinearLayout>
@@ -564,7 +564,7 @@
                         android:id="@+id/foto_preview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:contentDescription="Foto del lugar"
+                        android:contentDescription="@string/cd_foto_lugar"
                         android:scaleType="centerCrop" />
                 </FrameLayout>
 
@@ -583,7 +583,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:background="@drawable/input_pixel"
-                        android:contentDescription="Tomar otra foto"
+                        android:contentDescription="@string/cd_tomar_otra_foto"
                         android:padding="6dp"
                         android:src="@drawable/ic_foto_camara" />
 
@@ -593,7 +593,7 @@
                         android:layout_height="32dp"
                         android:layout_marginStart="5dp"
                         android:background="@drawable/input_pixel"
-                        android:contentDescription="Elegir otra de galería"
+                        android:contentDescription="@string/cd_elegir_otra_galeria"
                         android:padding="6dp"
                         android:src="@drawable/ic_foto_galeria" />
 
@@ -603,7 +603,7 @@
                         android:layout_height="32dp"
                         android:layout_marginStart="5dp"
                         android:background="@drawable/boton_foto_rojo"
-                        android:contentDescription="Quitar foto"
+                        android:contentDescription="@string/cd_quitar_foto"
                         android:padding="6dp"
                         android:src="@drawable/ic_foto_borrar" />
                 </LinearLayout>
@@ -640,7 +640,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:letterSpacing="0"
-                android:text="ELIMINAR"
+                android:text="@string/boton_eliminar"
                 android:textSize="9sp" />
 
             <TextView
@@ -654,7 +654,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="GUARDAR" />
+                android:text="@string/boton_guardar" />
         </LinearLayout>
     </LinearLayout>
 

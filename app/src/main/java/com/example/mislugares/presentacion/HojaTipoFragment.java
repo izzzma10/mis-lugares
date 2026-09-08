@@ -82,7 +82,7 @@ public class HojaTipoFragment extends DialogFragment {
             View check = fila.findViewById(R.id.fila_check);
 
             pin.setImageResource(Tipos.pin(tipo));
-            nombre.setText(tipo.name());
+            nombre.setText(Tipos.nombre(requireContext(), tipo));
 
             boolean activa = tipo == seleccionado;
             fila.findViewById(R.id.fila_contenido).setSelected(activa);

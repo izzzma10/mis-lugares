@@ -83,7 +83,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_lugar);
 
-        ((TextView) findViewById(R.id.barra_titulo)).setText("DETALLE");
+        ((TextView) findViewById(R.id.barra_titulo)).setText(getString(R.string.barra_detalle));
         findViewById(R.id.barra_atras).setOnClickListener(v -> finish());
 
         Aplicacion aplicacion = (Aplicacion) getApplication();
@@ -124,7 +124,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         // "EDITAR" ahora es el chip de la barra superior
         TextView chipEditar = findViewById(R.id.barra_chip);
         chipEditar.setVisibility(View.VISIBLE);
-        chipEditar.setText("EDITAR");
+        chipEditar.setText(getString(R.string.editar));
         chipEditar.setOnClickListener(v -> {
             Intent intent = new Intent(this, EdicionLugarActivity.class);
             intent.putExtra(EdicionLugarActivity.EXTRA_ID, id);
@@ -173,19 +173,19 @@ public class VistaLugarActivity extends AppCompatActivity {
         });
 
         ImageView ivEliminarFoto = findViewById(R.id.eliminar_foto);
-        ivEliminarFoto.setOnClickListener(v -> DialogosPixel.mostrar(this, "Eliminar foto",
-                "¿Seguro que quieres eliminar la foto de este lugar? No se puede deshacer.",
-                "Eliminar", true, () -> asignarFoto("")));
+        ivEliminarFoto.setOnClickListener(v -> DialogosPixel.mostrar(this, getString(R.string.dlg_eliminar_foto_titulo),
+                getString(R.string.dlg_eliminar_foto_msg),
+                getString(R.string.dlg_eliminar), true, () -> asignarFoto("")));
     }
 
     /** Refresca los campos de la pantalla a partir de {@link #lugar}. */
     private void mostrarLugar() {
         tvNombre.setText(lugar.getNombre());
-        tvTipo.setText(lugar.getTipo().name());
+        tvTipo.setText(Tipos.nombre(this, lugar.getTipo()));
         tvDireccion.setText(lugar.getDireccion());
         tvTelefono.setText(String.valueOf(lugar.getTelefono()));
         tvUrl.setText(lugar.getUrl());
-        tvGps.setText(String.format(Locale.US, "%.4f, %.4f",
+        tvGps.setText(String.format(Locale.US, getString(R.string.gps_formato),
                 lugar.getPosicion().getLatitud(), lugar.getPosicion().getLongitud()));
 
         String nota = lugar.getComentario() != null ? lugar.getComentario().trim() : "";
@@ -244,10 +244,10 @@ public class VistaLugarActivity extends AppCompatActivity {
         GeoPunto yo = ((Aplicacion) getApplication()).posicionActual;
         GeoPunto suya = lugar.getPosicion();
         if (yo.equals(GeoPunto.SIN_POSICION) || suya.equals(GeoPunto.SIN_POSICION)) {
-            tvResumen.setText(String.format(Locale.US, "%.1f", lugar.getValoracion()));
+            tvResumen.setText(String.format(Locale.US, getString(R.string.resumen_valoracion), lugar.getValoracion()));
         } else {
             float km = (float) yo.distancia(suya) / 1000f;
-            tvResumen.setText(String.format(Locale.US, "%.1f · %.1f km",
+            tvResumen.setText(String.format(Locale.US, getString(R.string.resumen_valoracion_km),
                     lugar.getValoracion(), km));
         }
     }
@@ -269,7 +269,7 @@ public class VistaLugarActivity extends AppCompatActivity {
                 lugar = new VerLugar(repositorio).ver(id);
                 mostrarLugar();
             } catch (Exception e) {
-                SnackPixel.dejarPendiente("Este lugar ya no existe", false);
+                SnackPixel.dejarPendiente(getString(R.string.lugar_no_existe), false);
                 finish();
             }
         }

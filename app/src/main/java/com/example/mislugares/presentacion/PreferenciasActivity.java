@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
+import androidx.core.os.LocaleListCompat;
 import androidx.preference.PreferenceManager;
 
 import com.example.mislugares.Aplicacion;
@@ -37,7 +39,7 @@ public class PreferenciasActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Barra
-        ((TextView) findViewById(R.id.barra_titulo)).setText("PREFERENCIAS");
+        ((TextView) findViewById(R.id.barra_titulo)).setText(getString(R.string.barra_preferencias));
         findViewById(R.id.barra_atras).setOnClickListener(v -> finish());
         findViewById(R.id.barra_fondo).setBackgroundColor(
                 ContextCompat.getColor(this, R.color.pixel_tinta));
@@ -45,6 +47,7 @@ public class PreferenciasActivity extends AppCompatActivity {
         configurarOrden();
         configurarMaximo();
         configurarToggles();
+        configurarIdioma();
         configurarPie();
 
         gestorLocalizacion = new GestorLocalizacion(this);
@@ -115,8 +118,32 @@ public class PreferenciasActivity extends AppCompatActivity {
 
     private void configurarPie() {
         int n = ((Aplicacion) getApplication()).repositorio.tamaño();
-        ((TextView) findViewById(R.id.pie))
-                .setText("v1.0 · " + n + " lugares guardados");
+        ((TextView) findViewById(R.id.pie)).setText(getString(R.string.pref_pie, n));
+    }
+
+    // ---- IDIOMA: aplica el locale de la app (appcompat lo persiste solo) ----
+    private void configurarIdioma() {
+        TextView idiomaEs = findViewById(R.id.idioma_es);
+        TextView idiomaEn = findViewById(R.id.idioma_en);
+        marcarIdioma(idiomaEs, idiomaEn);
+        idiomaEs.setOnClickListener(v -> aplicarIdioma("es"));
+        idiomaEn.setOnClickListener(v -> aplicarIdioma("en"));
+    }
+
+    private void marcarIdioma(TextView es, TextView en) {
+        boolean ingles = idiomaActualEsIngles();
+        es.setSelected(!ingles);
+        en.setSelected(ingles);
+    }
+
+    private boolean idiomaActualEsIngles() {
+        LocaleListCompat locales = AppCompatDelegate.getApplicationLocales();
+        return !locales.isEmpty() && "en".equals(locales.get(0).getLanguage());
+    }
+
+    private void aplicarIdioma(String etiqueta) {
+        // Recrea las activities con el nuevo idioma; no hace falta más.
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(etiqueta));
     }
 
     /** Lee una preferencia guardada como String y la devuelve como int. */

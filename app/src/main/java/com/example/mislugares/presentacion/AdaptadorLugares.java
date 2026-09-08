@@ -108,10 +108,11 @@ public class AdaptadorLugares extends
                     .getApplicationContext()).posicionActual;
             if (pos.equals(GeoPunto.SIN_POSICION)
                     || lugar.getPosicion().equals(GeoPunto.SIN_POSICION)) {
-                distancia.setText("... KM");
+                distancia.setText(itemView.getContext().getString(R.string.km_desconocido));
             } else {
                 float km = (float) pos.distancia(lugar.getPosicion()) / 1000f;
-                distancia.setText(String.format(java.util.Locale.US, "%.1f KM", km));
+                distancia.setText(String.format(java.util.Locale.US,
+                        itemView.getContext().getString(R.string.km_formato), km));
             }
         }
     }
