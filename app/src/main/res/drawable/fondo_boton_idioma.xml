@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Botón de idioma en la barra superior: contorno tinta, sin relleno (se ve el azul
+     de la barra detrás), radio 0. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@android:color/transparent" />
+    <stroke android:width="2dp" android:color="@color/pixel_tinta" />
+    <corners android:radius="0dp" />
+</shape>

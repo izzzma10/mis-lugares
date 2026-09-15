@@ -211,64 +211,6 @@
                 android:layout_marginBottom="14dp"
                 android:background="@color/pixel_divisor" />
 
-            <!-- IDIOMA -->
-            <TextView
-                style="@style/TextoEtiqueta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:text="@string/pref_idioma"
-                android:textColor="@color/pixel_tinta" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/borde_pixel"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/idioma_es"
-                    style="@style/TextoEtiqueta"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/celda_tab"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:text="@string/pref_idioma_es"
-                    android:textColor="@color/tab_contenido" />
-
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/pixel_tinta" />
-
-                <TextView
-                    android:id="@+id/idioma_en"
-                    style="@style/TextoEtiqueta"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/celda_tab"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:text="@string/pref_idioma_en"
-                    android:textColor="@color/tab_contenido" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="14dp"
-                android:background="@color/pixel_divisor" />
-
             <!-- PIE -->
             <TextView
                 android:id="@+id/pie"

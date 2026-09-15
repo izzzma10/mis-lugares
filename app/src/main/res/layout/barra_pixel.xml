@@ -50,6 +50,45 @@
             android:paddingBottom="4dp"
             android:textColor="@color/pixel_tinta"
             android:visibility="gone" />
+
+        <!-- Selector de idioma opcional a la derecha (solo lo usa la Lista).
+             Oculto por defecto; la pantalla que lo use lo hace VISIBLE y lo cablea. -->
+        <LinearLayout
+            android:id="@+id/barra_idioma"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:background="@drawable/fondo_boton_idioma"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="6dp"
+            android:paddingEnd="5dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_globo_pixel"
+                android:tint="@color/pixel_fondo" />
+
+            <TextView
+                android:id="@+id/barra_idioma_texto"
+                style="@style/TextoEtiqueta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/pixel_fondo" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="5dp"
+                android:layout_marginStart="5dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/flecha_abajo_pixel"
+                android:tint="@color/pixel_amarillo" />
+        </LinearLayout>
     </LinearLayout>
 
     <View

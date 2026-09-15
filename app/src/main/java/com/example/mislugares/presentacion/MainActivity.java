@@ -10,12 +10,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mislugares.R;
 
+import java.util.Locale;
+
 /**
  * Solo aloja ListaLugaresFragment (Anexo B del libro, "Fragments").
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HojaIdiomaFragment.Listener {
 
     private GestorLocalizacion gestorLocalizacion;
+    private TextView textoIdioma;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.barra_titulo)).setText(getString(R.string.barra_lista));
         findViewById(R.id.barra_atras).setVisibility(View.GONE);
+
+        configurarBotonIdioma();
 
         // FAB "+"
         findViewById(R.id.fab_agregar).setOnClickListener(v ->
@@ -48,6 +53,25 @@ public class MainActivity extends AppCompatActivity {
         gestorLocalizacion = new GestorLocalizacion(this);
         gestorLocalizacion.setAlObtenerUbicacion(this::refrescarLista);
         gestorLocalizacion.solicitarUbicacionActual();
+    }
+
+    /** Botón de idioma en la barra superior: solo lo muestra la pantalla LISTA. */
+    private void configurarBotonIdioma() {
+        View botonIdioma = findViewById(R.id.barra_idioma);
+        textoIdioma = findViewById(R.id.barra_idioma_texto);
+        botonIdioma.setVisibility(View.VISIBLE);
+        mostrarIdiomaActual();
+        botonIdioma.setOnClickListener(v -> new HojaIdiomaFragment()
+                .show(getSupportFragmentManager(), "hoja_idioma"));
+    }
+
+    private void mostrarIdiomaActual() {
+        textoIdioma.setText(Idiomas.actual().toUpperCase(Locale.ROOT));
+    }
+
+    @Override
+    public void onIdiomaElegido(String codigo) {
+        Idiomas.aplicar(codigo);
     }
 
     /** Reordena/repinta la lista cuando ya hay una ubicación conocida. */
