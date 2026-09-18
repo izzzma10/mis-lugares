@@ -1,0 +1,121 @@
+LISTA DE 100 PUNTOS DE REFERENCIA - ZONA METROPOLITANA DE MONTERREY
+
+[Centro y Casco Urbano de Monterrey]
+1. Macroplaza (Explanada de los Héroes)
+2. Faro del Comercio
+3. Palacio de Gobierno de Nuevo León
+4. Palacio Municipal de Monterrey
+5. Catedral Metropolitana de Monterrey
+6. Museo de Arte Contemporáneo (MARCO) / Escultura La Paloma
+7. Museo de Historia Mexicana y Museo del Noreste (MUNE)
+8. Barrio Antiguo (calle Morelos y Mina)
+9. Corredor Comercial Morelos (Plaza México)
+10. Alameda Mariano Escobedo
+11. Mercado Juárez
+12. Mercado Mesón Estrella
+13. Basílica del Roble
+14. Colegio Civil Centro Cultural (UANL)
+15. Arco de la Calzada Madero (Arco de la Independencia)
+16. Central de Autobuses de Monterrey (Av. Colón)
+17. Pabellón M (Torre y Auditorio)
+18. Torre Ciudadana (Torre Administrativa del Gobierno)
+19. El Obispado (Museo Regional de Nuevo León)
+20. Mirador Asta Bandera del Obispado
+
+[Oriente y Zona Fundidora - Monterrey]
+21. Parque Fundidora (Acceso 1 a 7)
+22. Museo del Acero Horno 3
+23. Cintermex
+24. Arena Monterrey
+25. Paseo Santa Lucía
+26. Auditorio Banamex / Citibanamex
+27. Parque España
+28. Monumento a la Y Griega (estación y cruce Colón/Madero)
+29. Cervecería Cuauhtémoc Moctezuma (Heineken México, Av. Alfonso Reyes)
+30. Salón de la Fama del Béisbol Mexicano
+
+[Sur y Poniente de Monterrey]
+31. Campus Central Tecnológico de Monterrey (Campus Monterrey)
+32. Estadio Borregos (Tec)
+33. Garza Sada 1892 (Plaza La Silla)
+34. Plaza Urban Village (Av. Garza Sada)
+35. Parque Natural La Estanzuela
+36. Esfera City Center (Carretera Nacional)
+37. Pueblo Serena (Carretera Nacional)
+38. Galerías Monterrey (Av. Insurgentes / Gonzalitos)
+39. Rotonda de Gonzalitos y Leones
+40. Hospital Universitario Dr. José Eleuterio González (Área Médica UANL)
+
+[San Pedro Garza García]
+41. Puente de la Unidad (Puente Atirantado)
+42. Calzada del Valle (Rotonda de los Duendes)
+43. Calzada San Pedro (Monumento a la Alianza)
+44. Plaza Fiesta San Agustín / Fashion Drive
+45. Paseo San Pedro (El Palacio de Hierro)
+46. Parque Ecológico Chipinque (Caseta de entrada)
+47. Torre KOI (Complejo VAO)
+48. Torre TOP (Torres Obispado, colindancia límite poniente)
+49. Plaza San Pedro (Soriana San Pedro)
+50. Punto Valle (The Town Center)
+51. Arboleda (Av. Roble)
+52. Casco Urbano de San Pedro (Plaza Juárez)
+53. Universidad de Monterrey (UDEM Campus San Pedro)
+54. Museo La Milarca
+55. Parque Rufino Tamayo
+
+[San Nicolás de los Garza]
+56. Ciudad Universitaria UANL (Rectoría)
+57. Estadio Universitario ("El Volcán")
+58. Monumento a Raúl Rangel Frías (La Flama de la UANL)
+59. Centro Zapatero de San Nicolás (Av. Juárez)
+60. Plaza Fiesta Anáhuac
+61. Paseo San Nicolás (Sendero San Nicolás)
+62. Estación del Metro San Nicolás
+63. Gran Parque San Nicolás (Don Jesús Hinojosa)
+64. Clínica 6 del IMSS (Av. Universidad)
+65. Arboledas de Las Puentes
+
+[Guadalupe]
+66. Estadio BBVA ("El Gigante de Acero")
+67. Parque La Pastora / Zoológico
+68. Expo Guadalupe (Exposición Ganadera)
+69. Plaza Principal de Guadalupe (Palacio Municipal y Parroquia de Guadalupe)
+70. Monumento a Benito Juárez (Rotonda Av. Juárez e Israel Cavazos)
+71. Monumento a La Pastora (Eloy Cavazos y Pablo Livas)
+72. Plaza Molinete (Av. Juárez)
+73. Parque Tolteca
+74. Multiplaza Linda Vista / Gran Parque Linda Vista
+75. Estación Eloy Cavazos (anteriormente Palacio Federal)
+
+[Apodaca]
+76. Aeropuerto Internacional de Monterrey (Terminales A, B y C)
+77. Plaza Principal de Apodaca (Kiosco y Parroquia San Francisco de Asís)
+78. Rotonda El Mezquital (López Mateos)
+79. Sendero La Fe (Cruce Miguel Alemán y Teléfonos)
+80. Paseo La Fe (Av. Miguel Alemán)
+81. Citadel (Av. Rómulo Garza y Miguel Alemán)
+82. Plaza Sendero Apodaca (Av. Concordia y Carretera a Laredo)
+83. Monumento a Don Moisés Sáenz (Plaza de las Ciudades Hermanas)
+84. Cruce de Huinalá (Av. Teléfonos y Carretera a Huinalá)
+
+[General Escobedo]
+85. Plaza Sendero Escobedo (Av. Manuel L. Barragán y Sendero Divisorio)
+86. Estación del Metro Sendero (Terminal Línea 2)
+87. Parque Lineal Las Torres
+88. Plaza Bella Escobedo
+89. Presidencia Municipal de Escobedo (Casco de Escobedo)
+90. Divertiparque Escobedo
+
+[Santa Catarina]
+91. Entrada al Parque La Huasteca (Cañón de la Huasteca)
+92. Monumento a La Puerta de Monterrey (Escultura de Mathias Goeritz)
+93. Plaza Principal de Santa Catarina (Iglesia de Santa Catarina Mártir)
+94. Plaza Paseo Santa Catarina
+95. Castillo de La Fama (Antigua Textilera La Fama)
+
+[García, Juárez y Santiago (Periferia Metropolitana)]
+96. Grutas de García (Estación del Teleférico)
+97. Centro Histórico de García (Parroquia San Juan Bautista)
+98. Monumento a Benito Juárez en El Sabinal (Juárez)
+99. Centro de Juárez (Plaza Principal y Mercado de Tamales)
+100. Presa Rodrigo Gómez ("La Boca", Santiago / Entrada Sur Metropolitana)

@@ -1,0 +1,104 @@
+# LISTA DE 100 UBICACIONES Y PUNTOS DE REFERENCIA - ZONA METROPOLITANA DE MONTERREY
+# Lugares físicos: Estadios, campus universitarios, museos, teatros, escenarios y parques de recreación
+# Formato: [ID] Nombre del lugar | Categoría | Coordenadas (Latitud, Longitud)
+-------------------------------------------------------------------------------------
+001. Macroplaza (Explanada de los Héroes)                    | Plaza cívica / Recreación        | 25.6737, -100.3090
+002. Palacio de Gobierno de Nuevo León                       | Edificio histórico / Gobierno    | 25.6748, -100.3101
+003. Palacio Municipal de Monterrey                          | Edificio cívico                  | 25.6669, -100.3108
+004. Catedral Metropolitana de Monterrey                     | Patrimonio / Religioso           | 25.6675, -100.3098
+005. Museo de Arte Contemporáneo (MARCO)                     | Arte y cultura                   | 25.6657, -100.3097
+006. Museo de Historia Mexicana                              | Museo / Cultura                  | 25.6719, -100.3069
+007. Museo del Noreste (MUNE)                                | Museo / Cultura                  | 25.6715, -100.3061
+008. Museo del Palacio                                       | Museo                            | 25.6746, -100.3108
+009. Museo Metropolitano de Monterrey                        | Museo cívico                     | 25.6678, -100.3116
+010. Colegio Civil Centro Cultural UANL                      | Campus cultural / Estudio        | 25.6766, -100.3168
+011. Teatro de la Ciudad de Monterrey                        | Escenario / Teatro               | 25.6698, -100.3082
+012. Alameda Mariano Escobedo                                | Parque recreativo                | 25.6756, -100.3223
+013. Pabellón M (Auditorio Pabellón M)                       | Escenario / Centro de eventos    | 25.6693, -100.3204
+014. Mercado Juárez                                          | Mercado tradicional              | 25.6761, -100.3134
+015. Basílica de Nuestra Señora del Roble                    | Recinto religioso                | 25.6775, -100.3155
+016. El Obispado (Museo Regional de Nuevo León)              | Museo histórico                  | 25.6739, -100.3444
+017. Mirador Asta Bandera del Obispado                       | Mirador / Recreación             | 25.6757, -100.3475
+018. Torre Administrativa / Torre Ciudadana                  | Edificio cívico                  | 25.6784, -100.2882
+019. Central de Autobuses de Monterrey                       | Terminal de transporte           | 25.6865, -100.3242
+020. Biblioteca Central del Estado Fray Servando Teresa de Mier | Estudio / Biblioteca             | 25.6710, -100.3079
+021. Parque Fundidora (Nave Lewis)                           | Centro exposiciones / Recreación | 25.6811, -100.2803
+022. Museo del Acero Horno 3                                 | Museo de ciencia / Arte industrial | 25.6781, -100.2808
+023. Cintermex (Centro Internacional de Negocios)            | Convenciones y ferias            | 25.6798, -100.2872
+024. Arena Monterrey                                         | Escenario deportivo y espectáculos | 25.6822, -100.2878
+025. Paseo Santa Lucía (Embarcadero Fundidora)               | Canal fluvial / Paseo recreativo | 25.6779, -100.2897
+026. Auditorio Citibanamex                                   | Escenario de conciertos          | 25.6775, -100.2833
+027. Centro de las Artes Nave Generadores                    | Arte visual                      | 25.6777, -100.2847
+028. Cineteca Nuevo León Alejandra Rangel Hinojosa           | Arte cinematográfico             | 25.6769, -100.2841
+029. Salón de la Fama del Béisbol Mexicano                   | Museo deportivo                  | 25.6758, -100.2923
+030. Parque España                                           | Parque deportivo y recreativo    | 25.6698, -100.2847
+031. Campus Tecnológico de Monterrey (Rectoría)              | Campus universitario / Estudio   | 25.6514, -100.2895
+032. Estadio Banorte (Estadio Borregos)                      | Estadio deportivo                | 25.6482, -100.2883
+033. Arena Borregos (Gimnasio Tec)                           | Escenario deportivo              | 25.6508, -100.2885
+034. Wellness Center Tec de Monterrey                        | Deporte y recreación             | 25.6534, -100.2879
+035. Biblioteca Cervantina (BiblioTec)                       | Estudio y archivo histórico      | 25.6519, -100.2891
+036. Parque Natural La Estanzuela                            | Parque natural protegido         | 25.5684, -100.2647
+037. Museo de la Fauna y Ciencias Naturales                  | Museo / Parque Niños Héroes      | 25.6983, -100.3164
+038. Parque Niños Héroes                                     | Parque de recreación y deporte   | 25.6997, -100.3168
+039. Gimnasio Nuevo León Unido                               | Escenario deportivo techado      | 25.7011, -100.3149
+040. Estadio de Béisbol Monterrey (Estadio Mobil Super)      | Estadio deportivo                | 25.7037, -100.3134
+041. Campus Ciencias de la Salud UANL (Facultad de Medicina) | Campus universitario             | 25.6888, -100.3524
+042. Hospital Universitario Dr. José Eleuterio González      | Centro médico universitario      | 25.6896, -100.3512
+043. Campus Mederos UANL (Facultad de Artes Escénicas)       | Campus arte y humanidades        | 25.6128, -100.2785
+044. Teatro Universitario UANL Campus Mederos                | Escenario cultural               | 25.6139, -100.2778
+045. Galerías Monterrey                                      | Centro comercial / Recreación    | 25.6773, -100.3533
+046. Museo La Milarca                                        | Museo de arte e historia         | 25.6558, -100.3582
+047. Parque Rufino Tamayo                                    | Parque recreativo y arte         | 25.6496, -100.3444
+048. Auditorio San Pedro                                     | Escenario escénico / Auditorio   | 25.6606, -100.3703
+049. Centro Cultural Plaza Fátima                            | Galería de arte y teatro         | 25.6557, -100.3644
+050. Parque Ecológico Chipinque (Caseta Principal)           | Reserva natural / Recreación     | 25.6186, -100.3592
+051. Universidad de Monterrey (UDEM - Edificio Roberto Garza Sada / CRGS) | Campus / Centro de arte y diseño | 25.6601, -100.4187
+052. Plaza Fiesta San Agustín / Fashion Drive                | Centro comercial y entretenimiento | 25.6508, -100.3361
+053. Paseo San Pedro                                         | Centro comercial                 | 25.6543, -100.3575
+054. Showcenter Complex                                      | Escenario de espectáculos y teatro | 25.6517, -100.3347
+055. Torre KOI                                               | Rascacielos emblemático          | 25.6453, -100.3298
+056. Punto Valle The Town Center                             | Centro comercial / Recreación    | 25.6575, -100.3672
+057. Complejo Deportivo Bosques del Valle                    | Parque recreativo                | 25.6481, -100.3792
+058. Parque El Capitán                                       | Parque urbano recreativo         | 25.6555, -100.3776
+059. Club Campestre Monterrey                                | Campo deportivo                  | 25.6451, -100.3621
+060. Planetario Alfa (sitio histórico / parque)              | Sitio cultural emblemático       | 25.6322, -100.3571
+061. Ciudad Universitaria UANL (Rectoría)                    | Campus universitario central     | 25.7258, -100.3134
+062. Estadio Universitario UANL ('El Volcán')                | Estadio de fútbol                | 25.7238, -100.3162
+063. Estadio Gaspar Mass                                     | Estadio deportivo colegial       | 25.7274, -100.3155
+064. Biblioteca Universitaria Raúl Rangel Frías (BURRF)      | Biblioteca / Centro de estudio   | 25.7005, -100.3182
+065. Teatro Universitario UANL (Unidad Mederos / Campus Central enlace) | Recinto cultural universitario   | 25.7265, -100.3129
+066. Polideportivo Tigres UANL (Escobedo/San Nicolás)        | Complejo deportivo alto rendimiento | 25.7725, -100.2974
+067. Gran Parque San Nicolás (Don Jesús Hinojosa)            | Parque deportivo y recreativo    | 25.7332, -100.2647
+068. Centro Cultural Rosa de los Vientos                     | Escuela de iniciación artística  | 25.7481, -100.2828
+069. Teatro de la Ciudad de San Nicolás                      | Teatro y artes escénicas         | 25.7485, -100.2995
+070. Plaza Fiesta Anáhuac                                    | Centro comercial                 | 25.7314, -100.3195
+071. Unidad Deportiva CEDECO San Nicolás                     | Campos deportivos y alberca      | 25.7538, -100.2965
+072. Clínica 6 IMSS San Nicolás                              | Centro médico regional           | 25.7382, -100.3131
+073. Estadio BBVA ('El Gigante de Acero')                    | Estadio deportivo internacional  | 25.6691, -100.2443
+074. Parque La Pastora / Zoológico                           | Zoológico y parque ecológico     | 25.6672, -100.2483
+075. Domo Care (Palenque Expo Guadalupe)                     | Escenario de espectáculos musicales | 25.6791, -100.2525
+076. Expo Guadalupe (Instalaciones de la Unión Ganadera)     | Recinto ferial y exposiciones    | 25.6783, -100.2536
+077. Parque Tolteca                                          | Parque recreativo natural        | 25.6775, -100.2372
+078. Parque Pipo (Río La Silla)                              | Parque ecológico urbano          | 25.6683, -100.2289
+079. Teatro Sara García                                      | Teatro municipal                 | 25.6794, -100.2589
+080. Museo Ciudad Guadalupe                                  | Museo de historia local          | 25.6789, -100.2604
+081. Polivalente de Guadalupe                                | Gimnasio y estadio deportivo     | 25.6738, -100.2528
+082. Estadio de Béisbol Olimpia Guadalupe                    | Campo de béisbol                 | 25.6811, -100.2355
+083. Aeropuerto Internacional de Monterrey (Terminal A)      | Aeropuerto internacional         | 25.7785, -100.1069
+084. Aeropuerto Internacional de Monterrey (Terminal B)      | Terminal aérea                   | 25.7738, -100.1118
+085. Aeropuerto Internacional del Norte (ADN)                | Aeródromo y aviación ejecutiva   | 25.8649, -100.2378
+086. Parque Fundadores de Apodaca                            | Parque recreativo                | 25.7797, -100.1872
+087. Museo Casa de la Cultura de Apodaca                     | Centro cultural y exhibiciones   | 25.7818, -100.1889
+088. Polideportivo Bicentenario Apodaca                      | Campos deportivos y alberca olímpica | 25.7612, -100.1775
+089. Plaza Paseo La Fe                                       | Centro comercial y ocio          | 25.7262, -100.2185
+090. Plaza Citadel                                           | Centro comercial                 | 25.7229, -100.2144
+091. Gimnasio Centenario del Ejército Mexicano               | Complejo deportivo municipal     | 25.7892, -100.1983
+092. Parque La Chueca / Parque Recreativo Ojo de Agua        | Parque acuático y recreación     | 25.7884, -100.1741
+093. Polideportivo San José Escobedo                         | Centro deportivo municipal       | 25.8015, -100.3542
+094. Divertiparque Escobedo                                  | Parque temático y acuático       | 25.8089, -100.3475
+095. Teatro Fidel Velázquez (Teatro de la Ciudad Escobedo)   | Escenario teatral                | 25.8082, -100.3228
+096. Museo Histórico Escobedo                                | Museo municipal                  | 25.8091, -100.3219
+097. Parque Lineal Las Torres Escobedo                       | Campo recreativo y ciclopista    | 25.7952, -100.3421
+098. Parque Ecológico La Huasteca (Caseta de entrada)        | Parque ecológico / Montañismo    | 25.6492, -100.4578
+099. Monumento La Puerta de Monterrey                        | Escultura monumental urbana      | 25.6791, -100.4725
+100. Museo Industrial El Blanqueo                            | Museo textil / Historia fabril   | 25.6725, -100.4431

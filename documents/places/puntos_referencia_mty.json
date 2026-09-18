@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "nombre": "Macroplaza (Explanada de los Héroes)",
+    "categoria": "Plaza cívica / Recreación",
+    "municipio": "Monterrey",
+    "latitud": 25.6737,
+    "longitud": -100.309
+  },
+  {
+    "id": 2,
+    "nombre": "Palacio de Gobierno de Nuevo León",
+    "categoria": "Edificio histórico / Gobierno",
+    "municipio": "Monterrey",
+    "latitud": 25.6748,
+    "longitud": -100.3101
+  },
+  {
+    "id": 3,
+    "nombre": "Palacio Municipal de Monterrey",
+    "categoria": "Edificio cívico",
+    "municipio": "Monterrey",
+    "latitud": 25.6669,
+    "longitud": -100.3108
+  },
+  {
+    "id": 4,
+    "nombre": "Catedral Metropolitana de Monterrey",
+    "categoria": "Patrimonio / Religioso",
+    "municipio": "Monterrey",
+    "latitud": 25.6675,
+    "longitud": -100.3098
+  },
+  {
+    "id": 5,
+    "nombre": "Museo de Arte Contemporáneo (MARCO)",
+    "categoria": "Arte y cultura",
+    "municipio": "Monterrey",
+    "latitud": 25.6657,
+    "longitud": -100.3097
+  },
+  {
+    "id": 6,
+    "nombre": "Museo de Historia Mexicana",
+    "categoria": "Museo / Cultura",
+    "municipio": "Monterrey",
+    "latitud": 25.6719,
+    "longitud": -100.3069
+  },
+  {
+    "id": 7,
+    "nombre": "Museo del Noreste (MUNE)",
+    "categoria": "Museo / Cultura",
+    "municipio": "Monterrey",
+    "latitud": 25.6715,
+    "longitud": -100.3061
+  },
+  {
+    "id": 8,
+    "nombre": "Museo del Palacio",
+    "categoria": "Museo",
+    "municipio": "Monterrey",
+    "latitud": 25.6746,
+    "longitud": -100.3108
+  },
+  {
+    "id": 9,
+    "nombre": "Museo Metropolitano de Monterrey",
+    "categoria": "Museo cívico",
+    "municipio": "Monterrey",
+    "latitud": 25.6678,
+    "longitud": -100.3116
+  },
+  {
+    "id": 10,
+    "nombre": "Colegio Civil Centro Cultural UANL",
+    "categoria": "Campus cultural / Estudio",
+    "municipio": "Monterrey",
+    "latitud": 25.6766,
+    "longitud": -100.3168
+  },
+  {
+    "id": 11,
+    "nombre": "Teatro de la Ciudad de Monterrey",
+    "categoria": "Escenario / Teatro",
+    "municipio": "Monterrey",
+    "latitud": 25.6698,
+    "longitud": -100.3082
+  },
+  {
+    "id": 12,
+    "nombre": "Alameda Mariano Escobedo",
+    "categoria": "Parque recreativo",
+    "municipio": "Monterrey",
+    "latitud": 25.6756,
+    "longitud": -100.3223
+  },
+  {
+    "id": 13,
+    "nombre": "Auditorio Pabellón M",
+    "categoria": "Escenario / Centro de eventos",
+    "municipio": "Monterrey",
+    "latitud": 25.6693,
+    "longitud": -100.3204
+  },
+  {
+    "id": 14,
+    "nombre": "Mercado Juárez",
+    "categoria": "Mercado tradicional",
+    "municipio": "Monterrey",
+    "latitud": 25.6761,
+    "longitud": -100.3134
+  },
+  {
+    "id": 15,
+    "nombre": "Basílica de Nuestra Señora del Roble",
+    "categoria": "Recinto religioso",
+    "municipio": "Monterrey",
+    "latitud": 25.6775,
+    "longitud": -100.3155
+  },
+  {
+    "id": 16,
+    "nombre": "El Obispado (Museo Regional de Nuevo León)",
+    "categoria": "Museo histórico",
+    "municipio": "Monterrey",
+    "latitud": 25.6739,
+    "longitud": -100.3444
+  },
+  {
+    "id": 17,
+    "nombre": "Mirador Asta Bandera del Obispado",
+    "categoria": "Mirador / Recreación",
+    "municipio": "Monterrey",
+    "latitud": 25.6757,
+    "longitud": -100.3475
+  },
+  {
+    "id": 18,
+    "nombre": "Torre Administrativa / Torre Ciudadana",
+    "categoria": "Edificio cívico",
+    "municipio": "Monterrey",
+    "latitud": 25.6784,
+    "longitud": -100.2882
+  },
+  {
+    "id": 19,
+    "nombre": "Central de Autobuses de Monterrey",
+    "categoria": "Terminal de transporte",
+    "municipio": "Monterrey",
+    "latitud": 25.6865,
+    "longitud": -100.3242
+  },
+  {
+    "id": 20,
+    "nombre": "Biblioteca Central del Estado Fray Servando Teresa de Mier",
+    "categoria": "Estudio / Biblioteca",
+    "municipio": "Monterrey",
+    "latitud": 25.671,
+    "longitud": -100.3079
+  },
+  {
+    "id": 21,
+    "nombre": "Parque Fundidora (Nave Lewis)",
+    "categoria": "Centro exposiciones / Recreación",
+    "municipio": "Monterrey",
+    "latitud": 25.6811,
+    "longitud": -100.2803
+  },
+  {
+    "id": 22,
+    "nombre": "Museo del Acero Horno 3",
+    "categoria": "Museo de ciencia / Arte industrial",
+    "municipio": "Monterrey",
+    "latitud": 25.6781,
+    "longitud": -100.2808
+  },
+  {
+    "id": 23,
+    "nombre": "Cintermex (Centro Internacional de Negocios)",
+    "categoria": "Convenciones y ferias",
+    "municipio": "Monterrey",
+    "latitud": 25.6798,
+    "longitud": -100.2872
+  },
+  {
+    "id": 24,
+    "nombre": "Arena Monterrey",
+    "categoria": "Escenario deportivo y espectáculos",
+    "municipio": "Monterrey",
+    "latitud": 25.6822,
+    "longitud": -100.2878
+  },
+  {
+    "id": 25,
+    "nombre": "Paseo Santa Lucía (Embarcadero Fundidora)",
+    "categoria": "Canal fluvial / Paseo recreativo",
+    "municipio": "Monterrey",
+    "latitud": 25.6779,
+    "longitud": -100.2897
+  },
+  {
+    "id": 26,
+    "nombre": "Auditorio Citibanamex",
+    "categoria": "Escenario de conciertos",
+    "municipio": "Monterrey",
+    "latitud": 25.6775,
+    "longitud": -100.2833
+  },
+  {
+    "id": 27,
+    "nombre": "Centro de las Artes Nave Generadores",
+    "categoria": "Arte visual",
+    "municipio": "Monterrey",
+    "latitud": 25.6777,
+    "longitud": -100.2847
+  },
+  {
+    "id": 28,
+    "nombre": "Cineteca Nuevo León Alejandra Rangel Hinojosa",
+    "categoria": "Arte cinematográfico",
+    "municipio": "Monterrey",
+    "latitud": 25.6769,
+    "longitud": -100.2841
+  },
+  {
+    "id": 29,
+    "nombre": "Salón de la Fama del Béisbol Mexicano",
+    "categoria": "Museo deportivo",
+    "municipio": "Monterrey",
+    "latitud": 25.6758,
+    "longitud": -100.2923
+  },
+  {
+    "id": 30,
+    "nombre": "Parque España",
+    "categoria": "Parque deportivo y recreativo",
+    "municipio": "Monterrey",
+    "latitud": 25.6698,
+    "longitud": -100.2847
+  },
+  {
+    "id": 31,
+    "nombre": "Campus Tecnológico de Monterrey (Rectoría)",
+    "categoria": "Campus universitario / Estudio",
+    "municipio": "Monterrey",
+    "latitud": 25.6514,
+    "longitud": -100.2895
+  },
+  {
+    "id": 32,
+    "nombre": "Estadio Banorte (Estadio Borregos)",
+    "categoria": "Estadio deportivo",
+    "municipio": "Monterrey",
+    "latitud": 25.6482,
+    "longitud": -100.2883
+  },
+  {
+    "id": 33,
+    "nombre": "Arena Borregos (Gimnasio Tec)",
+    "categoria": "Escenario deportivo",
+    "municipio": "Monterrey",
+    "latitud": 25.6508,
+    "longitud": -100.2885
+  },
+  {
+    "id": 34,
+    "nombre": "Wellness Center Tec de Monterrey",
+    "categoria": "Deporte y recreación",
+    "municipio": "Monterrey",
+    "latitud": 25.6534,
+    "longitud": -100.2879
+  },
+  {
+    "id": 35,
+    "nombre": "Biblioteca Cervantina (BiblioTec)",
+    "categoria": "Estudio y archivo histórico",
+    "municipio": "Monterrey",
+    "latitud": 25.6519,
+    "longitud": -100.2891
+  },
+  {
+    "id": 36,
+    "nombre": "Parque Natural La Estanzuela",
+    "categoria": "Parque natural protegido",
+    "municipio": "Monterrey",
+    "latitud": 25.5684,
+    "longitud": -100.2647
+  },
+  {
+    "id": 37,
+    "nombre": "Museo de la Fauna y Ciencias Naturales",
+    "categoria": "Museo / Parque Niños Héroes",
+    "municipio": "Monterrey",
+    "latitud": 25.6983,
+    "longitud": -100.3164
+  },
+  {
+    "id": 38,
+    "nombre": "Parque Niños Héroes",
+    "categoria": "Parque de recreación y deporte",
+    "municipio": "Monterrey",
+    "latitud": 25.6997,
+    "longitud": -100.3168
+  },
+  {
+    "id": 39,
+    "nombre": "Gimnasio Nuevo León Unido",
+    "categoria": "Escenario deportivo techado",
+    "municipio": "Monterrey",
+    "latitud": 25.7011,
+    "longitud": -100.3149
+  },
+  {
+    "id": 40,
+    "nombre": "Estadio de Béisbol Monterrey (Estadio Mobil Super)",
+    "categoria": "Estadio deportivo",
+    "municipio": "Monterrey",
+    "latitud": 25.7037,
+    "longitud": -100.3134
+  },
+  {
+    "id": 41,
+    "nombre": "Campus Ciencias de la Salud UANL (Facultad de Medicina)",
+    "categoria": "Campus universitario",
+    "municipio": "Monterrey",
+    "latitud": 25.6888,
+    "longitud": -100.3524
+  },
+  {
+    "id": 42,
+    "nombre": "Hospital Universitario Dr. José Eleuterio González",
+    "categoria": "Centro médico universitario",
+    "municipio": "Monterrey",
+    "latitud": 25.6896,
+    "longitud": -100.3512
+  },
+  {
+    "id": 43,
+    "nombre": "Campus Mederos UANL (Facultad de Artes Escénicas)",
+    "categoria": "Campus arte y humanidades",
+    "municipio": "Monterrey",
+    "latitud": 25.6128,
+    "longitud": -100.2785
+  },
+  {
+    "id": 44,
+    "nombre": "Teatro Universitario UANL Campus Mederos",
+    "categoria": "Escenario cultural",
+    "municipio": "Monterrey",
+    "latitud": 25.6139,
+    "longitud": -100.2778
+  },
+  {
+    "id": 45,
+    "nombre": "Galerías Monterrey",
+    "categoria": "Centro comercial / Recreación",
+    "municipio": "Monterrey",
+    "latitud": 25.6773,
+    "longitud": -100.3533
+  },
+  {
+    "id": 46,
+    "nombre": "Museo La Milarca",
+    "categoria": "Museo de arte e historia",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6558,
+    "longitud": -100.3582
+  },
+  {
+    "id": 47,
+    "nombre": "Parque Rufino Tamayo",
+    "categoria": "Parque recreativo y arte",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6496,
+    "longitud": -100.3444
+  },
+  {
+    "id": 48,
+    "nombre": "Auditorio San Pedro",
+    "categoria": "Escenario escénico / Auditorio",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6606,
+    "longitud": -100.3703
+  },
+  {
+    "id": 49,
+    "nombre": "Centro Cultural Plaza Fátima",
+    "categoria": "Galería de arte y teatro",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6557,
+    "longitud": -100.3644
+  },
+  {
+    "id": 50,
+    "nombre": "Parque Ecológico Chipinque (Caseta Principal)",
+    "categoria": "Reserva natural / Recreación",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6186,
+    "longitud": -100.3592
+  },
+  {
+    "id": 51,
+    "nombre": "Universidad de Monterrey (UDEM - Edificio Roberto Garza Sada / CRGS)",
+    "categoria": "Campus / Centro de arte y diseño",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6601,
+    "longitud": -100.4187
+  },
+  {
+    "id": 52,
+    "nombre": "Plaza Fiesta San Agustín / Fashion Drive",
+    "categoria": "Centro comercial y entretenimiento",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6508,
+    "longitud": -100.3361
+  },
+  {
+    "id": 53,
+    "nombre": "Paseo San Pedro",
+    "categoria": "Centro comercial",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6543,
+    "longitud": -100.3575
+  },
+  {
+    "id": 54,
+    "nombre": "Showcenter Complex",
+    "categoria": "Escenario de espectáculos y teatro",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6517,
+    "longitud": -100.3347
+  },
+  {
+    "id": 55,
+    "nombre": "Torre KOI",
+    "categoria": "Rascacielos emblemático",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6453,
+    "longitud": -100.3298
+  },
+  {
+    "id": 56,
+    "nombre": "Punto Valle The Town Center",
+    "categoria": "Centro comercial / Recreación",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6575,
+    "longitud": -100.3672
+  },
+  {
+    "id": 57,
+    "nombre": "Complejo Deportivo Bosques del Valle",
+    "categoria": "Parque recreativo",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6481,
+    "longitud": -100.3792
+  },
+  {
+    "id": 58,
+    "nombre": "Parque El Capitán",
+    "categoria": "Parque urbano recreativo",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6555,
+    "longitud": -100.3776
+  },
+  {
+    "id": 59,
+    "nombre": "Club Campestre Monterrey",
+    "categoria": "Campo deportivo",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6451,
+    "longitud": -100.3621
+  },
+  {
+    "id": 60,
+    "nombre": "Planetario Alfa (sitio histórico / parque)",
+    "categoria": "Sitio cultural emblemático",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6322,
+    "longitud": -100.3571
+  },
+  {
+    "id": 61,
+    "nombre": "Ciudad Universitaria UANL (Rectoría)",
+    "categoria": "Campus universitario central",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7258,
+    "longitud": -100.3134
+  },
+  {
+    "id": 62,
+    "nombre": "Estadio Universitario UANL ('El Volcán')",
+    "categoria": "Estadio de fútbol",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7238,
+    "longitud": -100.3162
+  },
+  {
+    "id": 63,
+    "nombre": "Estadio Gaspar Mass",
+    "categoria": "Estadio deportivo colegial",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7274,
+    "longitud": -100.3155
+  },
+  {
+    "id": 64,
+    "nombre": "Biblioteca Universitaria Raúl Rangel Frías (BURRF)",
+    "categoria": "Biblioteca / Centro de estudio",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7005,
+    "longitud": -100.3182
+  },
+  {
+    "id": 65,
+    "nombre": "Teatro Universitario UANL (Unidad Mederos / Campus Central enlace)",
+    "categoria": "Recinto cultural universitario",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7265,
+    "longitud": -100.3129
+  },
+  {
+    "id": 66,
+    "nombre": "Polideportivo Tigres UANL (Escobedo/San Nicolás)",
+    "categoria": "Complejo deportivo alto rendimiento",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7725,
+    "longitud": -100.2974
+  },
+  {
+    "id": 67,
+    "nombre": "Gran Parque San Nicolás (Don Jesús Hinojosa)",
+    "categoria": "Parque deportivo y recreativo",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7332,
+    "longitud": -100.2647
+  },
+  {
+    "id": 68,
+    "nombre": "Centro Cultural Rosa de los Vientos",
+    "categoria": "Escuela de iniciación artística",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7481,
+    "longitud": -100.2828
+  },
+  {
+    "id": 69,
+    "nombre": "Teatro de la Ciudad de San Nicolás",
+    "categoria": "Teatro y artes escénicas",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7485,
+    "longitud": -100.2995
+  },
+  {
+    "id": 70,
+    "nombre": "Plaza Fiesta Anáhuac",
+    "categoria": "Centro comercial",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7314,
+    "longitud": -100.3195
+  },
+  {
+    "id": 71,
+    "nombre": "Unidad Deportiva CEDECO San Nicolás",
+    "categoria": "Campos deportivos y alberca",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7538,
+    "longitud": -100.2965
+  },
+  {
+    "id": 72,
+    "nombre": "Clínica 6 IMSS San Nicolás",
+    "categoria": "Centro médico regional",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7382,
+    "longitud": -100.3131
+  },
+  {
+    "id": 73,
+    "nombre": "Estadio BBVA ('El Gigante de Acero')",
+    "categoria": "Estadio deportivo internacional",
+    "municipio": "Guadalupe",
+    "latitud": 25.6691,
+    "longitud": -100.2443
+  },
+  {
+    "id": 74,
+    "nombre": "Parque La Pastora / Zoológico",
+    "categoria": "Zoológico y parque ecológico",
+    "municipio": "Guadalupe",
+    "latitud": 25.6672,
+    "longitud": -100.2483
+  },
+  {
+    "id": 75,
+    "nombre": "Domo Care (Palenque Expo Guadalupe)",
+    "categoria": "Escenario de espectáculos musicales",
+    "municipio": "Guadalupe",
+    "latitud": 25.6791,
+    "longitud": -100.2525
+  },
+  {
+    "id": 76,
+    "nombre": "Expo Guadalupe (Instalaciones de la Unión Ganadera)",
+    "categoria": "Recinto ferial y exposiciones",
+    "municipio": "Guadalupe",
+    "latitud": 25.6783,
+    "longitud": -100.2536
+  },
+  {
+    "id": 77,
+    "nombre": "Parque Tolteca",
+    "categoria": "Parque recreativo natural",
+    "municipio": "Guadalupe",
+    "latitud": 25.6775,
+    "longitud": -100.2372
+  },
+  {
+    "id": 78,
+    "nombre": "Parque Pipo (Río La Silla)",
+    "categoria": "Parque ecológico urbano",
+    "municipio": "Guadalupe",
+    "latitud": 25.6683,
+    "longitud": -100.2289
+  },
+  {
+    "id": 79,
+    "nombre": "Teatro Sara García",
+    "categoria": "Teatro municipal",
+    "municipio": "Guadalupe",
+    "latitud": 25.6794,
+    "longitud": -100.2589
+  },
+  {
+    "id": 80,
+    "nombre": "Museo Ciudad Guadalupe",
+    "categoria": "Museo de historia local",
+    "municipio": "Guadalupe",
+    "latitud": 25.6789,
+    "longitud": -100.2604
+  },
+  {
+    "id": 81,
+    "nombre": "Polivalente de Guadalupe",
+    "categoria": "Gimnasio y estadio deportivo",
+    "municipio": "Guadalupe",
+    "latitud": 25.6738,
+    "longitud": -100.2528
+  },
+  {
+    "id": 82,
+    "nombre": "Estadio de Béisbol Olimpia Guadalupe",
+    "categoria": "Campo de béisbol",
+    "municipio": "Guadalupe",
+    "latitud": 25.6811,
+    "longitud": -100.2355
+  },
+  {
+    "id": 83,
+    "nombre": "Aeropuerto Internacional de Monterrey (Terminal A)",
+    "categoria": "Aeropuerto internacional",
+    "municipio": "Apodaca",
+    "latitud": 25.7785,
+    "longitud": -100.1069
+  },
+  {
+    "id": 84,
+    "nombre": "Aeropuerto Internacional de Monterrey (Terminal B)",
+    "categoria": "Terminal aérea",
+    "municipio": "Apodaca",
+    "latitud": 25.7738,
+    "longitud": -100.1118
+  },
+  {
+    "id": 85,
+    "nombre": "Aeropuerto Internacional del Norte (ADN)",
+    "categoria": "Aeródromo y aviación ejecutiva",
+    "municipio": "Apodaca",
+    "latitud": 25.8649,
+    "longitud": -100.2378
+  },
+  {
+    "id": 86,
+    "nombre": "Parque Fundadores de Apodaca",
+    "categoria": "Parque recreativo",
+    "municipio": "Apodaca",
+    "latitud": 25.7797,
+    "longitud": -100.1872
+  },
+  {
+    "id": 87,
+    "nombre": "Museo Casa de la Cultura de Apodaca",
+    "categoria": "Centro cultural y exhibiciones",
+    "municipio": "Apodaca",
+    "latitud": 25.7818,
+    "longitud": -100.1889
+  },
+  {
+    "id": 88,
+    "nombre": "Polideportivo Bicentenario Apodaca",
+    "categoria": "Campos deportivos y alberca olímpica",
+    "municipio": "Apodaca",
+    "latitud": 25.7612,
+    "longitud": -100.1775
+  },
+  {
+    "id": 89,
+    "nombre": "Plaza Paseo La Fe",
+    "categoria": "Centro comercial y ocio",
+    "municipio": "Apodaca",
+    "latitud": 25.7262,
+    "longitud": -100.2185
+  },
+  {
+    "id": 90,
+    "nombre": "Plaza Citadel",
+    "categoria": "Centro comercial",
+    "municipio": "Apodaca",
+    "latitud": 25.7229,
+    "longitud": -100.2144
+  },
+  {
+    "id": 91,
+    "nombre": "Gimnasio Centenario del Ejército Mexicano",
+    "categoria": "Complejo deportivo municipal",
+    "municipio": "Apodaca",
+    "latitud": 25.7892,
+    "longitud": -100.1983
+  },
+  {
+    "id": 92,
+    "nombre": "Parque La Chueca / Parque Recreativo Ojo de Agua",
+    "categoria": "Parque acuático y recreación",
+    "municipio": "Apodaca",
+    "latitud": 25.7884,
+    "longitud": -100.1741
+  },
+  {
+    "id": 93,
+    "nombre": "Polideportivo San José Escobedo",
+    "categoria": "Centro deportivo municipal",
+    "municipio": "General Escobedo",
+    "latitud": 25.8015,
+    "longitud": -100.3542
+  },
+  {
+    "id": 94,
+    "nombre": "Divertiparque Escobedo",
+    "categoria": "Parque temático y acuático",
+    "municipio": "General Escobedo",
+    "latitud": 25.8089,
+    "longitud": -100.3475
+  },
+  {
+    "id": 95,
+    "nombre": "Teatro Fidel Velázquez (Teatro de la Ciudad Escobedo)",
+    "categoria": "Escenario teatral",
+    "municipio": "General Escobedo",
+    "latitud": 25.8082,
+    "longitud": -100.3228
+  },
+  {
+    "id": 96,
+    "nombre": "Museo Histórico Escobedo",
+    "categoria": "Museo municipal",
+    "municipio": "General Escobedo",
+    "latitud": 25.8091,
+    "longitud": -100.3219
+  },
+  {
+    "id": 97,
+    "nombre": "Parque Lineal Las Torres Escobedo",
+    "categoria": "Campo recreativo y ciclopista",
+    "municipio": "General Escobedo",
+    "latitud": 25.7952,
+    "longitud": -100.3421
+  },
+  {
+    "id": 98,
+    "nombre": "Parque Ecológico La Huasteca (Caseta de entrada)",
+    "categoria": "Parque ecológico / Montañismo",
+    "municipio": "Santa Catarina",
+    "latitud": 25.6492,
+    "longitud": -100.4578
+  },
+  {
+    "id": 99,
+    "nombre": "Monumento La Puerta de Monterrey",
+    "categoria": "Escultura monumental urbana",
+    "municipio": "Santa Catarina",
+    "latitud": 25.6791,
+    "longitud": -100.4725
+  },
+  {
+    "id": 100,
+    "nombre": "Museo Industrial El Blanqueo",
+    "categoria": "Museo textil / Historia fabril",
+    "municipio": "Santa Catarina",
+    "latitud": 25.6725,
+    "longitud": -100.4431
+  }
+]
