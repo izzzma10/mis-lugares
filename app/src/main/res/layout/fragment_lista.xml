@@ -97,10 +97,28 @@
         android:layout_height="3dp"
         android:background="@color/pixel_tinta" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/texto_vacio"
+            style="@style/TextoCorrido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="24dp"
+            android:gravity="center"
+            android:text="@string/sin_puntos_cerca"
+            android:textColor="@color/pixel_tinta_suave"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
 </LinearLayout>

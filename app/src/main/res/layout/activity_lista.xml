@@ -34,6 +34,30 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <!-- Ciclador de radio de búsqueda: ocupa el mismo lugar que el "+", solo
+             uno de los dos está visible a la vez (lo maneja ListaLugaresFragment
+             según el chip "CERCA"). Rectángulo horizontal ("acostado") para que
+             entren el número y "KM" en una sola línea. -->
+        <TextView
+            android:id="@+id/fab_radio"
+            android:layout_width="110dp"
+            android:layout_height="52dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/boton_pixel_azul"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/radio_busqueda_descripcion"
+            android:fontFamily="@font/silkscreen"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
     </FrameLayout>
 
     <include layout="@layout/barra_tabs" />
