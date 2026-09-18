@@ -17,12 +17,230 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <!-- Buscador: cualquier lugar de la zona metropolitana (Photon), no solo lugares guardados -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_pixel"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <EditText
+                    android:id="@+id/campo_buscar"
+                    style="@style/TextoCorrido"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/hint_buscar_mapa"
+                    android:inputType="text"
+                    android:minHeight="44dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:textColor="@color/pixel_tinta"
+                    android:textColorHint="@color/pixel_hint"
+                    android:textCursorDrawable="@drawable/cursor_pixel"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/btn_limpiar_busqueda"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="6dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/limpiar_busqueda"
+                    android:focusable="true"
+                    android:src="@drawable/ic_equis_pixel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Filtro por categoría de los 100 puntos de referencia -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chip_ref_todos"
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/chip_pixel"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:minHeight="28dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/filtro_todos"
+                        android:textColor="@color/chip_texto" />
+
+                    <TextView
+                        android:id="@+id/chip_ref_deporte"
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/chip_pixel"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:minHeight="28dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/categoria_deporte_parques"
+                        android:textColor="@color/chip_texto" />
+
+                    <TextView
+                        android:id="@+id/chip_ref_comercial"
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/chip_pixel"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:minHeight="28dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/categoria_comercial"
+                        android:textColor="@color/chip_texto" />
+
+                    <TextView
+                        android:id="@+id/chip_ref_espectaculos"
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/chip_pixel"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:minHeight="28dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/categoria_espectaculos"
+                        android:textColor="@color/chip_texto" />
+
+                    <TextView
+                        android:id="@+id/chip_ref_cultura"
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/chip_pixel"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:minHeight="28dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/categoria_cultura"
+                        android:textColor="@color/chip_texto" />
+
+                    <TextView
+                        android:id="@+id/chip_ref_otros"
+                        style="@style/TextoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/chip_pixel"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:minHeight="28dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/categoria_otros"
+                        android:textColor="@color/chip_texto" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Panel de sugerencias: mismo patrón que EdicionLugarActivity, sin
+                 la fila "usar tal cual" (acá no hay un formulario que completar). -->
+            <LinearLayout
+                android:id="@+id/panel_sugerencias_mapa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/fondo_panel_pixel"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/pixel_tinta"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/silkscreen_bold"
+                        android:letterSpacing="0.1"
+                        android:text="@string/sugerencias_titulo"
+                        android:textColor="@color/pixel_fondo"
+                        android:textSize="8sp" />
+
+                    <TextView
+                        android:id="@+id/contador_sugerencias_mapa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/silkscreen_bold"
+                        android:textColor="@color/pixel_amarillo"
+                        android:textSize="8sp" />
+                </LinearLayout>
+
+                <com.example.mislugares.presentacion.RecyclerSugerencias
+                    android:id="@+id/lista_sugerencias_mapa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+        </LinearLayout>
+
         <!-- Zoom propio -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:layout_margin="10dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical">
 
             <TextView

@@ -41,6 +41,13 @@
     <string name="boton_llamar">CALL</string>
     <string name="boton_ir">GO</string>
     <string name="boton_ver">VIEW</string>
+    <string name="hint_buscar_mapa">Search a place…</string>
+    <string name="limpiar_busqueda">Clear search</string>
+    <string name="categoria_deporte_parques">SPORTS AND PARKS</string>
+    <string name="categoria_comercial">SHOPPING</string>
+    <string name="categoria_espectaculos">SHOWS</string>
+    <string name="categoria_cultura">MUSEUMS AND CULTURE</string>
+    <string name="categoria_otros">OTHER</string>
     <string name="cd_fotografia">photo</string>
     <string name="cd_favorito">Favorite</string>
     <string name="cd_tomar_foto">Take photo</string>
@@ -136,6 +143,10 @@
     <string name="pref_idioma_es">ESPAÑOL</string>
     <string name="pref_idioma_en">ENGLISH</string>
     <string name="pref_pie">v1.0 · %d saved places</string>
+
+    <!-- Nearby reference points -->
+    <string name="sin_puntos_cerca">No nearby reference points found</string>
+    <string name="radio_busqueda_descripcion">Search radius</string>
 
     <!-- Generic -->
     <string name="mas">+</string>

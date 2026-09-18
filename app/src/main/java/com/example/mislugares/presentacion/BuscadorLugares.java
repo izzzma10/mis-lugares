@@ -7,6 +7,7 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
 
+import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.TipoLugar;
 
 import org.json.JSONArray;
@@ -49,6 +50,12 @@ final class BuscadorLugares {
     private static final ExecutorService HILOS = Executors.newSingleThreadExecutor();
     private static final Handler PRINCIPAL = new Handler(Looper.getMainLooper());
 
+    // Centro de la zona metropolitana de Monterrey, usado como referencia fija
+    // para el filtro por radio (independiente del sesgo de búsqueda, que puede
+    // moverse con el GPS del usuario).
+    private static final double CENTRO_MTY_LAT = 25.6866;
+    private static final double CENTRO_MTY_LON = -100.3161;
+
     private BuscadorLugares() { }
 
     /**
@@ -61,10 +68,20 @@ final class BuscadorLugares {
      */
     static void buscar(@NonNull String consulta, double sesgoLat, double sesgoLon,
                        @NonNull Consumer<List<Resultado>> alListo) {
+        buscar(consulta, sesgoLat, sesgoLon, 0, alListo);
+    }
+
+    /**
+     * Igual que {@link #buscar(String, double, double, Consumer)}, pero además
+     * descarta cualquier resultado a más de {@code radioMaximoMetros} del centro
+     * de la zona metropolitana de Monterrey (0 = sin límite de radio).
+     */
+    static void buscar(@NonNull String consulta, double sesgoLat, double sesgoLon,
+                       double radioMaximoMetros, @NonNull Consumer<List<Resultado>> alListo) {
         HILOS.execute(() -> {
             List<Resultado> resultados = new ArrayList<>();
             try {
-                resultados = consultarPhoton(consulta, sesgoLat, sesgoLon);
+                resultados = consultarPhoton(consulta, sesgoLat, sesgoLon, radioMaximoMetros);
             } catch (Exception ignorado) {
                 // Sin red o respuesta rara: se devuelve lista vacía.
             }
@@ -73,8 +90,8 @@ final class BuscadorLugares {
         });
     }
 
-    private static List<Resultado> consultarPhoton(String consulta, double sesgoLat, double sesgoLon)
-            throws Exception {
+    private static List<Resultado> consultarPhoton(String consulta, double sesgoLat, double sesgoLon,
+            double radioMaximoMetros) throws Exception {
         // Photon solo admite lang = default | de | en | fr. "default" devuelve
         // los nombres locales (lo que queremos en México).
         StringBuilder url = new StringBuilder(
@@ -133,8 +150,25 @@ final class BuscadorLugares {
                 mexico.add(r);
             }
         }
+        if (radioMaximoMetros > 0) {
+            // Con radio activo alcanza con la distancia: cualquier resultado a
+            // 50km de Monterrey ya está en México/Nuevo León, no hace falta
+            // además el filtro/fallback por país.
+            return dentroDelRadio(todas, radioMaximoMetros);
+        }
         // Solo México; si la búsqueda no dio ninguna local, se devuelven todas.
         return !mexico.isEmpty() ? mexico : todas;
+    }
+
+    private static List<Resultado> dentroDelRadio(List<Resultado> resultados, double radioMetros) {
+        GeoPunto centro = new GeoPunto(CENTRO_MTY_LON, CENTRO_MTY_LAT);
+        List<Resultado> filtrados = new ArrayList<>();
+        for (Resultado r : resultados) {
+            if (centro.distancia(new GeoPunto(r.longitud, r.latitud)) <= radioMetros) {
+                filtrados.add(r);
+            }
+        }
+        return filtrados;
     }
 
     /** Arma "Calle 123, Colonia, Ciudad, Estado, País" con lo que haya. */

@@ -41,6 +41,13 @@
     <string name="boton_llamar">LLAMAR</string>
     <string name="boton_ir">IR</string>
     <string name="boton_ver">VER</string>
+    <string name="hint_buscar_mapa">Buscar un lugar…</string>
+    <string name="limpiar_busqueda">Limpiar búsqueda</string>
+    <string name="categoria_deporte_parques">DEPORTE Y PARQUES</string>
+    <string name="categoria_comercial">COMERCIAL</string>
+    <string name="categoria_espectaculos">ESPECTÁCULOS</string>
+    <string name="categoria_cultura">MUSEOS Y CULTURA</string>
+    <string name="categoria_otros">OTROS</string>
     <string name="cd_fotografia">fotografía</string>
     <string name="cd_favorito">Favorito</string>
     <string name="cd_tomar_foto">Tomar foto</string>
@@ -136,6 +143,10 @@
     <string name="pref_idioma_es">ESPAÑOL</string>
     <string name="pref_idioma_en">ENGLISH</string>
     <string name="pref_pie">v1.0 · %d lugares guardados</string>
+
+    <!-- Puntos de referencia cercanos -->
+    <string name="sin_puntos_cerca">No se encontraron puntos de referencia cerca</string>
+    <string name="radio_busqueda_descripcion">Radio de búsqueda</string>
 
     <!-- Genéricos -->
     <string name="mas">+</string>
