@@ -147,6 +147,7 @@
     <!-- Nearby reference points -->
     <string name="sin_puntos_cerca">No nearby reference points found</string>
     <string name="hint_buscar_lista">Search my places…</string>
+    <string name="buscando_ubicacion">Finding your location…</string>
     <string name="hint_buscar_cerca">Search nearby points…</string>
     <string name="sin_resultados_lista">No place matches your search</string>
     <string name="radio_busqueda_descripcion">Search radius</string>

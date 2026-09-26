@@ -55,6 +55,13 @@ public class MainActivity extends AppCompatActivity implements HojaIdiomaFragmen
         gestorLocalizacion.solicitarUbicacionActual();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Si el usuario activó la ubicación estando fuera de la app, al volver la reintentamos.
+        gestorLocalizacion.reintentarSiHaceFalta();
+    }
+
     /** Botón de idioma en la barra superior: solo lo muestra la pantalla LISTA. */
     private void configurarBotonIdioma() {
         View botonIdioma = findViewById(R.id.barra_idioma);

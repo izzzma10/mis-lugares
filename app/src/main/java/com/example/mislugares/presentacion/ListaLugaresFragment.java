@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
+import com.example.mislugares.modelo.GeoPunto;
 
 /**
  * Pantalla 1 (lista de lugares) como Fragment. MainActivity solo lo aloja.
@@ -107,10 +108,22 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         textoVacio.setVisibility(sinResultados ? View.VISIBLE : View.GONE);
     }
 
-    /** Vacío de CERCA: "sin resultados" si hay texto escrito, "sin puntos cerca" si no. */
+    /** Vacío de CERCA. Tres casos, en este orden: todavía sin GPS, sin coincidencias
+     *  con el texto escrito, o simplemente ningún punto dentro del radio. */
     private void actualizarVacioCerca() {
+        Aplicacion aplicacion = (Aplicacion) requireActivity().getApplication();
+        boolean sinGps = aplicacion.posicionActual.equals(GeoPunto.SIN_POSICION);
         boolean hayTexto = campoFiltroTexto.getText().length() > 0;
-        textoVacio.setText(hayTexto ? R.string.sin_resultados_lista : R.string.sin_puntos_cerca);
+
+        int mensaje;
+        if (sinGps) {
+            mensaje = R.string.buscando_ubicacion;
+        } else if (hayTexto) {
+            mensaje = R.string.sin_resultados_lista;
+        } else {
+            mensaje = R.string.sin_puntos_cerca;
+        }
+        textoVacio.setText(mensaje);
         textoVacio.setVisibility(adaptadorCerca.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
