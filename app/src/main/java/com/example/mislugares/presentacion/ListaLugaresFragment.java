@@ -32,7 +32,6 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     private AdaptadorLugares adaptador;
     private AdaptadorPuntosReferencia adaptadorCerca;
     private TextView textoVacio;
-    private View cajaFiltroTexto;
     private EditText campoFiltroTexto;
     private View fabAgregar;
     private TextView fabRadio;
@@ -77,7 +76,6 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
 
     /** Buscador por nombre: cada tecla le pasa el texto al adaptador, que reconstruye la lista. */
     private void configurarBuscadorLocal(View view) {
-        cajaFiltroTexto = view.findViewById(R.id.caja_filtro_texto);
         campoFiltroTexto = view.findViewById(R.id.campo_filtro_texto);
         campoFiltroTexto.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,7 +87,14 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
             @Override
             public void afterTextChanged(Editable s) {
                 adaptador.setTexto(s.toString());
-                actualizarVacioLista();
+                if (adaptadorCerca != null) {
+                    adaptadorCerca.setTexto(s.toString());
+                }
+                if (orden == 1) {
+                    actualizarVacioCerca();
+                } else {
+                    actualizarVacioLista();
+                }
             }
         });
     }
@@ -100,6 +105,13 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
                 && campoFiltroTexto.getText().length() > 0;
         textoVacio.setText(R.string.sin_resultados_lista);
         textoVacio.setVisibility(sinResultados ? View.VISIBLE : View.GONE);
+    }
+
+    /** Vacío de CERCA: "sin resultados" si hay texto escrito, "sin puntos cerca" si no. */
+    private void actualizarVacioCerca() {
+        boolean hayTexto = campoFiltroTexto.getText().length() > 0;
+        textoVacio.setText(hayTexto ? R.string.sin_resultados_lista : R.string.sin_puntos_cerca);
+        textoVacio.setVisibility(adaptadorCerca.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     /** Fila de chips: TODOS / ★ FAV / CERCA / A-Z. */
@@ -129,13 +141,13 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
 
         if (orden == 1) {
             chipAz.setVisibility(View.GONE);
-            cajaFiltroTexto.setVisibility(View.GONE);
+            campoFiltroTexto.setHint(R.string.hint_buscar_cerca);
             fabAgregar.setVisibility(View.GONE);
             fabRadio.setVisibility(View.VISIBLE);
             mostrarPuntosCercanos();
         } else {
             chipAz.setVisibility(View.VISIBLE);
-            cajaFiltroTexto.setVisibility(View.VISIBLE);
+            campoFiltroTexto.setHint(R.string.hint_buscar_lista);
             fabAgregar.setVisibility(View.VISIBLE);
             fabRadio.setVisibility(View.GONE);
             recyclerView.setAdapter(adaptador);
@@ -152,12 +164,12 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
             adaptadorCerca = new AdaptadorPuntosReferencia(requireContext());
         }
         recyclerView.setAdapter(adaptadorCerca);
-        textoVacio.setText(R.string.sin_puntos_cerca);
+        adaptadorCerca.setTexto(campoFiltroTexto.getText().toString());
 
         Aplicacion aplicacion = (Aplicacion) requireActivity().getApplication();
         int radioKm = leerRadioKmActual();
         adaptadorCerca.actualizar(aplicacion.posicionActual, radioKm * 1000.0);
-        textoVacio.setVisibility(adaptadorCerca.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        actualizarVacioCerca();
         fabRadio.setText(radioKm + " KM");
     }
 

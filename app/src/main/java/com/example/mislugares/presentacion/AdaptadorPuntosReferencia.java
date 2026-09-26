@@ -28,7 +28,9 @@ public class AdaptadorPuntosReferencia extends
         RecyclerView.Adapter<AdaptadorPuntosReferencia.ViewHolder> {
 
     private final PuntosCercanos casoUsoPuntosCercanos;
-    private List<PuntoReferencia> puntos = new ArrayList<>();
+    private List<PuntoReferencia> cercanos = new ArrayList<>();   // dentro del radio
+    private List<PuntoReferencia> puntos = new ArrayList<>();     // los que se ven (cercanos + texto)
+    private String textoBusqueda = "";                            // ya normalizado
     private GeoPunto posicionActual = GeoPunto.SIN_POSICION;
 
     public AdaptadorPuntosReferencia(Context contexto) {
@@ -40,9 +42,29 @@ public class AdaptadorPuntosReferencia extends
     public void actualizar(GeoPunto posicionActual, double radioInicialMetros) {
         this.posicionActual = posicionActual;
         if (posicionActual.equals(GeoPunto.SIN_POSICION)) {
-            puntos = new ArrayList<>();
+            cercanos = new ArrayList<>();
         } else {
-            puntos = casoUsoPuntosCercanos.buscar(posicionActual, radioInicialMetros);
+            cercanos = casoUsoPuntosCercanos.buscar(posicionActual, radioInicialMetros);
+        }
+        filtrarPorTexto();
+    }
+
+    /** Texto del buscador. Filtra dentro de los puntos que ya están dentro del radio. */
+    public void setTexto(String texto) {
+        this.textoBusqueda = Texto.normalizar(texto);
+        filtrarPorTexto();
+    }
+
+    /** Se queda con los cercanos cuyo nombre, categoría o municipio contienen el texto. */
+    private void filtrarPorTexto() {
+        puntos = new ArrayList<>();
+        for (PuntoReferencia punto : cercanos) {
+            if (textoBusqueda.isEmpty()
+                    || Texto.normalizar(punto.getNombre()).contains(textoBusqueda)
+                    || Texto.normalizar(punto.getCategoria()).contains(textoBusqueda)
+                    || Texto.normalizar(punto.getMunicipio()).contains(textoBusqueda)) {
+                puntos.add(punto);
+            }
         }
         notifyDataSetChanged();
     }

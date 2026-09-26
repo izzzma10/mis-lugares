@@ -14,11 +14,9 @@ import com.example.mislugares.datos.RepositorioLugares;
 import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,17 +57,8 @@ public class AdaptadorLugares extends
 
     /** Texto del buscador local. Vacío = sin filtro por nombre. */
     public void setTexto(String texto) {
-        this.textoBusqueda = normalizar(texto);
+        this.textoBusqueda = Texto.normalizar(texto);
         aplicarFiltro();
-    }
-
-    /** Minúsculas y sin acentos, para que "cafe" encuentre "Café". */
-    private static String normalizar(String texto) {
-        if (texto == null) {
-            return "";
-        }
-        String descompuesto = Normalizer.normalize(texto.trim(), Normalizer.Form.NFD);
-        return descompuesto.replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT);
     }
 
     private void aplicarFiltro() {
@@ -78,7 +67,7 @@ public class AdaptadorLugares extends
             Lugar lugar = entrada.getValue();
             boolean pasaFavorito = !soloFavoritos || lugar.isFavorito();
             boolean pasaTexto = textoBusqueda.isEmpty()
-                    || normalizar(lugar.getNombre()).contains(textoBusqueda);
+                    || Texto.normalizar(lugar.getNombre()).contains(textoBusqueda);
             if (pasaFavorito && pasaTexto) {
                 ids.add(entrada.getKey());
             }
