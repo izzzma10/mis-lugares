@@ -124,10 +124,15 @@
             android:textSize="18sp" />
     </FrameLayout>
 
-    <FrameLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refrescar_lista"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -147,5 +152,7 @@
             android:visibility="gone" />
 
     </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

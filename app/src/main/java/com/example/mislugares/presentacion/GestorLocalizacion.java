@@ -55,6 +55,16 @@ public class GestorLocalizacion {
         }
     }
 
+    /** Pull-to-refresh: siempre pide una lectura fresca (la caché puede estar vieja). */
+    public void refrescarUbicacion() {
+        boolean conPermiso = ContextCompat.checkSelfPermission(actividad,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (conPermiso && !buscando) {
+            buscando = true;
+            pedirUbicacionNueva();
+        }
+    }
+
     /** Primero la última ubicación en caché (instantánea); si no hay ninguna, pide una nueva. */
     @SuppressLint("MissingPermission")
     private void obtenerUbicacion() {

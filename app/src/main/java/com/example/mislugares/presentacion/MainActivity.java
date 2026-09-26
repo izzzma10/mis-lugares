@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements HojaIdiomaFragmen
         gestorLocalizacion.reintentarSiHaceFalta();
     }
 
+    /** La llama el Fragment con el gesto de "tirar para refrescar". */
+    void actualizarUbicacion() {
+        gestorLocalizacion.refrescarUbicacion();
+    }
+
     /** Botón de idioma en la barra superior: solo lo muestra la pantalla LISTA. */
     private void configurarBotonIdioma() {
         View botonIdioma = findViewById(R.id.barra_idioma);

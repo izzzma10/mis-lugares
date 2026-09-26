@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
@@ -33,6 +34,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     private AdaptadorLugares adaptador;
     private AdaptadorPuntosReferencia adaptadorCerca;
     private TextView textoVacio;
+    private SwipeRefreshLayout refrescarLista;
     private EditText campoFiltroTexto;
     private View fabAgregar;
     private TextView fabRadio;
@@ -73,6 +75,24 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         recyclerView.setAdapter(adaptador);
 
         configurarFiltro(view);
+        configurarRefrescar(view);
+    }
+
+    /** Tirar hacia abajo: recarga los lugares guardados y pide una ubicación nueva. */
+    private void configurarRefrescar(View view) {
+        refrescarLista = view.findViewById(R.id.refrescar_lista);
+        refrescarLista.setColorSchemeResources(R.color.pixel_azul);
+        refrescarLista.setProgressBackgroundColorSchemeResource(R.color.pixel_fondo);
+        refrescarLista.setOnRefreshListener(() -> {
+            adaptador.actualizar();
+            if (orden != 1) {
+                actualizarVacioLista();
+            }
+            ((MainActivity) requireActivity()).actualizarUbicacion();
+            // La ubicación llega sola a refrescar(), pero si no llega (sin GPS, sin permiso)
+            // el círculo no debe quedar girando para siempre: tope de 3 segundos.
+            refrescarLista.postDelayed(() -> refrescarLista.setRefreshing(false), 3000);
+        });
     }
 
     /** Buscador por nombre: cada tecla le pasa el texto al adaptador, que reconstruye la lista. */
@@ -232,6 +252,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         if (adaptador == null) {
             return;
         }
+        refrescarLista.setRefreshing(false);
         Aplicacion aplicacion = (Aplicacion) requireActivity().getApplication();
         adaptador.setPosicion(aplicacion.posicionActual);
         if (orden == 1) {
