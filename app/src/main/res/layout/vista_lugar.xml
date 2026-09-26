@@ -392,12 +392,11 @@
                     android:paddingEnd="8dp"
                     android:textSize="10sp"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/boton_pixel_crema"
+                    android:background="@drawable/boton_pixel_verde"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="@string/boton_llamar"
-                    android:textColor="@color/pixel_tinta" />
+                    android:text="@string/boton_llamar" />
             </LinearLayout>
 
         </LinearLayout>
