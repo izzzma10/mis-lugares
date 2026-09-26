@@ -162,6 +162,11 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     private void mostrarPuntosCercanos() {
         if (adaptadorCerca == null) {
             adaptadorCerca = new AdaptadorPuntosReferencia(requireContext());
+            adaptadorCerca.setOnPuntoClickListener(punto -> {
+                Intent intent = new Intent(requireContext(), MapaLugarActivity.class);
+                intent.putExtra(MapaLugarActivity.EXTRA_ID_PUNTO_REFERENCIA, punto.id());
+                startActivity(intent);
+            });
         }
         recyclerView.setAdapter(adaptadorCerca);
         adaptadorCerca.setTexto(campoFiltroTexto.getText().toString());

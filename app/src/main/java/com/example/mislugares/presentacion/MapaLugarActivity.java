@@ -44,6 +44,7 @@ import java.util.Set;
 public class MapaLugarActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID_LUGAR = "com.example.mislugares.ID_LUGAR";
+    public static final String EXTRA_ID_PUNTO_REFERENCIA = "com.example.mislugares.ID_PUNTO_REFERENCIA";
 
     // Centro por defecto (Monterrey) si no hay lugares ni ubicación conocida.
     private static final GeoPoint CENTRO_DEFECTO = new GeoPoint(25.6866, -100.3161);
@@ -140,10 +141,14 @@ public class MapaLugarActivity extends AppCompatActivity {
         configurarFiltroReferencia();
 
         int idLugar = getIntent().getIntExtra(EXTRA_ID_LUGAR, -1);
+        int idPunto = getIntent().getIntExtra(EXTRA_ID_PUNTO_REFERENCIA, -1);
         if (idLugar >= 0) {
             mostrarUnLugar(idLugar);
         } else {
             mostrarTodos();
+            if (idPunto >= 0) {
+                enfocarPuntoReferencia(idPunto);
+            }
         }
     }
 
@@ -315,6 +320,20 @@ public class MapaLugarActivity extends AppCompatActivity {
         dibujarPuntosReferencia();
         mapa.getController().setZoom(12.0);
         mapa.getController().setCenter(CENTRO_DEFECTO);
+    }
+
+    /** Modo "vengo de la lista CERCA": el mismo mapa de siempre, pero centrado en ese
+     *  punto y con su ficha abierta. Se ve el resto de los puntos para dar contexto. */
+    private void enfocarPuntoReferencia(int id) {
+        for (PuntoReferencia punto : puntosReferencia) {
+            if (punto.id() == id) {
+                mapa.getController().setZoom(16.0);
+                mapa.getController().setCenter(new GeoPoint(
+                        punto.getPosicion().getLatitud(), punto.getPosicion().getLongitud()));
+                mostrarFichaPunto(punto);
+                return;
+            }
+        }
     }
 
     /** Cablea los chips TODOS/DEPORTE/COMERCIAL/ESPECTÁCULOS/CULTURA/OTROS. */

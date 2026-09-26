@@ -33,6 +33,17 @@ public class AdaptadorPuntosReferencia extends
     private String textoBusqueda = "";                            // ya normalizado
     private GeoPunto posicionActual = GeoPunto.SIN_POSICION;
 
+    /** Quién quiere enterarse de que tocaron una fila (lo decide el Fragment). */
+    public interface OnPuntoClickListener {
+        void alTocar(PuntoReferencia punto);
+    }
+
+    private OnPuntoClickListener onPuntoClickListener;
+
+    public void setOnPuntoClickListener(OnPuntoClickListener listener) {
+        this.onPuntoClickListener = listener;
+    }
+
     public AdaptadorPuntosReferencia(Context contexto) {
         RepositorioPuntosReferencia repositorio = new RepositorioPuntosReferencia(contexto);
         this.casoUsoPuntosCercanos = new PuntosCercanos(repositorio);
@@ -78,7 +89,13 @@ public class AdaptadorPuntosReferencia extends
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int posicion) {
-        holder.personaliza(puntos.get(posicion), posicionActual);
+        PuntoReferencia punto = puntos.get(posicion);
+        holder.personaliza(punto, posicionActual);
+        holder.itemView.setOnClickListener(v -> {
+            if (onPuntoClickListener != null) {
+                onPuntoClickListener.alTocar(punto);
+            }
+        });
     }
 
     @Override
