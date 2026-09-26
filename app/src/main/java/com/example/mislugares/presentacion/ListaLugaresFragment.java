@@ -1,6 +1,8 @@
 package com.example.mislugares.presentacion;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +38,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     private AdaptadorPuntosReferencia adaptadorCerca;
     private TextView textoVacio;
     private SwipeRefreshLayout refrescarLista;
+    private IndicadorPixelDrawable indicadorRefresco;
     private EditText campoFiltroTexto;
     private View fabAgregar;
     private TextView fabRadio;
@@ -81,9 +85,9 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     /** Tirar hacia abajo: recarga los lugares guardados y pide una ubicación nueva. */
     private void configurarRefrescar(View view) {
         refrescarLista = view.findViewById(R.id.refrescar_lista);
-        refrescarLista.setColorSchemeResources(R.color.pixel_azul);
-        refrescarLista.setProgressBackgroundColorSchemeResource(R.color.pixel_fondo);
+        reemplazarCirculoPorPixelArt();
         refrescarLista.setOnRefreshListener(() -> {
+            indicadorRefresco.start();
             adaptador.actualizar();
             if (orden != 1) {
                 actualizarVacioLista();
@@ -91,8 +95,27 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
             ((MainActivity) requireActivity()).actualizarUbicacion();
             // La ubicación llega sola a refrescar(), pero si no llega (sin GPS, sin permiso)
             // el círculo no debe quedar girando para siempre: tope de 3 segundos.
-            refrescarLista.postDelayed(() -> refrescarLista.setRefreshing(false), 3000);
+            refrescarLista.postDelayed(this::terminarRefresco, 3000);
         });
+    }
+
+    /** SwipeRefreshLayout crea su indicador como PRIMER hijo (antes del contenido). Es un
+     *  ImageView: le cambiamos el dibujo redondo por el nuestro y le dejamos un fondo transparente, sin sombra. */
+    private void reemplazarCirculoPorPixelArt() {
+        indicadorRefresco = new IndicadorPixelDrawable(requireContext());
+        View primero = refrescarLista.getChildAt(0);
+        if (primero instanceof ImageView) {
+            ImageView circulo = (ImageView) primero;
+            circulo.setImageDrawable(indicadorRefresco);
+            // La librería hace getBackground().setAlpha(...): no puede ser null, pero sí transparente.
+            circulo.setBackground(new ColorDrawable(Color.TRANSPARENT));
+            circulo.setElevation(0f);
+        }
+    }
+
+    private void terminarRefresco() {
+        refrescarLista.setRefreshing(false);
+        indicadorRefresco.stop();
     }
 
     /** Buscador por nombre: cada tecla le pasa el texto al adaptador, que reconstruye la lista. */
@@ -252,7 +275,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         if (adaptador == null) {
             return;
         }
-        refrescarLista.setRefreshing(false);
+        terminarRefresco();
         Aplicacion aplicacion = (Aplicacion) requireActivity().getApplication();
         adaptador.setPosicion(aplicacion.posicionActual);
         if (orden == 1) {
