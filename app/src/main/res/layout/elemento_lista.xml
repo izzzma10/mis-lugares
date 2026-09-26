@@ -91,6 +91,21 @@
                 android:layout_marginTop="3dp"
                 android:gravity="end" />
         </LinearLayout>
+
+        <!-- Atajo "cómo llegar" (mismo botón verde IR de la ficha del mapa) -->
+        <TextView
+            android:id="@+id/boton_ir_fila"
+            style="@style/TextoBoton"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/boton_pixel_verde"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/boton_ir"
+            android:textSize="9sp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View

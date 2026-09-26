@@ -2,7 +2,6 @@ package com.example.mislugares.presentacion;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -279,7 +278,7 @@ public class MapaLugarActivity extends AppCompatActivity {
         fichaNombre.setText(r.nombre);
         fichaDireccion.setText(r.direccion);
         fichaVer.setVisibility(View.GONE);
-        fichaIr.setOnClickListener(v -> irEnMapaExterno(r.latitud, r.longitud));
+        fichaIr.setOnClickListener(v -> Navegacion.irA(this, r.latitud, r.longitud));
         fichaInferior.setVisibility(View.VISIBLE);
     }
 
@@ -428,7 +427,7 @@ public class MapaLugarActivity extends AppCompatActivity {
         fichaNombre.setText(punto.getNombre());
         fichaDireccion.setText(punto.getCategoria());
         fichaVer.setVisibility(View.GONE);
-        fichaIr.setOnClickListener(v -> irEnMapaExterno(
+        fichaIr.setOnClickListener(v -> Navegacion.irA(this, 
                 punto.getPosicion().getLatitud(), punto.getPosicion().getLongitud()));
         fichaInferior.setVisibility(View.VISIBLE);
     }
@@ -459,23 +458,9 @@ public class MapaLugarActivity extends AppCompatActivity {
             intent.putExtra(VistaLugarActivity.EXTRA_ID, id);
             startActivity(intent);
         });
-        fichaIr.setOnClickListener(v -> irEnMapaExterno(lugar.getPosicion().getLatitud(),
+        fichaIr.setOnClickListener(v -> Navegacion.irA(this, lugar.getPosicion().getLatitud(),
                 lugar.getPosicion().getLongitud()));
         fichaInferior.setVisibility(View.VISIBLE);
-    }
-
-    /** Abre la navegación hacia esas coordenadas en Google Maps (o el navegador si no está). */
-    private void irEnMapaExterno(double latitud, double longitud) {
-        String destino = latitud + "," + longitud;
-        Intent maps = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("google.navigation:q=" + destino));
-        maps.setPackage("com.google.android.apps.maps");
-        if (maps.resolveActivity(getPackageManager()) != null) {
-            startActivity(maps);
-        } else {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
-                    "https://www.google.com/maps/dir/?api=1&destination=" + destino)));
-        }
     }
 
     private void centrarEnMiUbicacion() {

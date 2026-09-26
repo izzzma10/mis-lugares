@@ -94,6 +94,7 @@ public class AdaptadorLugares extends
         public TextView nombre, direccion, distancia;
         public ImageView foto, favorito;
         public LinearLayout tiraValoracion;
+        public TextView botonIr;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -103,6 +104,7 @@ public class AdaptadorLugares extends
             foto = itemView.findViewById(R.id.foto);
             favorito = itemView.findViewById(R.id.favorito);
             tiraValoracion = itemView.findViewById(R.id.tira_valoracion);
+            botonIr = itemView.findViewById(R.id.boton_ir_fila);
         }
 
         public void personaliza(Lugar lugar) {
@@ -114,6 +116,13 @@ public class AdaptadorLugares extends
             favorito.setVisibility(lugar.isFavorito() ? View.VISIBLE : View.GONE);
 
             Estrellas.pintarValoracion(tiraValoracion, lugar.getValoracion(), true);
+
+            // Atajo "cómo llegar": solo si el lugar tiene coordenadas. Al ser un botón
+            // con su propio listener, el toque no llega a la fila (no abre el detalle).
+            boolean tieneCoordenadas = !lugar.getPosicion().equals(GeoPunto.SIN_POSICION);
+            botonIr.setVisibility(tieneCoordenadas ? View.VISIBLE : View.GONE);
+            botonIr.setOnClickListener(v -> Navegacion.irA(itemView.getContext(),
+                    lugar.getPosicion().getLatitud(), lugar.getPosicion().getLongitud()));
 
             GeoPunto pos = ((Aplicacion) itemView.getContext()
                     .getApplicationContext()).posicionActual;
