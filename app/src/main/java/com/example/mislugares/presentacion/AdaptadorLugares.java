@@ -14,9 +14,11 @@ import com.example.mislugares.datos.RepositorioLugares;
 import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.Lugar;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +35,7 @@ public class AdaptadorLugares extends
     protected boolean soloFavoritos = false;
     protected int orden = 0;   // 0 normal · 1 cercania · 2 A-Z asc · 3 A-Z desc
     protected GeoPunto posicion = GeoPunto.SIN_POSICION;
+    protected String textoBusqueda = "";   // ya normalizado (ver normalizar())
 
     public AdaptadorLugares(RepositorioLugares repositorio) {
         this.casoUsoListar = new ListarLugares(repositorio);
@@ -54,10 +57,29 @@ public class AdaptadorLugares extends
         aplicarFiltro();
     }
 
+    /** Texto del buscador local. Vacío = sin filtro por nombre. */
+    public void setTexto(String texto) {
+        this.textoBusqueda = normalizar(texto);
+        aplicarFiltro();
+    }
+
+    /** Minúsculas y sin acentos, para que "cafe" encuentre "Café". */
+    private static String normalizar(String texto) {
+        if (texto == null) {
+            return "";
+        }
+        String descompuesto = Normalizer.normalize(texto.trim(), Normalizer.Form.NFD);
+        return descompuesto.replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT);
+    }
+
     private void aplicarFiltro() {
         ids = new ArrayList<>();
         for (Map.Entry<Integer, Lugar> entrada : lugares.entrySet()) {
-            if (!soloFavoritos || entrada.getValue().isFavorito()) {
+            Lugar lugar = entrada.getValue();
+            boolean pasaFavorito = !soloFavoritos || lugar.isFavorito();
+            boolean pasaTexto = textoBusqueda.isEmpty()
+                    || normalizar(lugar.getNombre()).contains(textoBusqueda);
+            if (pasaFavorito && pasaTexto) {
                 ids.add(entrada.getKey());
             }
         }

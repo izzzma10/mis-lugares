@@ -3,9 +3,12 @@ package com.example.mislugares.presentacion;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +31,9 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     private RecyclerView recyclerView;
     private AdaptadorLugares adaptador;
     private AdaptadorPuntosReferencia adaptadorCerca;
-    private View textoVacio;
+    private TextView textoVacio;
+    private View cajaFiltroTexto;
+    private EditText campoFiltroTexto;
     private View fabAgregar;
     private TextView fabRadio;
 
@@ -54,6 +59,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         adaptador.setPosicion(aplicacion.posicionActual);
 
         textoVacio = view.findViewById(R.id.texto_vacio);
+        configurarBuscadorLocal(view);
 
         // fab_radio y fab_agregar viven en activity_lista.xml, no en fragment_lista.xml,
         // y ocupan el mismo lugar: solo uno de los dos está visible a la vez.
@@ -67,6 +73,33 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         recyclerView.setAdapter(adaptador);
 
         configurarFiltro(view);
+    }
+
+    /** Buscador por nombre: cada tecla le pasa el texto al adaptador, que reconstruye la lista. */
+    private void configurarBuscadorLocal(View view) {
+        cajaFiltroTexto = view.findViewById(R.id.caja_filtro_texto);
+        campoFiltroTexto = view.findViewById(R.id.campo_filtro_texto);
+        campoFiltroTexto.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                adaptador.setTexto(s.toString());
+                actualizarVacioLista();
+            }
+        });
+    }
+
+    /** Mensaje de "sin resultados" del modo lista normal (el de CERCA lo maneja mostrarPuntosCercanos). */
+    private void actualizarVacioLista() {
+        boolean sinResultados = adaptador.getItemCount() == 0
+                && campoFiltroTexto.getText().length() > 0;
+        textoVacio.setText(R.string.sin_resultados_lista);
+        textoVacio.setVisibility(sinResultados ? View.VISIBLE : View.GONE);
     }
 
     /** Fila de chips: TODOS / ★ FAV / CERCA / A-Z. */
@@ -96,16 +129,18 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
 
         if (orden == 1) {
             chipAz.setVisibility(View.GONE);
+            cajaFiltroTexto.setVisibility(View.GONE);
             fabAgregar.setVisibility(View.GONE);
             fabRadio.setVisibility(View.VISIBLE);
             mostrarPuntosCercanos();
         } else {
             chipAz.setVisibility(View.VISIBLE);
+            cajaFiltroTexto.setVisibility(View.VISIBLE);
             fabAgregar.setVisibility(View.VISIBLE);
             fabRadio.setVisibility(View.GONE);
             recyclerView.setAdapter(adaptador);
-            textoVacio.setVisibility(View.GONE);
             adaptador.setFiltro(soloFav, orden);
+            actualizarVacioLista();
         }
     }
 
@@ -117,6 +152,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
             adaptadorCerca = new AdaptadorPuntosReferencia(requireContext());
         }
         recyclerView.setAdapter(adaptadorCerca);
+        textoVacio.setText(R.string.sin_puntos_cerca);
 
         Aplicacion aplicacion = (Aplicacion) requireActivity().getApplication();
         int radioKm = leerRadioKmActual();
@@ -155,6 +191,9 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         adaptador.actualizar();
+        if (orden != 1) {
+            actualizarVacioLista();
+        }
         SnackPixel.mostrarPendiente(requireActivity());
     }
 
@@ -169,6 +208,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
             mostrarPuntosCercanos();
         } else {
             adaptador.actualizar();
+            actualizarVacioLista();
         }
     }
 

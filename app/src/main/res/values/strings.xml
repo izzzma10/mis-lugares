@@ -146,6 +146,8 @@
 
     <!-- Puntos de referencia cercanos -->
     <string name="sin_puntos_cerca">No se encontraron puntos de referencia cerca</string>
+    <string name="hint_buscar_lista">Buscar en mis lugares…</string>
+    <string name="sin_resultados_lista">Ningún lugar coincide con tu búsqueda</string>
     <string name="radio_busqueda_descripcion">Radio de búsqueda</string>
 
     <!-- Genéricos -->

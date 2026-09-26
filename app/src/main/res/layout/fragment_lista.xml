@@ -97,6 +97,33 @@
         android:layout_height="3dp"
         android:background="@color/pixel_tinta" />
 
+    <!-- Buscador local por nombre (solo visible fuera del modo CERCA) -->
+    <FrameLayout
+        android:id="@+id/caja_filtro_texto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pixel_fondo"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/campo_filtro_texto"
+            style="@style/TextoCorrido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_pixel"
+            android:hint="@string/hint_buscar_lista"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:minHeight="44dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:singleLine="true"
+            android:textColor="@color/pixel_tinta"
+            android:textColorHint="@color/pixel_hint"
+            android:textCursorDrawable="@drawable/cursor_pixel"
+            android:textSize="18sp" />
+    </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
