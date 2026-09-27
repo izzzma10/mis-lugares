@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Tab AJUSTES: engrane pixel 14x14 (hueco central 4x4). Se tinta por estado en el layout. -->
+<!-- Tab AJUSTES: 3 sliders pixel 14x14 (rieles + perilla en distinta posición cada uno). Se tinta por estado en el layout. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="14dp"
     android:height="14dp"
@@ -7,5 +7,5 @@
     android:viewportHeight="14">
     <path
         android:fillColor="@color/pixel_tinta"
-        android:pathData="M5,0H9V1H5ZM5,1H9V2H5ZM3,2H11V3H3ZM2,3H12V4H2ZM2,4H12V5H2ZM2,5H5V6H2ZM9,5H12V6H9ZM0,6H5V7H0ZM9,6H14V7H9ZM0,7H5V8H0ZM9,7H14V8H9ZM2,8H5V9H2ZM9,8H12V9H9ZM2,9H12V10H2ZM2,10H12V11H2ZM3,11H11V12H3ZM5,12H9V13H5ZM5,13H9V14H5Z" />
+        android:pathData="M1,2H13V3H1ZM3,1H6V4H3ZM1,6H13V7H1ZM6,5H9V8H6ZM1,10H13V11H1ZM9,9H12V12H9Z" />
 </vector>
