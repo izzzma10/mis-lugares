@@ -54,8 +54,7 @@
     <string name="cd_elegir_galeria">Elegir de galería</string>
     <string name="cd_eliminar_foto">Eliminar foto</string>
     <string name="gps_formato">%1$.4f, %2$.4f</string>
-    <string name="resumen_valoracion">%.1f</string>
-    <string name="resumen_valoracion_km">%1$.1f · %2$.1f km</string>
+    <string name="resumen_distancia_km">%.1f km</string>
     <string name="lugar_no_existe">Este lugar ya no existe</string>
 
     <!-- Edición -->

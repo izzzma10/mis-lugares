@@ -239,16 +239,16 @@ public class VistaLugarActivity extends AppCompatActivity {
         }
     }
 
-    /** "4.5" o "4.5 · 1.2 km" si hay posición conocida. */
+    /** La valoración ya la muestran las estrellas; acá solo va la distancia, si se conoce. */
     private void mostrarResumen() {
         GeoPunto yo = ((Aplicacion) getApplication()).posicionActual;
         GeoPunto suya = lugar.getPosicion();
         if (yo.equals(GeoPunto.SIN_POSICION) || suya.equals(GeoPunto.SIN_POSICION)) {
-            tvResumen.setText(String.format(Locale.US, getString(R.string.resumen_valoracion), lugar.getValoracion()));
+            tvResumen.setVisibility(View.GONE);
         } else {
             float km = (float) yo.distancia(suya) / 1000f;
-            tvResumen.setText(String.format(Locale.US, getString(R.string.resumen_valoracion_km),
-                    lugar.getValoracion(), km));
+            tvResumen.setText(String.format(Locale.US, getString(R.string.resumen_distancia_km), km));
+            tvResumen.setVisibility(View.VISIBLE);
         }
     }
 
