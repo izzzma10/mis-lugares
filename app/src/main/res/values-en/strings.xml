@@ -150,6 +150,7 @@
     <string name="buscando_ubicacion">Finding your location…</string>
     <string name="hint_buscar_cerca">Search nearby points…</string>
     <string name="sin_resultados_lista">No place matches your search</string>
+    <string name="boton_deshacer">UNDO</string>
     <string name="radio_busqueda_descripcion">Search radius</string>
 
     <!-- Generic -->

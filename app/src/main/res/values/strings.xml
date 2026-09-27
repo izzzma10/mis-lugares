@@ -150,6 +150,7 @@
     <string name="buscando_ubicacion">Buscando tu ubicación…</string>
     <string name="hint_buscar_cerca">Buscar entre los puntos cercanos…</string>
     <string name="sin_resultados_lista">Ningún lugar coincide con tu búsqueda</string>
+    <string name="boton_deshacer">DESHACER</string>
     <string name="radio_busqueda_descripcion">Radio de búsqueda</string>
 
     <!-- Genéricos -->

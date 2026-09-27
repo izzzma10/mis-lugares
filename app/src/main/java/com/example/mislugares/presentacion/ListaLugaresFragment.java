@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -25,6 +28,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
 import com.example.mislugares.modelo.GeoPunto;
+import com.example.mislugares.modelo.Lugar;
 
 /**
  * Pantalla 1 (lista de lugares) como Fragment. MainActivity solo lo aloja.
@@ -42,6 +46,14 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     private EditText campoFiltroTexto;
     private View fabAgregar;
     private TextView fabRadio;
+
+    // Deslizar para borrar: el lugar ya se ocultó de la lista, pero todavía
+    // se puede "deshacer" durante SnackPixel.DURACION_DESHACER ms.
+    private final Handler manejadorBorrado = new Handler(Looper.getMainLooper());
+    private Integer idPendienteBorrar = null;
+    private int posicionPendienteBorrar = -1;
+    private Lugar lugarPendienteBorrar = null;
+    private Runnable confirmarBorradoRunnable = null;
 
     // Estado de la fila de filtros
     private boolean soloFav = false;
@@ -80,6 +92,78 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
 
         configurarFiltro(view);
         configurarRefrescar(view);
+        configurarSwipeParaBorrar();
+    }
+
+    /** Conecta el gesto de deslizar-para-borrar al RecyclerView. Un ItemTouchHelper
+     *  es un "ayudante" que Android provee para gestos de arrastre/deslizamiento
+     *  sobre RecyclerView; le delegamos la parte difícil (reconocer el gesto,
+     *  animarlo) y solo le decimos QUÉ hacer cuando termina (ver SwipeParaBorrar). */
+    private void configurarSwipeParaBorrar() {
+        ItemTouchHelper ayudante = new ItemTouchHelper(
+                new SwipeParaBorrar(recyclerView, this::iniciarBorrado));
+        ayudante.attachToRecyclerView(recyclerView);
+    }
+
+    /** Deslizar para borrar, paso 1: oculta la fila y muestra el aviso de
+     *  "deshacer". Solo puede haber un borrado pendiente a la vez. */
+    private void iniciarBorrado(int posicionAdapter) {
+        confirmarBorradoPendiente();
+
+        int id = adaptador.idEnPosicion(posicionAdapter);
+        Lugar lugar = adaptador.ocultarTemporalmente(posicionAdapter);
+        actualizarVacioLista();
+
+        idPendienteBorrar = id;
+        posicionPendienteBorrar = posicionAdapter;
+        lugarPendienteBorrar = lugar;
+
+        confirmarBorradoRunnable = this::confirmarBorradoPendiente;
+        manejadorBorrado.postDelayed(confirmarBorradoRunnable, SnackPixel.DURACION_DESHACER);
+
+        SnackPixel.deshacer(requireActivity(), getString(R.string.lugar_eliminado),
+                this::deshacerBorrado);
+    }
+
+    /** El usuario tocó DESHACER a tiempo: el lugar nunca llegó a borrarse de
+     *  la base (confirmarBorrado() todavía no corrió), así que alcanza con
+     *  devolverlo a la lista visible. */
+    private void deshacerBorrado() {
+        if (idPendienteBorrar == null) {
+            return;
+        }
+        manejadorBorrado.removeCallbacks(confirmarBorradoRunnable);
+        adaptador.restaurar(idPendienteBorrar, lugarPendienteBorrar, posicionPendienteBorrar);
+        limpiarBorradoPendiente();
+        actualizarVacioLista();
+    }
+
+    /** Hace definitivo el borrado pendiente, si hay uno. Se llama cuando se
+     *  agota el tiempo de "deshacer", y también ANTES de cualquier otro
+     *  refresco de la lista (pull-to-refresh, volver a la pantalla, escribir
+     *  en el buscador...): así un borrado a medio hacer nunca puede "revivir"
+     *  solo porque la lista se repintó por otro motivo. */
+    private void confirmarBorradoPendiente() {
+        if (idPendienteBorrar == null) {
+            return;
+        }
+        manejadorBorrado.removeCallbacks(confirmarBorradoRunnable);
+        adaptador.confirmarBorrado(idPendienteBorrar);
+        limpiarBorradoPendiente();
+    }
+
+    private void limpiarBorradoPendiente() {
+        idPendienteBorrar = null;
+        lugarPendienteBorrar = null;
+        confirmarBorradoRunnable = null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Si el usuario sale de la pantalla con un "deshacer" todavía en pie,
+        // no lo dejamos a medias: se confirma ya, en vez de esperar el timer.
+        confirmarBorradoPendiente();
     }
 
     /** Tirar hacia abajo: recarga los lugares guardados y pide una ubicación nueva. */
@@ -87,6 +171,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         refrescarLista = view.findViewById(R.id.refrescar_lista);
         reemplazarCirculoPorPixelArt();
         refrescarLista.setOnRefreshListener(() -> {
+            confirmarBorradoPendiente();
             indicadorRefresco.start();
             adaptador.actualizar();
             if (orden != 1) {
@@ -130,6 +215,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
+                confirmarBorradoPendiente();
                 adaptador.setTexto(s.toString());
                 if (adaptadorCerca != null) {
                     adaptadorCerca.setTexto(s.toString());
@@ -190,6 +276,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
 
     /** Pinta los chips segun el estado y muestra la lista que corresponda. */
     private void refrescarChips() {
+        confirmarBorradoPendiente();
         chipTodos.setSelected(!soloFav && orden == 0);
         chipFav.setSelected(soloFav);
         chipCerca.setSelected(orden == 1);
@@ -263,6 +350,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        confirmarBorradoPendiente();
         adaptador.actualizar();
         if (orden != 1) {
             actualizarVacioLista();
@@ -275,6 +363,7 @@ public class ListaLugaresFragment extends Fragment implements View.OnClickListen
         if (adaptador == null) {
             return;
         }
+        confirmarBorradoPendiente();
         terminarRefresco();
         Aplicacion aplicacion = (Aplicacion) requireActivity().getApplication();
         adaptador.setPosicion(aplicacion.posicionActual);

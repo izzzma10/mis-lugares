@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aviso pixel con acción: igual a snack_pixel.xml, más un botón "DESHACER".
+     Id propio (snack_deshacer) para no chocar con snack_pixel si algún día
+     los dos tuvieran que convivir en pantalla. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/snack_deshacer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/fondo_snack_pixel"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="11dp"
+    android:paddingBottom="11dp">
+
+    <ImageView
+        android:id="@+id/snack_deshacer_icono"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:background="@color/pixel_rojo"
+        android:importantForAccessibility="no"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_papelera_pixel" />
+
+    <TextView
+        android:id="@+id/snack_deshacer_texto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="9dp"
+        android:fontFamily="@font/silkscreen"
+        android:lineSpacingMultiplier="1.5"
+        android:textAllCaps="true"
+        android:textColor="@color/pixel_fondo"
+        android:textSize="9sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/snack_deshacer_boton"
+        style="@style/TextoBoton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="32dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:text="@string/boton_deshacer"
+        android:textColor="@color/pixel_amarillo" />
+
+</LinearLayout>

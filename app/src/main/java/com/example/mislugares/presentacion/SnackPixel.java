@@ -20,6 +20,13 @@ final class SnackPixel {
 
     private static final long DURACION = 3000L;
 
+    /** Cuánto tiempo queda visible el aviso "deshacer" antes de que el borrado
+     *  se haga definitivo. Pública porque quien inicia el borrado (el Fragment)
+     *  necesita el MISMO número para su propio temporizador: si usara otro
+     *  valor a mano, un día alguien cambiaría uno y no el otro, y quedarían
+     *  desincronizados. */
+    static final long DURACION_DESHACER = 4000L;
+
     private static String textoPendiente;
     private static boolean exitoPendiente;
 
@@ -73,5 +80,35 @@ final class SnackPixel {
                 ((ViewGroup) v.getParent()).removeView(v);
             }
         }, DURACION);
+    }
+
+    /** Aviso con un botón "DESHACER". Se usa para acciones que conviene poder
+     *  arrepentirse (por ahora, borrar un lugar deslizando la fila). Si nadie
+     *  toca DESHACER, el aviso se quita solo a los DURACION_DESHACER ms; quien
+     *  llamó a este método es responsable de, en ese mismo momento, hacer
+     *  definitiva la acción (acá no lo sabemos: solo mostramos el aviso). */
+    static void deshacer(Activity actividad, String texto, Runnable alDeshacer) {
+        ViewGroup raiz = actividad.findViewById(android.R.id.content);
+        if (raiz == null) {
+            return;
+        }
+        View previo = raiz.findViewById(R.id.snack_deshacer);
+        if (previo != null) {
+            raiz.removeView(previo);
+        }
+
+        View v = LayoutInflater.from(actividad).inflate(R.layout.snack_deshacer, raiz, false);
+        ((TextView) v.findViewById(R.id.snack_deshacer_texto)).setText(texto);
+        v.findViewById(R.id.snack_deshacer_boton).setOnClickListener(click -> {
+            raiz.removeView(v);
+            alDeshacer.run();
+        });
+
+        raiz.addView(v);
+        v.postDelayed(() -> {
+            if (v.getParent() != null) {
+                ((ViewGroup) v.getParent()).removeView(v);
+            }
+        }, DURACION_DESHACER);
     }
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.mislugares.Aplicacion;
 import com.example.mislugares.R;
+import com.example.mislugares.casos_uso.BorrarLugar;
 import com.example.mislugares.casos_uso.ListarLugares;
 import com.example.mislugares.datos.RepositorioLugares;
 import com.example.mislugares.modelo.GeoPunto;
@@ -25,6 +26,7 @@ public class AdaptadorLugares extends
         RecyclerView.Adapter<AdaptadorLugares.ViewHolder> {
 
     protected final ListarLugares casoUsoListar;
+    protected final BorrarLugar casoUsoBorrar;
     protected Map<Integer, Lugar> lugares;
     protected List<Integer> ids;
     protected View.OnClickListener onClickListener;
@@ -37,6 +39,7 @@ public class AdaptadorLugares extends
 
     public AdaptadorLugares(RepositorioLugares repositorio) {
         this.casoUsoListar = new ListarLugares(repositorio);
+        this.casoUsoBorrar = new BorrarLugar(repositorio);
         actualizar();
     }
 
@@ -88,6 +91,34 @@ public class AdaptadorLugares extends
 
     public int idEnPosicion(int posicion) {
         return ids.get(posicion);
+    }
+
+    /** Deslizar para borrar, paso 1: oculta la fila (con su animación) y la
+     *  saca también de "lugares", no solo de "ids" — así, si mientras tanto el
+     *  buscador o un refresco reconstruyen la lista visible, este lugar no
+     *  puede "resucitar" solo por accidente. Todavía NO toca el repositorio;
+     *  eso pasa recién en confirmarBorrado(). Devuelve el lugar oculto, para
+     *  poder armar el aviso de "deshacer" y, si se deshace, restaurarlo. */
+    public Lugar ocultarTemporalmente(int posicionAdapter) {
+        int id = ids.remove(posicionAdapter);
+        Lugar lugar = lugares.remove(id);
+        notifyItemRemoved(posicionAdapter);
+        return lugar;
+    }
+
+    /** Deshace ocultarTemporalmente: vuelve a mostrar ese lugar en (aprox.) la
+     *  misma posición. Math.min por si la lista se achicó mientras tanto. */
+    public void restaurar(int id, Lugar lugar, int posicionAdapter) {
+        lugares.put(id, lugar);
+        int posicionValida = Math.min(posicionAdapter, ids.size());
+        ids.add(posicionValida, id);
+        notifyItemInserted(posicionValida);
+    }
+
+    /** Deslizar para borrar, paso 2 (cuando ya no se puede deshacer): recién
+     *  ahora se borra de verdad en el repositorio. */
+    public void confirmarBorrado(int id) {
+        casoUsoBorrar.borrar(id);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
