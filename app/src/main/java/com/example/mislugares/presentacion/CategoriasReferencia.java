@@ -28,7 +28,13 @@ final class CategoriasReferencia {
         if (c.contains("deport") || c.contains("estadio") || c.contains("parque")
                 || c.contains("campo") || c.contains("recreativ") || c.contains("ecológic")
                 || c.contains("ecologic") || c.contains("natural") || c.contains("zoológic")
-                || c.contains("zoologic") || c.contains("reserva") || c.contains("plaza")) {
+                || c.contains("zoologic") || c.contains("reserva") || c.contains("plaza")
+                // Palabras nuevas de la 2ª tanda de 100 puntos (senderismo, balnearios,
+                // deportes de aventura y pistas/velódromos que no caían en ningún grupo):
+                || c.contains("senderismo") || c.contains("balneario") || c.contains("cañonismo")
+                || c.contains("aventura") || c.contains("escalada") || c.contains("mirador")
+                || c.contains("autódromo") || c.contains("velódromo") || c.contains("acuátic")
+                || c.contains("olímpic") || c.contains("ecuestre") || c.contains("atlétic")) {
             return Categoria.DEPORTE_PARQUES;
         }
         if (c.contains("comercial") || c.contains("mercado")) {
@@ -43,7 +49,10 @@ final class CategoriasReferencia {
                 || c.contains("religios") || c.contains("histor") || c.contains("biblioteca")
                 || c.contains("escultura") || c.contains("campus") || c.contains("universi")
                 || c.contains("estudio") || c.contains("escuela") || c.contains("cívic")
-                || c.contains("civic")) {
+                || c.contains("civic")
+                // "Investigación científica"/"Investigación e ingeniería" (2ª tanda):
+                // institutos de investigación, más cerca de lo académico que de "otros".
+                || c.contains("investigac")) {
             return Categoria.CULTURA;
         }
         return Categoria.OTROS;

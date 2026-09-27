@@ -319,7 +319,7 @@ public class MapaLugarActivity extends AppCompatActivity {
         mostrarFicha(id, lugar);
     }
 
-    /** Modo "vengo del tab MAPA": los 100 puntos de referencia (no los lugares guardados). */
+    /** Modo "vengo del tab MAPA": los 200 puntos de referencia (no los lugares guardados). */
     private void mostrarTodos() {
         puntosReferencia = new RepositorioPuntosReferencia(this).cargarTodos();
         dibujarPuntosReferencia();

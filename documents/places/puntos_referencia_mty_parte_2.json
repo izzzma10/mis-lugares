@@ -1,0 +1,802 @@
+[
+  {
+    "id": 101,
+    "nombre": "Cerro de la Silla (Inicio de Sendero al Teleférico)",
+    "categoria": "Senderismo / Montaña",
+    "municipio": "Guadalupe",
+    "latitud": 25.6264,
+    "longitud": -100.2458
+  },
+  {
+    "id": 102,
+    "nombre": "Cerro de la Silla (Pico Norte / Antena)",
+    "categoria": "Senderismo / Cumbre",
+    "municipio": "Guadalupe",
+    "latitud": 25.6305,
+    "longitud": -100.2312
+  },
+  {
+    "id": 103,
+    "nombre": "Cerro de las Mitras (Acceso y Vereda Cueva del Ermitaño)",
+    "categoria": "Senderismo / Montaña",
+    "municipio": "Monterrey",
+    "latitud": 25.7061,
+    "longitud": -100.4153
+  },
+  {
+    "id": 104,
+    "nombre": "Cerro de las Mitras (Pico Piñón / Perico)",
+    "categoria": "Senderismo / Cumbre",
+    "municipio": "Monterrey",
+    "latitud": 25.7118,
+    "longitud": -100.4287
+  },
+  {
+    "id": 105,
+    "nombre": "Parque Ecológico Chipinque (Pico del Águila)",
+    "categoria": "Senderismo / Cumbre",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6025,
+    "longitud": -100.3621
+  },
+  {
+    "id": 106,
+    "nombre": "Parque Ecológico Chipinque (La M - Vereda)",
+    "categoria": "Senderismo / Cumbre",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6063,
+    "longitud": -100.3752
+  },
+  {
+    "id": 107,
+    "nombre": "La Cueva de la Virgen (Cañón de la Huasteca)",
+    "categoria": "Senderismo / Escalada",
+    "municipio": "Santa Catarina",
+    "latitud": 25.6385,
+    "longitud": -100.4632
+  },
+  {
+    "id": 108,
+    "nombre": "Vía Ferrata Ruta Vértigo (Parque La Huasteca)",
+    "categoria": "Aventura / Escalada",
+    "municipio": "Santa Catarina",
+    "latitud": 25.6312,
+    "longitud": -100.4674
+  },
+  {
+    "id": 109,
+    "nombre": "Nido de los Aguiluchos (Parque La Huasteca)",
+    "categoria": "Senderismo / Montaña",
+    "municipio": "Santa Catarina",
+    "latitud": 25.6247,
+    "longitud": -100.4789
+  },
+  {
+    "id": 110,
+    "nombre": "Cascada Cola de Caballo (Parque Recreativo)",
+    "categoria": "Parque natural / Cascada",
+    "municipio": "Santiago",
+    "latitud": 25.3621,
+    "longitud": -100.1633
+  },
+  {
+    "id": 111,
+    "nombre": "Cañón de Matacanes (Entrada / Recorrido fluvial)",
+    "categoria": "Cañonismo / Aventura",
+    "municipio": "Santiago",
+    "latitud": 25.3012,
+    "longitud": -100.2215
+  },
+  {
+    "id": 112,
+    "nombre": "Cañón del Chipitín / Cascada del Chipitín",
+    "categoria": "Cañonismo / Cascada",
+    "municipio": "Santiago",
+    "latitud": 25.3125,
+    "longitud": -100.2031
+  },
+  {
+    "id": 113,
+    "nombre": "Cañón de Hidrofobia",
+    "categoria": "Cañonismo / Aventura",
+    "municipio": "Santiago",
+    "latitud": 25.3056,
+    "longitud": -100.2189
+  },
+  {
+    "id": 114,
+    "nombre": "Cerro del Chupón (Acceso Campus Mederos UANL)",
+    "categoria": "Senderismo / Mirador",
+    "municipio": "Monterrey",
+    "latitud": 25.6105,
+    "longitud": -100.2831
+  },
+  {
+    "id": 115,
+    "nombre": "Paso del Caballero (Parque La Estanzuela)",
+    "categoria": "Senderismo natural",
+    "municipio": "Monterrey",
+    "latitud": 25.5583,
+    "longitud": -100.2715
+  },
+  {
+    "id": 116,
+    "nombre": "Cerro del Mirador (Valle Oriente)",
+    "categoria": "Senderismo / Mirador",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6389,
+    "longitud": -100.3285
+  },
+  {
+    "id": 117,
+    "nombre": "Parque Natural Sierra de Picachos (Acceso Poniente)",
+    "categoria": "Reserva natural / Senderismo",
+    "municipio": "Higueras / Marín",
+    "latitud": 25.9681,
+    "longitud": -100.0214
+  },
+  {
+    "id": 118,
+    "nombre": "Termas de San Joaquín (Aguas Termales)",
+    "categoria": "Balneario / Aguas termales",
+    "municipio": "Ramos Arizpe / Periferia García",
+    "latitud": 25.8647,
+    "longitud": -101.3094
+  },
+  {
+    "id": 119,
+    "nombre": "Balneario Los Álamos (Ojo de Agua)",
+    "categoria": "Balneario / Recreación acuática",
+    "municipio": "Apodaca",
+    "latitud": 25.7925,
+    "longitud": -100.1708
+  },
+  {
+    "id": 120,
+    "nombre": "Balneario San Francisco",
+    "categoria": "Balneario / Recreación familiar",
+    "municipio": "Apodaca",
+    "latitud": 25.7981,
+    "longitud": -100.1654
+  },
+  {
+    "id": 121,
+    "nombre": "Parque Acuático General Zuazua",
+    "categoria": "Balneario / Parque acuático",
+    "municipio": "General Zuazua",
+    "latitud": 25.8942,
+    "longitud": -100.1085
+  },
+  {
+    "id": 122,
+    "nombre": "Parque Acuático Splash de Juárez",
+    "categoria": "Parque acuático",
+    "municipio": "Juárez",
+    "latitud": 25.6521,
+    "longitud": -100.0825
+  },
+  {
+    "id": 123,
+    "nombre": "Balneario Las Palmas",
+    "categoria": "Balneario / Recreativo",
+    "municipio": "Juárez",
+    "latitud": 25.6415,
+    "longitud": -100.0754
+  },
+  {
+    "id": 124,
+    "nombre": "Parque Acuático El Molino (Presa La Boca)",
+    "categoria": "Parque recreativo acuático",
+    "municipio": "Santiago",
+    "latitud": 25.4312,
+    "longitud": -100.1518
+  },
+  {
+    "id": 125,
+    "nombre": "Balneario Los Faisanes",
+    "categoria": "Balneario campestre",
+    "municipio": "Juárez / Santiago",
+    "latitud": 25.5412,
+    "longitud": -100.1251
+  },
+  {
+    "id": 126,
+    "nombre": "Balneario y Ojo de Agua de Marín",
+    "categoria": "Balneario / Manantial",
+    "municipio": "Marín",
+    "latitud": 25.8775,
+    "longitud": -100.0342
+  },
+  {
+    "id": 127,
+    "nombre": "Albercas San Cristóbal",
+    "categoria": "Balneario recreativo",
+    "municipio": "García",
+    "latitud": 25.8214,
+    "longitud": -100.5871
+  },
+  {
+    "id": 128,
+    "nombre": "Facultad de Ingeniería Mecánica y Eléctrica (FIME - UANL)",
+    "categoria": "Universidad / Ingeniería",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7252,
+    "longitud": -100.315
+  },
+  {
+    "id": 129,
+    "nombre": "Facultad de Contaduría Pública y Administración (FACPYA - UANL)",
+    "categoria": "Universidad / Negocios",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7279,
+    "longitud": -100.3097
+  },
+  {
+    "id": 130,
+    "nombre": "Facultad de Ciencias Físico Matemáticas (FCFM - UANL)",
+    "categoria": "Universidad / Ciencias",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7259,
+    "longitud": -100.3161
+  },
+  {
+    "id": 131,
+    "nombre": "Facultad de Arquitectura (FARQ - UANL)",
+    "categoria": "Universidad / Diseño y arquitectura",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7271,
+    "longitud": -100.3121
+  },
+  {
+    "id": 132,
+    "nombre": "Facultad de Derecho y Criminología (FACDYC - UANL)",
+    "categoria": "Universidad / Derecho",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7278,
+    "longitud": -100.3115
+  },
+  {
+    "id": 133,
+    "nombre": "Facultad de Ciencias Químicas (FCQ - UANL)",
+    "categoria": "Universidad / Química",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7241,
+    "longitud": -100.3148
+  },
+  {
+    "id": 134,
+    "nombre": "Facultad de Filosofía y Letras (FFYL - UANL)",
+    "categoria": "Universidad / Humanidades",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.727,
+    "longitud": -100.3105
+  },
+  {
+    "id": 135,
+    "nombre": "Facultad de Ciencias Biológicas (FCB - UANL)",
+    "categoria": "Universidad / Biología",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7247,
+    "longitud": -100.3175
+  },
+  {
+    "id": 136,
+    "nombre": "Facultad de Odontología UANL (Área Médica)",
+    "categoria": "Universidad / Salud",
+    "municipio": "Monterrey",
+    "latitud": 25.6898,
+    "longitud": -100.3541
+  },
+  {
+    "id": 137,
+    "nombre": "Facultad de Enfermería UANL (Área Médica)",
+    "categoria": "Universidad / Salud",
+    "municipio": "Monterrey",
+    "latitud": 25.6912,
+    "longitud": -100.3533
+  },
+  {
+    "id": 138,
+    "nombre": "Facultad de Psicología UANL (Campus Ciencias de la Salud)",
+    "categoria": "Universidad / Salud mental",
+    "municipio": "Monterrey",
+    "latitud": 25.6881,
+    "longitud": -100.3552
+  },
+  {
+    "id": 139,
+    "nombre": "Facultad de Artes Visuales UANL (Campus Mederos)",
+    "categoria": "Universidad / Arte",
+    "municipio": "Monterrey",
+    "latitud": 25.6142,
+    "longitud": -100.2791
+  },
+  {
+    "id": 140,
+    "nombre": "Facultad de Música UANL (Campus Mederos)",
+    "categoria": "Universidad / Arte musical",
+    "municipio": "Monterrey",
+    "latitud": 25.6135,
+    "longitud": -100.2781
+  },
+  {
+    "id": 141,
+    "nombre": "Facultad de Ciencias Políticas y Relaciones Internacionales (FCPyRI - UANL)",
+    "categoria": "Universidad / Ciencias sociales",
+    "municipio": "Monterrey",
+    "latitud": 25.6119,
+    "longitud": -100.2768
+  },
+  {
+    "id": 142,
+    "nombre": "Facultad de Ciencias de la Comunicación UANL (Mederos)",
+    "categoria": "Universidad / Comunicación",
+    "municipio": "Monterrey",
+    "latitud": 25.6109,
+    "longitud": -100.2755
+  },
+  {
+    "id": 143,
+    "nombre": "Facultad de Economía UANL (Campus Mederos)",
+    "categoria": "Universidad / Economía",
+    "municipio": "Monterrey",
+    "latitud": 25.6125,
+    "longitud": -100.2774
+  },
+  {
+    "id": 144,
+    "nombre": "Facultad de Agronomía UANL (Campus Marín/Escobedo)",
+    "categoria": "Universidad / Ciencias agropecuarias",
+    "municipio": "General Escobedo",
+    "latitud": 25.7891,
+    "longitud": -100.2854
+  },
+  {
+    "id": 145,
+    "nombre": "Facultad de Medicina Veterinaria y Zootecnia (FMVZ - UANL)",
+    "categoria": "Universidad / Veterinaria",
+    "municipio": "General Escobedo",
+    "latitud": 25.7885,
+    "longitud": -100.2868
+  },
+  {
+    "id": 146,
+    "nombre": "Campus Universidad Regiomontana (U-ERRE Centro)",
+    "categoria": "Universidad / Campus urbano",
+    "municipio": "Monterrey",
+    "latitud": 25.6715,
+    "longitud": -100.3235
+  },
+  {
+    "id": 147,
+    "nombre": "Campus Universidad Tecmilenio Las Torres",
+    "categoria": "Universidad / Campus universitario",
+    "municipio": "Monterrey",
+    "latitud": 25.6315,
+    "longitud": -100.3012
+  },
+  {
+    "id": 148,
+    "nombre": "Campus Universidad Tecmilenio San Nicolás",
+    "categoria": "Universidad / Campus universitario",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7412,
+    "longitud": -100.2715
+  },
+  {
+    "id": 149,
+    "nombre": "Campus Universidad Tecmilenio Cumbres",
+    "categoria": "Universidad / Campus universitario",
+    "municipio": "Monterrey",
+    "latitud": 25.7198,
+    "longitud": -100.3842
+  },
+  {
+    "id": 150,
+    "nombre": "Centro de Investigación y Estudios Avanzados (CINVESTAV Monterrey - PIIT)",
+    "categoria": "Investigación científica",
+    "municipio": "Apodaca",
+    "latitud": 25.7745,
+    "longitud": -100.1412
+  },
+  {
+    "id": 151,
+    "nombre": "Parque de Investigación e Innovación Tecnológica (PIIT)",
+    "categoria": "Parque tecnológico e innovación",
+    "municipio": "Apodaca",
+    "latitud": 25.7728,
+    "longitud": -100.1435
+  },
+  {
+    "id": 152,
+    "nombre": "Centro de Innovación, Investigación y Desarrollo en Ingeniería y Tecnología (CIIDIT UANL)",
+    "categoria": "Investigación e ingeniería",
+    "municipio": "Apodaca",
+    "latitud": 25.7739,
+    "longitud": -100.1451
+  },
+  {
+    "id": 153,
+    "nombre": "Universidad Politécnica de Apodaca (UPAP)",
+    "categoria": "Universidad politécnica",
+    "municipio": "Apodaca",
+    "latitud": 25.7942,
+    "longitud": -100.1418
+  },
+  {
+    "id": 154,
+    "nombre": "Universidad Tecnológica Santa Catarina (UT Santa Catarina)",
+    "categoria": "Universidad tecnológica",
+    "municipio": "Santa Catarina",
+    "latitud": 25.6881,
+    "longitud": -100.4895
+  },
+  {
+    "id": 155,
+    "nombre": "Universidad Tecnológica General Mariano Escobedo (UTE)",
+    "categoria": "Universidad tecnológica",
+    "municipio": "General Escobedo",
+    "latitud": 25.8241,
+    "longitud": -100.3689
+  },
+  {
+    "id": 156,
+    "nombre": "Instituto Tecnológico de Nuevo León (ITNL)",
+    "categoria": "Universidad tecnológica",
+    "municipio": "Guadalupe",
+    "latitud": 25.6781,
+    "longitud": -100.1985
+  },
+  {
+    "id": 157,
+    "nombre": "Escuela Superior de Música y Danza de Monterrey (La Superior / Carmen Romano)",
+    "categoria": "Artes escénicas y música",
+    "municipio": "Monterrey",
+    "latitud": 25.6705,
+    "longitud": -100.3421
+  },
+  {
+    "id": 158,
+    "nombre": "Foro Arcadia",
+    "categoria": "Teatro independiente / Escenario",
+    "municipio": "Monterrey",
+    "latitud": 25.6719,
+    "longitud": -100.3181
+  },
+  {
+    "id": 159,
+    "nombre": "Teatro Versalles",
+    "categoria": "Teatro comercial y comedia",
+    "municipio": "Monterrey",
+    "latitud": 25.6741,
+    "longitud": -100.3209
+  },
+  {
+    "id": 160,
+    "nombre": "Teatro de los Héroes (Parque Niños Héroes)",
+    "categoria": "Teatro y auditorio cultural",
+    "municipio": "Monterrey",
+    "latitud": 25.6989,
+    "longitud": -100.3159
+  },
+  {
+    "id": 161,
+    "nombre": "Concha Acústica del Obispado",
+    "categoria": "Escenario al aire libre",
+    "municipio": "Monterrey",
+    "latitud": 25.6749,
+    "longitud": -100.3458
+  },
+  {
+    "id": 162,
+    "nombre": "Auditorio Luis Elizondo (sitio histórico Tec)",
+    "categoria": "Escenario artístico y conciertos",
+    "municipio": "Monterrey",
+    "latitud": 25.6541,
+    "longitud": -100.2882
+  },
+  {
+    "id": 163,
+    "nombre": "Teatro Nova (Club Nova)",
+    "categoria": "Teatro y eventos escénicos",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7175,
+    "longitud": -100.3015
+  },
+  {
+    "id": 164,
+    "nombre": "Centro Cultural Universitario Bicentenario UANL",
+    "categoria": "Escenario y conferencias",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7251,
+    "longitud": -100.3112
+  },
+  {
+    "id": 165,
+    "nombre": "Foro Didi (Pabellón M)",
+    "categoria": "Escenario de comedia y música íntima",
+    "municipio": "Monterrey",
+    "latitud": 25.6695,
+    "longitud": -100.3201
+  },
+  {
+    "id": 166,
+    "nombre": "Concha Acústica del Parque Fundidora",
+    "categoria": "Escenario al aire libre",
+    "municipio": "Monterrey",
+    "latitud": 25.6789,
+    "longitud": -100.2861
+  },
+  {
+    "id": 167,
+    "nombre": "Café Iguana (Barrio Antiguo)",
+    "categoria": "Escenario musical y cultural independiente",
+    "municipio": "Monterrey",
+    "latitud": 25.6671,
+    "longitud": -100.3065
+  },
+  {
+    "id": 168,
+    "nombre": "Museo del Vidrio (MUVI / Antigua Vidriera)",
+    "categoria": "Museo de arte en vidrio e historia",
+    "municipio": "Monterrey",
+    "latitud": 25.7001,
+    "longitud": -100.3092
+  },
+  {
+    "id": 169,
+    "nombre": "Museo del Ferrocarril (Estación del Golfo)",
+    "categoria": "Museo histórico ferroviario",
+    "municipio": "Monterrey",
+    "latitud": 25.6839,
+    "longitud": -100.3081
+  },
+  {
+    "id": 170,
+    "nombre": "Museo Bernabé de las Casas (Mina)",
+    "categoria": "Museo paleontológico y de historia",
+    "municipio": "Mina / Periferia N.L.",
+    "latitud": 26.0021,
+    "longitud": -100.5312
+  },
+  {
+    "id": 171,
+    "nombre": "Museo Histórico de la Huasteca",
+    "categoria": "Museo histórico comunitario",
+    "municipio": "Santa Catarina",
+    "latitud": 25.6741,
+    "longitud": -100.4615
+  },
+  {
+    "id": 172,
+    "nombre": "Pinacoteca de Nuevo León (Colegio Civil)",
+    "categoria": "Arte pictórico / Pinacoteca",
+    "municipio": "Monterrey",
+    "latitud": 25.6768,
+    "longitud": -100.3165
+  },
+  {
+    "id": 173,
+    "nombre": "Casa de la Cultura de Nuevo León (Antigua Estación del Golfo)",
+    "categoria": "Centro cultural / Talleres",
+    "municipio": "Monterrey",
+    "latitud": 25.6841,
+    "longitud": -100.3078
+  },
+  {
+    "id": 174,
+    "nombre": "Centro de las Artes Nave 2 (Fototeca y Videoteca)",
+    "categoria": "Fotografía y artes visuales",
+    "municipio": "Monterrey",
+    "latitud": 25.6771,
+    "longitud": -100.2852
+  },
+  {
+    "id": 175,
+    "nombre": "Papalote Museo del Niño Monterrey (Fundidora)",
+    "categoria": "Museo interactivo infantil",
+    "municipio": "Monterrey",
+    "latitud": 25.6772,
+    "longitud": -100.2798
+  },
+  {
+    "id": 176,
+    "nombre": "Museo de Cera Monterrey (Fundidora)",
+    "categoria": "Museo de figuras de cera",
+    "municipio": "Monterrey",
+    "latitud": 25.6805,
+    "longitud": -100.2842
+  },
+  {
+    "id": 177,
+    "nombre": "Museo El Centenario",
+    "categoria": "Museo de historia sampetrina",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6625,
+    "longitud": -100.4041
+  },
+  {
+    "id": 178,
+    "nombre": "Velódromo Radamés Treviño (Parque Niños Héroes)",
+    "categoria": "Velódromo ciclista oficial",
+    "municipio": "Monterrey",
+    "latitud": 25.7018,
+    "longitud": -100.3185
+  },
+  {
+    "id": 179,
+    "nombre": "Fosa de Clavados y Centro Acuático Olímpico UANL",
+    "categoria": "Centro acuático olímpico",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7285,
+    "longitud": -100.3171
+  },
+  {
+    "id": 180,
+    "nombre": "Pabellón de Tiro con Arco (Parque Niños Héroes / CARE)",
+    "categoria": "Campo de tiro con arco olímpico",
+    "municipio": "Monterrey",
+    "latitud": 25.7025,
+    "longitud": -100.3175
+  },
+  {
+    "id": 181,
+    "nombre": "Centro de Alto Rendimiento Estatal (CARE Niños Héroes)",
+    "categoria": "Complejo olímpico estatal",
+    "municipio": "Monterrey",
+    "latitud": 25.7015,
+    "longitud": -100.3165
+  },
+  {
+    "id": 182,
+    "nombre": "Autódromo Monterrey (Apodaca)",
+    "categoria": "Autódromo de carreras / Motorsport",
+    "municipio": "Apodaca",
+    "latitud": 25.8615,
+    "longitud": -100.2285
+  },
+  {
+    "id": 183,
+    "nombre": "Pista Internacional de Atletismo UANL (Estadio Chico Rivera)",
+    "categoria": "Pista atlética y fútbol colegial",
+    "municipio": "San Nicolás de los Garza",
+    "latitud": 25.7245,
+    "longitud": -100.3139
+  },
+  {
+    "id": 184,
+    "nombre": "Lienzo Charro Cañón de Huajuco",
+    "categoria": "Charrería / Tradición ecuestre",
+    "municipio": "Monterrey",
+    "latitud": 25.5925,
+    "longitud": -100.2612
+  },
+  {
+    "id": 185,
+    "nombre": "Lienzo Charro Santa Rosa (Apodaca)",
+    "categoria": "Charrería / Eventos ecuestres",
+    "municipio": "Apodaca",
+    "latitud": 25.7951,
+    "longitud": -100.1915
+  },
+  {
+    "id": 186,
+    "nombre": "Parque de Béisbol Acero (Fundidora)",
+    "categoria": "Estadio deportivo infantil",
+    "municipio": "Monterrey",
+    "latitud": 25.6835,
+    "longitud": -100.2831
+  },
+  {
+    "id": 187,
+    "nombre": "Gimnasio Monterrey 400",
+    "categoria": "Complejo deportivo municipal",
+    "municipio": "Monterrey",
+    "latitud": 25.7381,
+    "longitud": -100.3621
+  },
+  {
+    "id": 188,
+    "nombre": "Club Sonoma Residencial y Deportivo (Torneo WTA Monterrey)",
+    "categoria": "Complejo deportivo y canchas de tenis",
+    "municipio": "Monterrey",
+    "latitud": 25.6325,
+    "longitud": -100.3341
+  },
+  {
+    "id": 189,
+    "nombre": "Las Misiones Club Campestre",
+    "categoria": "Campo de golf y deportivo",
+    "municipio": "Santiago",
+    "latitud": 25.4851,
+    "longitud": -100.1782
+  },
+  {
+    "id": 190,
+    "nombre": "Valle Alto Club de Golf",
+    "categoria": "Campo de golf y deportivo",
+    "municipio": "Monterrey",
+    "latitud": 25.5781,
+    "longitud": -100.2595
+  },
+  {
+    "id": 191,
+    "nombre": "La Herradura Club de Golf",
+    "categoria": "Campo de golf y deportivo",
+    "municipio": "Monterrey",
+    "latitud": 25.5512,
+    "longitud": -100.2471
+  },
+  {
+    "id": 192,
+    "nombre": "Parque Río La Silla (Paseo de las Aves)",
+    "categoria": "Parque ecológico lineal",
+    "municipio": "Guadalupe",
+    "latitud": 25.6612,
+    "longitud": -100.2395
+  },
+  {
+    "id": 193,
+    "nombre": "Parque Lago La Alianza",
+    "categoria": "Parque recreativo urbano",
+    "municipio": "Monterrey",
+    "latitud": 25.7712,
+    "longitud": -100.4015
+  },
+  {
+    "id": 194,
+    "nombre": "Parque Clouthier (San Pedro / Santa Catarina)",
+    "categoria": "Parque lineal recreativo",
+    "municipio": "San Pedro Garza García",
+    "latitud": 25.6715,
+    "longitud": -100.4121
+  },
+  {
+    "id": 195,
+    "nombre": "Parque Recreativo Mamulique",
+    "categoria": "Parque recreativo de campo y pesca",
+    "municipio": "Salinas Victoria",
+    "latitud": 26.0421,
+    "longitud": -100.3154
+  },
+  {
+    "id": 196,
+    "nombre": "Presa de Cerro Prieto (Embarcadero y Mirador Recreativo)",
+    "categoria": "Cuerpo de agua / Deportes náuticos",
+    "municipio": "Linares / Periferia Sur",
+    "latitud": 24.8715,
+    "longitud": -99.5218
+  },
+  {
+    "id": 197,
+    "nombre": "Bioparque Estrella Monterrey (Caseta principal)",
+    "categoria": "Parque temático safari / Recreación",
+    "municipio": "Montemorelos / Periferia MTY",
+    "latitud": 25.2125,
+    "longitud": -100.0815
+  },
+  {
+    "id": 198,
+    "nombre": "Plaza Principal de Villa de Santiago (Parroquia Santiago Apóstol)",
+    "categoria": "Pueblo Mágico / Patrimonio histórico",
+    "municipio": "Santiago",
+    "latitud": 25.4265,
+    "longitud": -100.1512
+  },
+  {
+    "id": 199,
+    "nombre": "Mirador de Santiago (Cresta de Santiago)",
+    "categoria": "Mirador panorámico",
+    "municipio": "Santiago",
+    "latitud": 25.4285,
+    "longitud": -100.1495
+  },
+  {
+    "id": 200,
+    "nombre": "Parque Ecológico Xanath",
+    "categoria": "Reserva de senderismo y campismo",
+    "municipio": "Santiago",
+    "latitud": 25.3852,
+    "longitud": -100.1812
+  }
+]
