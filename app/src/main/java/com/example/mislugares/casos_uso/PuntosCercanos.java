@@ -1,6 +1,6 @@
 package com.example.mislugares.casos_uso;
 
-import com.example.mislugares.datos.RepositorioPuntosReferencia;
+import com.example.mislugares.datos.FuentePuntosReferencia;
 import com.example.mislugares.modelo.GeoPunto;
 import com.example.mislugares.modelo.PuntoReferencia;
 
@@ -11,9 +11,9 @@ import java.util.List;
 public class PuntosCercanos {
     private static final double RADIO_MAXIMO_METROS = 30000;
 
-    private final RepositorioPuntosReferencia repositorio;
+    private final FuentePuntosReferencia repositorio;
 
-    public PuntosCercanos(RepositorioPuntosReferencia repositorio) {
+    public PuntosCercanos(FuentePuntosReferencia repositorio) {
         this.repositorio = repositorio;
     }
 

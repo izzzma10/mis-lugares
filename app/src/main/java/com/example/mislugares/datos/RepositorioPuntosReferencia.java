@@ -16,13 +16,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepositorioPuntosReferencia {
+public class RepositorioPuntosReferencia implements FuentePuntosReferencia {
     private Context contexto;
 
     public RepositorioPuntosReferencia(Context contexto){
         this.contexto = contexto;
     }
     
+    @Override
     public List<PuntoReferencia> cargarTodos() {
         List<PuntoReferencia> puntos = new ArrayList<>(); 
         try {
