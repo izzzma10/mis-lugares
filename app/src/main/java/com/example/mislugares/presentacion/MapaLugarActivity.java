@@ -61,6 +61,7 @@ public class MapaLugarActivity extends AppCompatActivity {
     private TextView fichaDireccion;
     private TextView fichaVer;
     private TextView fichaIr;
+    private TextView fichaGuardar;
 
     // Buscador (cualquier lugar de la zona metropolitana, vía Photon)
     private final Handler manejador = new Handler(Looper.getMainLooper());
@@ -108,6 +109,7 @@ public class MapaLugarActivity extends AppCompatActivity {
         fichaDireccion = findViewById(R.id.ficha_direccion);
         fichaVer = findViewById(R.id.ficha_ver);
         fichaIr = findViewById(R.id.ficha_ir);
+        fichaGuardar = findViewById(R.id.ficha_guardar);
 
         // Mapa: tiles de Esri "World Street Map", sin API key. Esri sirve las
         // teselas como z/y/x (fila antes que columna), por eso el getTileURLString.
@@ -278,6 +280,10 @@ public class MapaLugarActivity extends AppCompatActivity {
         fichaNombre.setText(r.nombre);
         fichaDireccion.setText(r.direccion);
         fichaVer.setVisibility(View.GONE);
+        // No es un lugar guardado: en vez de VER se ofrece GUARDAR (abre el formulario precargado).
+        fichaGuardar.setVisibility(View.VISIBLE);
+        fichaGuardar.setOnClickListener(v ->
+                startActivity(EdicionLugarActivity.intentPrecargado(this, r)));
         fichaIr.setOnClickListener(v -> Navegacion.irA(this, r.latitud, r.longitud));
         fichaInferior.setVisibility(View.VISIBLE);
     }
@@ -427,6 +433,7 @@ public class MapaLugarActivity extends AppCompatActivity {
         fichaNombre.setText(punto.getNombre());
         fichaDireccion.setText(punto.getCategoria());
         fichaVer.setVisibility(View.GONE);
+        fichaGuardar.setVisibility(View.GONE);
         fichaIr.setOnClickListener(v -> Navegacion.irA(this, 
                 punto.getPosicion().getLatitud(), punto.getPosicion().getLongitud()));
         fichaInferior.setVisibility(View.VISIBLE);
@@ -453,6 +460,7 @@ public class MapaLugarActivity extends AppCompatActivity {
         fichaNombre.setText(lugar.getNombre());
         fichaDireccion.setText(lugar.getDireccion());
         fichaVer.setVisibility(View.VISIBLE);   // por si quedó oculto de un resultado de búsqueda
+        fichaGuardar.setVisibility(View.GONE);
         fichaVer.setOnClickListener(v -> {
             Intent intent = new Intent(this, VistaLugarActivity.class);
             intent.putExtra(VistaLugarActivity.EXTRA_ID, id);

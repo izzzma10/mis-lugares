@@ -1,6 +1,7 @@
 package com.example.mislugares.presentacion;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +41,28 @@ public class EdicionLugarActivity extends AppCompatActivity
         implements HojaTipoFragment.Listener {
 
     public static final String EXTRA_ID = "id";
+
+    // Datos para abrir el formulario de "nuevo lugar" ya llenado (ver intentPrecargado).
+    private static final String EXTRA_PRE_NOMBRE = "pre_nombre";
+    private static final String EXTRA_PRE_DIRECCION = "pre_direccion";
+    private static final String EXTRA_PRE_LATITUD = "pre_latitud";
+    private static final String EXTRA_PRE_LONGITUD = "pre_longitud";
+    private static final String EXTRA_PRE_TIPO = "pre_tipo";
+
+    /** Intent para crear un lugar nuevo con el formulario precargado desde un resultado
+     *  de búsqueda. Las claves de los extras quedan encapsuladas en esta clase: quien
+     *  llama no necesita conocerlas. */
+    static Intent intentPrecargado(Context contexto, BuscadorLugares.Resultado r) {
+        Intent intent = new Intent(contexto, EdicionLugarActivity.class);
+        intent.putExtra(EXTRA_PRE_NOMBRE, r.nombre);
+        intent.putExtra(EXTRA_PRE_DIRECCION, r.direccion);
+        intent.putExtra(EXTRA_PRE_LATITUD, r.latitud);
+        intent.putExtra(EXTRA_PRE_LONGITUD, r.longitud);
+        if (r.tipo != null) {
+            intent.putExtra(EXTRA_PRE_TIPO, r.tipo.name());
+        }
+        return intent;
+    }
 
     private EditText campoNombre;
     private EditText campoDireccion;
@@ -165,10 +188,35 @@ public class EdicionLugarActivity extends AppCompatActivity
             btnEliminar.setOnClickListener(v -> eliminar());
         } else {
             btnEliminar.setVisibility(View.GONE);
+            precargarDesdeIntent();
         }
 
         findViewById(R.id.btn_guardar).setOnClickListener(v -> guardar());
         findViewById(R.id.btn_gps).setOnClickListener(v -> rellenarGps());
+    }
+
+    /** Si nos abrieron desde un resultado de búsqueda del mapa, llena el formulario
+     *  reusando aplicarSugerencia (la misma vía que el panel de sugerencias del NOMBRE). */
+    private void precargarDesdeIntent() {
+        Intent intent = getIntent();
+        if (!intent.hasExtra(EXTRA_PRE_NOMBRE)) {
+            return;
+        }
+        TipoLugar tipo = null;
+        String nombreTipo = intent.getStringExtra(EXTRA_PRE_TIPO);
+        if (nombreTipo != null) {
+            try {
+                tipo = TipoLugar.valueOf(nombreTipo);
+            } catch (IllegalArgumentException e) {
+                // Tipo desconocido: se deja el valor por defecto.
+            }
+        }
+        aplicarSugerencia(new BuscadorLugares.Resultado(
+                intent.getStringExtra(EXTRA_PRE_NOMBRE),
+                intent.getStringExtra(EXTRA_PRE_DIRECCION),
+                intent.getDoubleExtra(EXTRA_PRE_LATITUD, 0),
+                intent.getDoubleExtra(EXTRA_PRE_LONGITUD, 0),
+                tipo));
     }
 
     @Override
