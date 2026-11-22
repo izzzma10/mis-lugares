@@ -289,8 +289,8 @@
 
             <ImageView
                 android:id="@+id/ficha_pin"
-                android:layout_width="18dp"
-                android:layout_height="22dp"
+                android:layout_width="24dp"
+                android:layout_height="32dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_pin_otros" />
 

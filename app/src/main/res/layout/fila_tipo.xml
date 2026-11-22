@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/fila_pin"
-            android:layout_width="14dp"
-            android:layout_height="17dp"
+            android:layout_width="12dp"
+            android:layout_height="16dp"
             android:importantForAccessibility="no"
             android:scaleType="fitXY" />
 

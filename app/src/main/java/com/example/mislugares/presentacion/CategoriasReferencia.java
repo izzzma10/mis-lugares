@@ -60,10 +60,10 @@ final class CategoriasReferencia {
 
     static int pin(Categoria categoria) {
         switch (categoria) {
-            case DEPORTE_PARQUES: return R.drawable.ic_pin_verde;
-            case COMERCIAL:       return R.drawable.ic_pin_rojo;
-            case ESPECTACULOS:    return R.drawable.ic_pin_amarillo;
-            case CULTURA:         return R.drawable.ic_pin_azul;
+            case DEPORTE_PARQUES: return R.drawable.ic_pin_deporte;
+            case COMERCIAL:       return R.drawable.ic_pin_compras;
+            case ESPECTACULOS:    return R.drawable.ic_pin_espectaculos;
+            case CULTURA:         return R.drawable.ic_pin_cultura;
             default:               return R.drawable.ic_pin_otros;
         }
     }

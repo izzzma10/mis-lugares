@@ -389,8 +389,8 @@
                     android:layout_height="match_parent">
                     <ImageView
                         android:id="@+id/pin_tipo"
-                        android:layout_width="14dp"
-                        android:layout_height="17dp"
+                        android:layout_width="12dp"
+                        android:layout_height="16dp"
                         android:layout_gravity="center"
                         android:importantForAccessibility="no"
                         android:scaleType="fitXY" />

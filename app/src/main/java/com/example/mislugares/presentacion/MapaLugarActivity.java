@@ -52,6 +52,9 @@ public class MapaLugarActivity extends AppCompatActivity {
     // Monterrey), a diferencia del buscador de EdicionLugarActivity, que no tiene límite.
     private static final double RADIO_BUSQUEDA_METROS = 50_000;
 
+    /** La punta del pin está en la fila 15 de 16 del dibujo: 15/16 desde arriba. */
+    private static final float ANCLAJE_PIN_Y = 0.9375f;
+
     private MapView mapa;
     private RepositorioLugares repositorio;
 
@@ -268,7 +271,7 @@ public class MapaLugarActivity extends AppCompatActivity {
         GeoPoint punto = new GeoPoint(r.latitud, r.longitud);
         marcadorBusqueda = new Marker(mapa);
         marcadorBusqueda.setPosition(punto);
-        marcadorBusqueda.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marcadorBusqueda.setAnchor(Marker.ANCHOR_CENTER, ANCLAJE_PIN_Y);
         marcadorBusqueda.setIcon(ContextCompat.getDrawable(this, Tipos.pin(r.tipo)));
         marcadorBusqueda.setTitle(r.nombre);
         mapa.getOverlays().add(marcadorBusqueda);
@@ -412,7 +415,7 @@ public class MapaLugarActivity extends AppCompatActivity {
             Marker marcador = new Marker(mapa);
             marcador.setPosition(new GeoPoint(
                     punto.getPosicion().getLatitud(), punto.getPosicion().getLongitud()));
-            marcador.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            marcador.setAnchor(Marker.ANCHOR_CENTER, ANCLAJE_PIN_Y);
             marcador.setIcon(ContextCompat.getDrawable(this, CategoriasReferencia.pin(categoria)));
             marcador.setTitle(punto.getNombre());
             marcador.setOnMarkerClickListener((m, mapView) -> {
@@ -443,7 +446,7 @@ public class MapaLugarActivity extends AppCompatActivity {
         Marker marcador = new Marker(mapa);
         marcador.setId(String.valueOf(id));
         marcador.setPosition(puntoDe(lugar));
-        marcador.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marcador.setAnchor(Marker.ANCHOR_CENTER, ANCLAJE_PIN_Y);
         marcador.setIcon(ContextCompat.getDrawable(this, pinDe(lugar.getTipo())));
         marcador.setTitle(lugar.getNombre());
         marcador.setOnMarkerClickListener((m, mapView) -> {

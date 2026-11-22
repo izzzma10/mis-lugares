@@ -17,8 +17,8 @@
         <!-- Pin de tipo -->
         <ImageView
             android:id="@+id/foto"
-            android:layout_width="18dp"
-            android:layout_height="22dp"
+            android:layout_width="12dp"
+            android:layout_height="16dp"
             android:layout_marginEnd="9dp"
             android:contentDescription="@string/logo_del_tipo"
             android:src="@drawable/ic_pin_otros" />

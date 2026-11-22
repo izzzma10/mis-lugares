@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pin de categoría "espectaculos" (gota clásica 12x16, símbolo en el cuerpo). Anclaje (0.5, 0.9375). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="32dp"
+    android:viewportWidth="12"
+    android:viewportHeight="16">
+    <path
+        android:fillColor="@color/pixel_tinta"
+        android:pathData="M4,0H8V1H4ZM2,1H10V2H2ZM1,2H11V3H1ZM1,3H5V4H1ZM7,3H11V4H7ZM0,4H5V5H0ZM7,4H12V5H7ZM0,5H3V6H0ZM9,5H12V6H9ZM0,6H4V7H0ZM8,6H12V7H8ZM0,7H4V8H0ZM5,7H7V8H5ZM8,7H12V8H8ZM0,8H3V9H0ZM4,8H8V9H4ZM9,8H12V9H9ZM1,9H11V10H1ZM1,10H11V11H1ZM2,11H10V12H2ZM3,12H9V13H3ZM4,13H8V14H4ZM5,14H7V15H5Z" />
+    <path
+        android:fillColor="@color/pixel_amarillo"
+        android:pathData="M5,3H7V4H5ZM5,4H7V5H5ZM3,5H9V6H3ZM4,6H8V7H4ZM4,7H5V8H4ZM7,7H8V8H7ZM3,8H4V9H3ZM8,8H9V9H8Z" />
+</vector>
